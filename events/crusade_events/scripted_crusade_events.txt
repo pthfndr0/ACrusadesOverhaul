@@ -185,6 +185,9 @@ scripted_crusade.04 = {
 	immediate = {
 		save_scope_as = the_faith
 
+
+
+		# Iterate or create the variable that tracks the number of GHWs this faith has had.
 		if = {
 			limit = {
 				exists = var:number_of_GHWs			
@@ -193,9 +196,11 @@ scripted_crusade.04 = {
 				name = number_of_GHWs
 				add = 1
 			}
-			
-			every_player = {
-				trigger_event = scripted_crusade.03
+		}
+		else = {
+			set_variable = {
+				name = number_of_GHWs
+				value = 1
 			}
 		}
 	

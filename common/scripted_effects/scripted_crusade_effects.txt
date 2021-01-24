@@ -7,6 +7,7 @@ determine_ghw_target = {
 			value = faith_military_strength
 		}
 	}
+	
 
 
 	every_kingdom = {
@@ -39,6 +40,7 @@ determine_ghw_target = {
 	}
 	random_log_scopes = yes
 	# Find a random top liege in the area
+	
 	scope:target_kingdom = {
 		random_in_de_jure_hierarchy = {
 			continue = { tier > tier_county }
