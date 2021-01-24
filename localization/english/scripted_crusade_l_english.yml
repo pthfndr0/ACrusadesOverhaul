@@ -1,8 +1,27 @@
 ﻿l_english:
- scripted_crusade.03.christian.title:0 "The Council of [council_location.GetNameNoTierNoTooltip]"
- scripted_crusade.03.catholic_jerusalem.desc:0 "A fortnite ago, an Ecclesiastical council held by none other than [pope.GetTitledFirstName] convened in [council_location.GetNameNoTier], which lay in the region of [council_location_duchy.GetNameNoTier]. Here this council discussed several matters of great importance to our Holy Catholic Church. One such of those matters, and perhaps the one most relevant to our own affairs, was that regarding the treatment of Christian pilgrims in the Holy Land. According to firsthand accounts, the Pilgrim's road is rife with danger, and the faithful suffer all manner of abuse as they travel to Jerusalem.\n\n In order to protect [pope.GetHerHis] flock, [pope.GetTitledFirstName] has accepted the possibility of an armed pilgramage to restore the Holy Land to Christian control."
 
+ scripted_crusade.03.christian.council.title:0 "The Council of [council_location.GetNameNoTierNoTooltip]"
+ scripted_crusade.03.christian.rome.title:0 "Fall of the Eternal City"
+ scripted_crusade.03.catholic_jerusalem.desc:0 "A fortnite ago, an Ecclesiastical council held by none other than [main_character.GetTitledFirstName] convened in [council_location.GetNameNoTier], which lay in the region of [council_location_duchy.GetNameNoTier]. Here this council discussed several matters of great importance to our Holy Catholic Church. One such of those matters, and perhaps the one most relevant to our own affairs, was that regarding the treatment of Christian pilgrims in the Holy Land. According to firsthand accounts, the Pilgrim's road is rife with danger, and the faithful suffer all manner of abuse as they travel to Jerusalem.\n\n In order to protect [main_character.GetHerHis] flock, [main_character.GetTitledFirstName] has accepted the possibility of an armed pilgramage to restore the Holy Land to Christian control."
+ scripted_crusade.03.catholic_byzantium.desc:0 "A fortnite ago, an Ecclesiastical council held by none other than [main_character.GetTitledFirstName] convened in [council_location.GetNameNoTier], which lay in the region of [council_location_duchy.GetNameNoTier]. Here this council discussed several matters of great importance to our Holy Catholic Church. One such of those matters pertained to [roman_emperor.GetTitledFirstName]'s plea for western military aid. The Romans, who have stood firm as Christianity's bulwark in the east for centuries, are now failing to defend against the unrelenting attacks by it's eastern neighbors.\n\nSeemingly moved by the Emperor's plea, [main_character.GetTitledFirstName] has accepted the possibility of sending a joint Christian force to Byzantine aid."
+ scripted_crusade.03.catholic_europe.desc:0 "A fortnite ago, an Ecclesiastical council held by none other than [main_character.GetTitledFirstName] convened in [council_location.GetNameNoTier], which lay in the region of [council_location_duchy.GetNameNoTier]. Here this council addressed numerous matters of importance to our Holy Catholic Church. \n\nOne such of those matters, and by far most important, was [main_character.GetTitledFirstName]'s declaration of [main_character.GetHerHis] intention to forge a most righteous Christian alliance to expel the heathens who have defiled the very heartlands of Europe, finally addressing the numerous pleas from desperate Christian lords."
+ scripted_crusade.03.catholic_rome.desc:0 "Rome, the city of Saint Peter and the very seat of the Papcy itself, has fallen to infidels. \n\nFrom [main_character.GetHerHis] refuge in [main_character_loc.GetName], [main_character.GetHerHis|U] Holiness, [main_character.GetFirstName], has declared [main_character.GetHerHis] intention of forging an alliance of Christiann lords in order to reclaim the eternal city."
+ scripted_crusade.03.OPTA:0 "Interesting."
+ scripted_crusade.03.OPTB:0 "We cannot stand for these injustices!"
+ scripted_crusade.03.OPTC:0 "Superstitious fools."
 
+ 
+ scripted_crusade.0003.desc.first_crusade:0 "Nearing the end of his speech, the pope adds one further comment. 
+Although, sons of God, you have pledged to keep the peace amongst yourselves and to preserve the rights of the holy church, t
+here remains still an important task for you to undertake. 
+Your christian brethren who live in the east are in urgent need of your help, and you must hasten to give them the aid which 
+I have promised them. T
+he Turks and Arabs have have attacked them and have conquered the territory of the Greeks as 
+far west as the shore of the Mediterranean and the Hellespont. 
+They continue to subjugate more and more of the lands held by those faithful Christians, 
+desecrating their churches and devasting their empire. We beseech all faithful Christians capable of bearing arms 
+to carry aid promptly to those Christians and to destroy that vile race from the lands of our friends
+The Pope grants the immediate remission of sins to all those who die during this most holy and just pilgramage."
 
 
  scripted_crusade.0003.title.first_crusade:0 "Pope calls for Crusade 1"

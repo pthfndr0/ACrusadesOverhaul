@@ -155,8 +155,8 @@ scripted_crusade.02 = {
 scripted_crusade.03 = { 
 	title = {
 		first_valid = {
-			triggered_desc = { trigger = {scope:awakening_faith.religion = religion:christianity_religion } desc = scripted_crusade.03.christian.title }
-			desc = "else"
+			triggered_desc = { trigger = {scope:awakening_faith.religion = religion:christianity_religion scripted_crusade.01_rome_reason = no } desc = scripted_crusade.03.christian.council.title }
+			triggered_desc = { trigger = {scope:awakening_faith.religion = religion:christianity_religion scripted_crusade.01_rome_reason = yes } desc = scripted_crusade.03.christian.rome.title }
 		}
 	}
 	desc = {
@@ -172,21 +172,42 @@ scripted_crusade.03 = {
 	}
 	theme = faith
 	left_portrait = {
-		character = scope:pope
+		character = scope:main_character
 		animation = personality_zealous	
 	}
-	lower_left_portrait = scope:bishop_1
-	lower_center_portrait = scope:bishop_2
-	lower_right_portrait = scope:bishop_3
+	lower_left_portrait = scope:character_1
+	lower_center_portrait = scope:character_2
+	lower_right_portrait = scope:character_3
 	
+	override_background = {
+		trigger = {
+			scope:awakening_faith.religion = religion:christianity_religion
+		}
+		event_background = temple_church
+	}
+	override_background = {
+		trigger = {
+			scope:awakening_faith.religion = religion:islam_religion
+		}
+		event_background = temple_mosque
+	}
+	override_background = {
+		event_background = temple_generic
+	}
 
 	immediate = {
 		play_music_cue = "mx_cue_general_crusade_event_3"
+
+
 		
 		#Grab scopes for catholic flavor
 		if = {
 			limit = {
-				awakening_faith = faith:catholic
+				scope:awakening_faith = faith:catholic
+			}
+
+			title:e_byzantium.holder = {
+				save_scope_as = roman_emperor
 			}
 			random_county_in_region = {
 				region = world_europe_west_francia
@@ -214,7 +235,11 @@ scripted_crusade.03 = {
 
 			faith:catholic = {
 				religious_head = {
-					save_scope_as = pope
+					save_scope_as = main_character
+					location = {
+						save_scope_as = main_character_loc
+					}
+					
 				}
 			}
 
@@ -223,46 +248,64 @@ scripted_crusade.03 = {
 			random_living_character = {
 				limit = {
 					NOT = {
-						this = scope:pope
+						this = scope:main_character
 					}
 					is_clergy = yes
 					is_ruler = yes
 					has_culture_group = culture_group:frankish_group
 
 				}
-				save_scope_as = bishop_1
+				save_scope_as = character_1
 			}
 			random_living_character = {
 				limit = {
 					NOR = {
-						this = scope:pope
-						this = scope:bishop_1
+						this = scope:main_character
+						this = scope:character_1
 					}
 					is_clergy = yes
 					is_ruler = yes
 					has_culture_group = culture_group:frankish_group
 
 				}
-				save_scope_as = bishop_2
+				save_scope_as = character_2
 			}
 			random_living_character = {
 				limit = {
 					NOR = {
-						this = scope:pope
-						this = scope:bishop_1
-						this = scope:bishop_2
+						this = scope:main_character
+						this = scope:character_1
+						this = scope:character_2
 					}
 					is_clergy = yes
 					is_ruler = yes
 					has_culture_group = culture_group:frankish_group
 				}
-				save_scope_as = bishop_3
+				save_scope_as = character_3
 			}
 		}
 	}
 
 	option = {
-		
+		trigger = {
+			NOR = {
+				has_trait = zealous
+				has_trait = cynical
+			}
+		}
+		name = scripted_crusade.03.OPTA
+	}
+	option = {
+		trigger = {
+			has_trait = zealous
+		}
+		name = scripted_crusade.03.OPTB
+	}
+	option = {
+		trigger = {
+			has_trait = cynical
+		}
+		name = scripted_crusade.03.OPTC
 	}
 }
 
