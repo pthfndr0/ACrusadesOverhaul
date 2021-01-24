@@ -1,7 +1,5 @@
 ﻿namespace = scripted_crusade
 
-
-
 scripted_crusade.01 = {
 	hidden = yes
 	trigger = {
@@ -155,7 +153,113 @@ scripted_crusade.02 = {
 
 # GHW Unlocked Fluff Flavor Event for players.
 scripted_crusade.03 = { 
-	title = "hello"
+	title = {
+		first_valid = {
+			triggered_desc = { trigger = {scope:awakening_faith.religion = religion:christianity_religion } desc = scripted_crusade.03.christian.title }
+			desc = "else"
+		}
+	}
+	desc = {
+		first_valid = {
+			#Council of Clermont for Catholics
+			triggered_desc = { trigger = {awakening_faith = faith:catholic	scripted_crusade.01_jerusalem_reason = yes } desc = scripted_crusade.03.catholic_jerusalem.desc }
+			triggered_desc = { trigger = {awakening_faith = faith:catholic	scripted_crusade.01_byzantion_reason = yes } desc = scripted_crusade.03.catholic_byzantium.desc }
+			triggered_desc = { trigger = {awakening_faith = faith:catholic	scripted_crusade.01_europe_reason = yes } desc = scripted_crusade.03.catholic_europe.desc }
+			triggered_desc = { trigger = {awakening_faith = faith:catholic	scripted_crusade.01_rome_reason = yes } desc = scripted_crusade.03.catholic_rome.desc }
+
+			desc = "else"
+		}
+	}
+	theme = faith
+	left_portrait = {
+		character = scope:pope
+		animation = personality_zealous	
+	}
+	lower_left_portrait = scope:bishop_1
+	lower_center_portrait = scope:bishop_2
+	lower_right_portrait = scope:bishop_3
+	
+
+	immediate = {
+		play_music_cue = "mx_cue_general_crusade_event_3"
+		
+		#Grab scopes for catholic flavor
+		if = {
+			limit = {
+				awakening_faith = faith:catholic
+			}
+			random_county_in_region = {
+				region = world_europe_west_francia
+				random_in_de_jure_hierarchy = {
+					limit = {
+						AND = {
+							exists = this.holder
+							this.holder.faith = faith:catholic
+						}
+						faith = faith:catholic				
+					}
+					this.holder = {
+						save_scope_as = muh_holder
+					}
+					save_scope_as = council_location
+				}
+				every_this_title_or_de_jure_above = {
+					limit = {
+						tier = tier_duchy
+					}
+					save_scope_as = council_location_duchy
+
+				}
+			}
+
+			faith:catholic = {
+				religious_head = {
+					save_scope_as = pope
+				}
+			}
+
+
+			# Grab some bishops to fill out the event
+			random_living_character = {
+				limit = {
+					NOT = {
+						this = scope:pope
+					}
+					is_clergy = yes
+					is_ruler = yes
+					has_culture_group = culture_group:frankish_group
+
+				}
+				save_scope_as = bishop_1
+			}
+			random_living_character = {
+				limit = {
+					NOR = {
+						this = scope:pope
+						this = scope:bishop_1
+					}
+					is_clergy = yes
+					is_ruler = yes
+					has_culture_group = culture_group:frankish_group
+
+				}
+				save_scope_as = bishop_2
+			}
+			random_living_character = {
+				limit = {
+					NOR = {
+						this = scope:pope
+						this = scope:bishop_1
+						this = scope:bishop_2
+					}
+					is_clergy = yes
+					is_ruler = yes
+					has_culture_group = culture_group:frankish_group
+				}
+				save_scope_as = bishop_3
+			}
+		}
+	}
 
 	option = {
 		
@@ -220,7 +324,7 @@ scripted_crusade.04 = {
 		scope:target_character.faith = { save_scope_as = target_faith } #Used for counterpledges.
 
 		great_holy_war = {
-			set_war_declarer = scope:ghw_sponsor
+			set_war_declarer = scope:ghw_sponsor # Probably need to change this because we do not actually want the pope leading maybe.
 			if = {
 				limit = { is_directed_ghw = no }
 				undirected_ghw_recipient_selection_effect = yes
@@ -353,7 +457,7 @@ scripted_crusade.04 = {
 				highest_held_title_tier >= tier_county
 				NOT = { this = scope:ghw_sponsor }
 			}
-			trigger_event = great_holy_war.0003 #Send event immediately for player, then delay it for all the AIs.
+			trigger_event = scripted_crusade.05 #Send event immediately for player, then delay it for all the AIs.
 		}
 		every_player = { #Inform defending players
 			limit = {
@@ -426,6 +530,188 @@ scripted_crusade.04 = {
 				}
 			}
 		}
+	}
+}
+
+
+
+
+## Crusade Preparation Event - Allows you to pledge troops, gold, decline. Flavor for the crusade is based on the global_variables
+## that have been triggered. This gives each crusade its own flavor unlike vanilla, where it's the same rehashed event with no continuity.
+scripted_crusade.05 = {
+	title = {
+		first_valid = {
+			triggered_desc = { trigger = { }    }		
+		}
+	}
+	desc = {
+		first_valid = {
+			triggered_desc = { trigger = { }    }		
+		}
+
+	}
+
+	theme = faith
+	override_background = {
+		event_background = temple_scope
+	}
+	left_portrait = {
+		character = scope:pope
+		animation = personality_zealous
+	}
+	lower_left_portrait = scope:bishop
+	lower_right_portrait = scope:archbishop
+
+	immediate = {
+		scope:pope= {
+			save_scope_as = background_temple_scope
+		}
+		play_music_cue = "mx_cue_general_crusade_event_2"
+
+		set_variable = {
+			name = ghw_pledge_amount
+			value = great_holy_war_pledge_amount
+		}
+		set_variable = {
+			name = half_great_holy_war_pledge_amount
+			value = {
+				value = root.great_holy_war_pledge_amount
+				multiply = 0.5
+			}
+		}
+	}
+	
+	option = {	
+		trigger = {
+			root.faith = scope:catholicism
+			NOR = {
+				exists = scope:catholicism.great_holy_war.ghw_war
+				#Religious head should never unpledge:
+				this = scope:catholicism.great_holy_war.ghw_war_declarer
+				has_character_flag = ghw_unpledging_cooldown #Safety event.
+				#Do not pledge against your own liege:
+				any_liege_or_above = { this = scope:catholicism.great_holy_war.ghw_target_character }
+			}
+			OR = { #Either be independent, or all lieges above you MUST be of the same Faith declaring the war to avoid messy situations of vassals and lieges fighting against each other.
+				is_independent_ruler = yes
+				NOT = {
+					any_liege_or_above = {
+						NOT = { faith = scope:catholicism }
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					scope:catholicism.great_holy_war = { has_pledged_attacker = root }
+				}
+			}
+			pledge_ghw_piety_gain_effect = yes
+			#Excommunication lifted.
+			if = {
+				limit = {
+					has_trait = excommunicated
+					faith = { has_doctrine_parameter = excommunication_active }
+				}
+				custom_tooltip = great_holy_war.0003.a.lifted_excommunication
+				trigger_event = {
+					id = great_holy_war.0015
+					days = 37
+				}
+			}
+		}
+		scope:catholicism.great_holy_war = {
+			# hidden_effect = { pledge_attacker = root }
+			pledge_ghw_war_chest_prestige_effect = yes
+			pledge_ghw_war_chest_piety_effect = yes
+		}
+
+		ai_chance = { ## This changes the ai_chance of accepting the initial pledge, base is multiplied by every factor that is true for a given character.
+			base = 10
+			modifier = { ## Lesser lords more keen to gain wealth and prestige through risky enterprise.
+				factor = 3
+				is_independent_ruler = no
+			}
+			modifier = {
+				factor = 1.5
+				highest_held_title_tier = tier_county
+			}
+			modifier = {
+				factor = 3
+				highest_held_title_tier = tier_duchy
+			}
+			modifier = {
+				factor = 1
+				highest_held_title_tier >= tier_kingdom
+			}
+
+			modifier = { ## More french people please.
+				add = 1000
+				has_culture_group = culture_group:frankish_group
+			}
+
+
+
+			modifier = { ## Iberians have their own shit to deal with.
+				factor = 0
+				has_culture_group = culture_group:iberian_group
+				
+				
+			}
+			modifier = {	#Excommunicated characters like getting rid of the trait.
+				factor = 2
+				has_trait = excommunicated
+			}
+		}
+
+	}
+	
+	option = {
+		add_piety = root.var:half_great_holy_war_pledge_amount
+		#Excommunication lifted.
+		if = {
+			limit = {
+				has_trait = excommunicated
+				faith = { has_doctrine_parameter = excommunication_active }
+			}
+			trigger_event = {
+				id = great_holy_war.0015
+				days = 37
+			}
+		}
+		remove_short_term_gold = var:ghw_pledge_amount
+		set_variable = {
+			name = ghw_war_chest_donated_sum
+			value = var:ghw_pledge_amount
+		}
+		scope:catholicism.great_holy_war = {
+			change_war_chest_gold = root.var:ghw_pledge_amount
+		}
+		if = {
+			limit = {
+				NOT = { has_character_flag = ghw_pledged_gold }
+				is_ai = no
+			}
+			add_character_flag = { #Used to check whether the Pope will harass for more later.
+				flag = ghw_pledged_gold
+				days = 7300
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+	
+	option = {
+		name = great_holy_war.0003.c
+		ai_chance = {
+			base = 0
+		}
+	}
+	
+	after = {
+		remove_variable = ghw_pledge_amount
 	}
 }
 

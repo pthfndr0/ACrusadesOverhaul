@@ -1,5 +1,7 @@
 ﻿l_english:
- scripted_crusade.0600.title:0 "The Council of [council_location.GetNameNoTierNoTooltip]"
+ scripted_crusade.03.christian.title:0 "The Council of [council_location.GetNameNoTierNoTooltip]"
+ scripted_crusade.03.catholic_jerusalem.desc:0 "A fortnite ago, an Ecclesiastical council held by none other than [pope.GetTitledFirstName] convened in [council_location.GetNameNoTier], which lay in the region of [council_location_duchy.GetNameNoTier]. Here this council discussed several matters of great importance to our Holy Catholic Church. One such of those matters, and perhaps the one most relevant to our own affairs, was that regarding the treatment of Christian pilgrims in the Holy Land. According to firsthand accounts, the Pilgrim's road is rife with danger, and the faithful suffer all manner of abuse as they travel to Jerusalem.\n\n In order to protect [pope.GetHerHis] flock, [pope.GetTitledFirstName] has accepted the possibility of an armed pilgramage to restore the Holy Land to Christian control."
+
 
 
 
@@ -21,7 +23,6 @@
  scripted_crusade.0003.desc.fourth_crusade_byzantine:0 "Make it sound like its going to Jerusalem but we pull the rug out obviously."
  scripted_crusade.0003.title.fourth_crusade_pink_jerusalem:0 "Pope Calls Crusade for Jerusalem"
  scripted_crusade.0003.desc.fourth_crusade_pink_jerusalem:0 "first crusade jerusalem success, second crusade reinforce fail, third crusade fail, trying to retake the holy land that has long been in saracen hands."
-
 
 
 

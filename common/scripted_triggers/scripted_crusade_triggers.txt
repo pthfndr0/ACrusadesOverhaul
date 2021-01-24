@@ -150,6 +150,7 @@ scripted_crusade.01_europe_reason = {
 			}
 		}
 	}
+}
 
 scripted_crusade.01_middle_east_reason = {
 	OR = {

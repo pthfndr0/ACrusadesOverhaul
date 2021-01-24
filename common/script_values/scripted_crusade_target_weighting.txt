@@ -20,6 +20,8 @@ ghw_target_distance_02_threshold = 1445000
 ghw_target_distance_03_threshold = 2167500
 
 # Referenced by code when building list of ghw targets
+#Original logic reworked by Ewan Cowhig Croft
+#Modified by pthfndr for "A Crusades Overhaul"
 great_holy_war_target_kingdom_weight = {
 	#WEIGHTING PROCESS
 	#1. Check how many individual counties within a de jure kingdom have a top-liege with an eligible faith for GHWing. Boost the count a little for kingdoms with existing same-faith monarchs.
@@ -31,6 +33,7 @@ great_holy_war_target_kingdom_weight = {
 	### 1 ###
 	#Is the target kingdom a viable GHW target?
 	every_in_de_jure_hierarchy = {
+		continue = { tier > tier_county }	#Check individual counties within the potential target de jure kingdom.
 		limit = {	#For every county with a GHWable liege...
 			tier = tier_county
 			scope:the_faith = {
