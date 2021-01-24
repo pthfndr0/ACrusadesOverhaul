@@ -2,7 +2,7 @@
 
 
 
-#Unlocks GHWs for
+#Unlocks GHWs for Faith - Called monthly
 scripted_crusade.01 = { 
 	hidden = yes
 	scope = faith
@@ -17,21 +17,87 @@ scripted_crusade.01 = {
 		religious_head = { is_imprisoned = no }
 		num_county_followers >= 35
 
+		
 		OR = {
-			AND = {
-				title:c_jerusalem.holder = {
-					NOT = {
-						faith.religion = root.religion
 
-					}
-				}
+			##Catholic Triggers##
+			AND = {
+				scripted_crusade.01_jerusalem_reason = yes
+				faith:catholic = root
+				current_date >= 1066.1.1
+			}
+			AND = {
+				scripted_crusade.01_byzantion_reason = yes
+				faith:catholic = root
+				current_date >= 1066.1.1
+			}
+			AND = {
+				scripted_crusade.01_europe_reason = yes
+				faith:catholic = root
+				current_date >= 1066.1.1
+			}
+			AND = {
+				scripted_crusade.01_rome_reason = yes
 				faith:catholic = root
 				current_date >= 1066.1.1
 			}
 
-		}
+			AND = { # I learned it from you! - Muslims second.
+				religion:christianity_religion = {
+					exists = var:variable_ghw_unlocked
+				}
+				religion:islam_religion = root.religion
+				any_holy_site = {
+					holder.top_liege = {
+						NOT = { faith.religion = root.religion }
+					}
+					count >= 1
+				}
+			}
+			AND = { # And we learned it from you! - Everyone else last.
+				religion:christianity_religion = {
+					exists = var:variable_ghw_unlocked
+				}
+				religion:islam_religion = {
+					exists = var:variable_ghw_unlocked
+				}
+				any_holy_site = {
+					holder.top_liege = {
+						NOT = { faith.religion = root.religion }
+					}
+					count >= 1
+				}
+				NOR = {
+					religion = religion:christianity_religion
+					religion = religion:islam_religion
+				}
+			}
 
+
+			current_date >= 1100.1.1 ## Free for all after 1110.1.1
+		}
 	}
+
+	weight_multiplier = {
+		base = 1
+		modifier = { # Historical push for local Christian control.
+			add = 2
+			title:c_jerusalem.holder = {
+				NOT = { faith.religion = religion:christianity_religion }
+			}
+			current_date >= 1095.1.1
+			root.religion = religion:christianity_religion
+		}
+		modifier = { # Historical push for overall Islamic control.
+			add = 2
+			title:c_jerusalem.holder.top_liege = {
+				NOT = { faith.religion = religion:islam_religion }
+			}
+			current_date >= 1095.1.1
+			root.religion = religion:islam_religion
+		}
+	}
+	
 
 	immediate = {
 		save_scope_as = awakening_faith
