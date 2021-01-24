@@ -1,0 +1,55 @@
+﻿blessed_gerard_template = { ## Founder of the order of St John
+age = 50-60
+gender = male
+faith = root.faith
+culture = culture:occitan
+diplomacy = 8
+martial = 5
+stewardship = 6
+intrigue  = 6
+learning = 4
+
+trait = order_member
+trait = generous
+trait = content
+trait = compassionate
+trait = education_learning_2
+random_traits = no
+}
+
+
+
+crusade_knight = {
+	age = 20-40
+	gender = male
+	faith = faith:catholic
+	culture = root.culture
+	diplomacy = 5
+	martial = 8
+	stewardship = 5
+	intrigue = 5
+	learning = 5
+
+	random_traits_list = {
+		count =1
+		education_martial_2 = {}
+		education_martial_3 = {}
+		education_martial_4 = {}
+	}
+	random_traits_list = {
+		count = 1
+		brave = {}
+		zealous = {}
+	}
+	random_traits = no
+
+	trait = ambitious
+}
+
+
+byzantine_envoy = {
+	age = 30-50
+	gender = male
+	faith = faith:orthodox
+	culture = culture:greek
+}

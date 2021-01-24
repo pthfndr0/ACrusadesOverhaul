@@ -1,0 +1,5 @@
+on_faith_monthly = {
+	events = {
+		scripted_crusade.01
+	}
+}

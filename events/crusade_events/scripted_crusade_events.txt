@@ -1,0 +1,6188 @@
+﻿namespace = scripted_crusade
+
+
+
+#Unlocks GHWs for
+scripted_crusade.01 = { 
+	hidden = yes
+	scope = faith
+	trigger = {
+		faith_suitable_for_any_ghw = yes
+
+		NOR = {
+			religion = { exists = var:variable_ghw_unlocked }
+			has_global_variable = variable_ghw_global_unlocking_cooldown
+		}
+		exists = religious_head
+		religious_head = { is_imprisoned = no }
+		num_county_followers >= 35
+
+		OR = {
+			AND = {
+				title:c_jerusalem.holder = {
+					NOT = {
+						faith.religion = root.religion
+
+					}
+				}
+				faith:catholic = root
+				current_date >= 1066.1.1
+			}
+
+		}
+
+	}
+
+	immediate = {
+		save_scope_as = awakening_faith
+
+		religion = {
+			set_variable = {
+				name = variable_ghw_unlocked
+				value = yes
+			}
+			set_global_variable = {
+				name = variable_ghw_global_unlocking_cooldown # Slow Down cascade of Religious Heads unlocking Crusades all over the place, trying to outplay ach other.
+				value = yes
+				days = 5
+			}
+		}
+		every_player = {
+			trigger_event = scripted_crusade.02 # Flavor fluff for various Faiths.
+		}
+	}
+}
+
+
+scripted_crusade.02 = {
+	title = "hello"
+
+	option = {
+
+	}
+}
+
+
+
+# 			scripted_crusade.0994 = { ## test event
+# 				hidden = yes
+# 				immediate = {
+# 					set_global_variable = {
+# 						name = first_crusade_chain
+# 						value = yes
+# 						days = 30
+# 					}
+# 				}
+# 			}
+
+# 			scripted_crusade.0995 = { ## test event
+# 				hidden = yes
+# 				immediate = {
+# 					remove_global_variable = first_crusade_cooldown
+# 				}
+# 			}
+# 			scripted_crusade.0996 = { ## test event
+# 				hidden = yes
+# 				immediate = {
+# 					remove_global_variable = second_crusade_cooldown
+# 				}
+# 			}
+
+# 			scripted_crusade.0997 = { #Test event
+# 				hidden = yes
+# 				immediate = {
+# 					remove_global_variable = third_crusade_cooldown
+# 				}
+# 			}
+
+# 			scripted_crusade.0998 = {
+# 				hidden = yes
+# 				immediate = {
+# 					set_global_variable = crusading_decline
+# 				}
+# 			}
+# 			scripted_crusade.0999 = {
+# 				hidden = yes
+# 				immediate = {
+# 					set_global_variable = fifth_crusade_victory
+# 				}
+# 			}
+
+			
+
+# 			scripted_crusade.0001 = {
+# 				hidden = yes
+# 				trigger = {
+# 					has_character_flag = ACCEPTED_INDEPENDENT_CRUSADE
+# 					has_character_flag = defending_against_crusade
+# 				}
+# 				immediate = {
+# 					primary_heir = {
+# 						if = {
+# 							limit = {
+# 								has_character_flag = ACCEPTED_INDEPENDENT_CRUSADE
+# 							}
+# 							add_character_flag = ACCEPTED_INDEPENDENT_CRUSADE
+# 						}
+						
+# 						if = {
+# 							limit = {
+# 								has_character_flag = defending_against_crusade
+# 							}
+# 							add_character_flag = defending_against_crusade
+# 						}
+# 					}
+
+# 				}
+# 			}
+
+
+
+# scripted_crusade.0599 = { ## First Crusade chain.
+# 	hidden = yes
+# 	immediate = {
+
+# 		every_player = {
+# 		trigger_event = scripted_crusade.0600
+# 		trigger_event = scripted_crusade.0601
+			
+# 		}
+# 	}
+# }
+
+	# scripted_crusade.0600 = { ## Council of Piacenza Byzantine emperor sends ambassadors
+	# 	title = scripted_crusade.0600.title
+	# 	theme = faith
+	# 	override_background = {
+	# 		event_background = temple
+	# 	}
+
+	# 	# location some place in italy
+
+	# 	# byzantine emperor petitions for military aid, urging pope to send a detachment of
+	# 	# latin troops to help repel the threat posed by islam
+	# 	desc = "ambassadors"
+
+	# 	left_portrait = {
+	# 		character = scope:byzantine_envoy
+	# 		animation = personality_ratonal
+	# 	}
+	# 	right_portrait = {
+	# 		character = scope:byzantine_envoy2
+	# 		animation = personality_content
+	# 	}
+	# 	lower_right_portrait = scope:archbishop
+	# 	lower_center_portrait = scope:pope
+	# 	lower_left_portrait = scope:bishop
+
+	# 	trigger = {
+	# 			faith = faith:catholic
+	# 		}
+
+	# 	immediate = {
+	# 		play_music_cue = "mx_cue_faith_conversion"
+	# 		title:e_byzantium.holder = {
+	# 			save_scope_as = roman_emperor
+	# 		}
+	# 		faith:catholic = {
+	# 			religious_head = {
+	# 				save_scope_as = pope
+	# 			}
+	# 		}
+
+	# 		random_county_in_region = {
+	# 			region = world_europe_south_italy
+	# 			limit = {
+	# 				scope:county = {
+	# 					faith = faith.catholic
+	# 				}
+	# 			}
+	# 		}
+	# 			save_scope_as = council_location
+			
+
+	# 		create_character = {
+	# 			template = byzantine_envoy
+	# 			employer = scope:roman_emperor
+	# 			name = "test"
+	# 			save_scope_as = byzantine_envoy
+	# 		}
+	# 		create_character = {
+	# 			template = byzantine_envoy
+	# 			save_scope_as = byzantine_envoy2
+	# 			employer = scope:roman_emperor
+	# 		}
+	# 		scope:pope = {
+	# 			random_learning_councillor = {
+	# 				save_scope_as = archbishop
+	# 			}
+	# 		}
+
+	# 		scope:council_location.holder = {
+	# 			random_learning_councillor = {
+	# 				save_scope_as = bishop
+	# 			}
+	# 		}
+	# 		# trigger_event = {
+	# 		# 	id = scripted_crusade.0605
+	# 		# 	days = { 1 2 }
+	# 		# }
+	# 	}
+	# 	option = {
+
+	# 	}
+	# }
+	
+# 	scripted_crusade.0601 = { ## Event that triggers for non catholics.
+# 		hidden = yes
+# 		trigger = {
+# 			NOT = {
+# 				faith = faith:catholic
+# 			}
+# 		}
+
+# 		immediate = {
+# 			trigger_event = {
+# 				id = scripted_crusade.0605
+# 				days = { 1 2 }
+# 			}			
+# 		}
+# 	}
+
+# 	scripted_crusade.0605 = { ## Council of Clermont
+# 		hidden = yes	
+
+# 			immediate = {
+# 				title:k_antioch= {
+# 					save_scope_as = crusade_target
+# 					}
+# 				title:c_antiocheia= {
+# 					every_de_jure_top_liege = {
+# 						save_scope_as = crusade_enemy
+# 					}
+# 				}
+# 				faith:catholic = {
+# 					religious_head = {
+# 						save_scope_as = pope
+# 					}
+# 				}
+# 				faith:catholic = {
+# 					save_scope_as = catholicism
+# 				}	
+				
+# 			scope:crusade_enemy.faith = {
+# 				save_scope_as = target_faith
+# 			}
+# 		}
+# 		option = {
+# 			scope:catholicism = {
+# 				trigger_event = scripted_crusade.0002 
+# 			}
+# 		}
+# 	}
+
+
+# 	scripted_crusade.0002 = {
+# 		hidden = yes
+# 		scope = faith
+
+# 		immediate = {
+
+# 			if = {
+# 				limit = {
+# 					has_global_variable = byzantine_fourth_crusade_flag
+# 				}
+# 				start_great_holy_war = {
+# 					target_character = scope:crusade_enemy
+# 					target_title = scope:crusade_target
+# 					delay = { 250 251 }
+# 					save_scope_as = original_holy_war
+# 				}
+	
+	
+# 				scope:catholicism.great_holy_war = {
+# 					trigger_event = {
+# 						id = scripted_crusade.0408
+# 						days = { 248 249 }
+# 					}
+	
+# 				}
+	
+# 			}
+
+# 			else_if = {
+# 				limit = {
+# 					NOR = {
+# 					has_global_variable = crusading_decline
+# 					has_global_variable = byzantine_fourth_crusade_flag
+# 					}
+# 				}
+# 				start_great_holy_war = {
+# 					target_character = scope:crusade_enemy
+# 					target_title = scope:crusade_target
+# 					delay = { 500 501 }
+# 				}
+# 			}
+
+# 			else_if = {
+# 				limit = {
+# 					has_global_variable = crusading_decline
+# 				}
+# 				start_great_holy_war = {
+# 					target_character = scope:crusade_enemy
+# 					target_title = scope:crusade_target
+# 					delay = { 248 249}
+# 				}
+# 			}
+
+
+
+# 			if = { ## Set pope as declarer for general crusades.
+# 				limit = {
+# 					NOT = {
+# 						has_global_variable = byzantine_fourth_crusade_flag
+
+# 					}
+# 				}
+# 				great_holy_war = {
+# 					set_war_declarer = scope:pope
+# 				}
+# 			}
+
+# 			else_if = { ## Venetian fourth crusade set doge as declarer.
+# 				limit = {
+# 					has_global_variable = byzantine_fourth_crusade_flag	
+# 				}
+# 				great_holy_war = {
+# 					set_war_declarer = title:k_venice.holder
+# 				}
+# 			}
+		
+
+# 			if = {
+# 				limit = { scope:pope.gold > 0 }
+# 				great_holy_war = {
+# 					change_war_chest_gold = {
+# 						value = scope:pope.gold
+# 						divide = 2
+# 						max = 5000
+# 					}
+# 				}
+# 				scope:pope = {
+# 					remove_short_term_gold = {
+# 						value = gold
+# 						divide = 2
+# 						max = 5000
+# 					}
+# 				}
+# 			}
+# 			great_holy_war = {
+# 				pledge_attacker = scope:pope
+# 				set_variable = {
+# 					name = redirect_cost
+# 					value = 100000
+# 				}
+# 			}
+
+# 				#If no Claimant or Title Holder is available to be the Papal choice and the Crusade has not proceeded far enough to have a favorite beneficiary, select a fallback Recipient so that the CB's tooltip does not appear incomplete.
+# 				if = { #Random Courtier in the Pope's court.
+# 				limit = {
+# 					NOT = { exists = faith.great_holy_war.ghw_title_recipient }
+# 					exists = scope:pope
+# 					exists = scope:catholicism.great_holy_war
+# 					scope:pope = {
+# 						any_courtier = {
+# 							is_adult = yes
+# 							is_ai = yes
+# 							NOR = {
+# 								has_trait = excommunicated
+# 								has_trait = incapable
+# 								has_trait = devoted
+# 							}
+# 							faith = scope:catholicism
+# 						}
+# 					}
+# 				}
+# 				scope:pope = {
+# 					random_courtier = {
+# 						alternative_limit = {
+# 							scope:catholicism = { has_doctrine = doctrine_gender_male_dominated }
+# 							is_male = yes
+# 							is_adult = yes
+# 							is_ai = yes
+# 							NOR = {
+# 								has_trait = excommunicated
+# 								has_trait = incapable
+# 								has_trait = devoted
+# 							}
+# 							faith = scope:catholicism
+# 						}
+# 						alternative_limit = {
+# 							scope:catholicism = { has_doctrine = doctrine_gender_female_dominated }
+# 							is_female = yes
+# 							is_adult = yes
+# 							is_ai = yes
+# 							NOR = {
+# 								has_trait = excommunicated
+# 								has_trait = incapable
+# 								has_trait = devoted
+# 							}
+# 							faith = scope:catholicism
+# 						}
+# 						limit = {
+# 							is_adult = yes
+# 							is_ai = yes
+# 							NOR = {
+# 								has_trait = excommunicated
+# 								has_trait = incapable
+# 								has_trait = devoted
+# 							}
+# 							faith = scope:catholicism
+# 						}
+# 						save_scope_as = fallback_recipient
+# 						add_character_flag = flag_is_ghw_fallback_recipient
+# 					}
+# 				}
+# 			}
+# 			else_if = { #Else Generate a fallback recipient.
+# 				limit = {
+# 					NOT = { exists = faith.great_holy_war.ghw_title_recipient }
+# 				}
+# 				create_character = {
+					 
+# 					template = new_commander_character
+# 					faith = scope:catholicism
+# 					culture = scope:pope.culture
+# 					save_scope_as = fallback_recipient
+# 					gender_female_chance = {
+# 						if = {
+# 							limit = {
+# 								scope:catholicism = { has_doctrine = doctrine_gender_male_dominated }
+# 							}
+# 							add = 0
+# 						}
+# 						else_if = {
+# 							limit = {
+# 								scope:catholicism = { has_doctrine = doctrine_gender_female_dominated }
+# 							}
+# 							add = 100
+# 						}
+# 						else = {
+# 							add = 50
+# 						}
+# 					}
+# 				}
+# 				scope:fallback_recipient = { add_character_flag = flag_is_ghw_fallback_recipient }
+# 			}
+# 			great_holy_war = {
+# 				set_variable = {
+# 					name = var_fallback_recipient
+# 					value = scope:fallback_recipient
+# 				}
+# 			}
+	
+# 			every_player = { #Inform players
+# 				limit = {
+# 					faith = scope:catholicism
+# 					highest_held_title_tier >= tier_county
+# 					NOT = { this = scope:pope }
+# 				}
+# 				trigger_event = scripted_crusade.0003 #Send event immediately for player, then delay it for all the AIs.
+# 			}
+
+# 			every_player = {
+# 				limit = {
+# 					has_global_variable = byzantine_fourth_crusade_flag
+# 				}
+# 				trigger_event = {
+# 				id = scripted_crusade.0405
+# 				days = { 50 51 }
+# 				}
+
+
+# 			}
+
+# 			every_player = { #Inform defending players
+# 				limit = {
+# 					OR = {
+# 						faith = scope:target_faith #All infidels.
+# 						any_liege_or_above = {
+# 							scope:catholicism.great_holy_war = { has_pledged_defender = prev }
+# 						}
+# 						AND = {
+# 							NOT = { faith = scope:catholicism }
+# 							scope:catholicism.great_holy_war = { has_pledged_defender = prev }
+# 						}
+# 					}
+# 				}
+# 				trigger_event = great_holy_war.0050
+# 			}
+	
+# 			#Attackers Pledge to the Crusade. (AI only)
+# 			every_ruler = {
+# 				limit = {
+# 					faith = scope:catholicism
+# 					is_ai = yes
+# 					is_landed = yes
+# 					highest_held_title_tier >= tier_county
+# 					NOT = { this = scope:pope }
+# 					NOT = {
+# 						root.great_holy_war = { has_pledged_attacker = prev }
+# 					}
+# 				}
+# 				trigger_event = {
+# 					#AI pledging. There is a chance the AI might pledge after the Crusade starts, but it's a lot less likely.
+# 					id = scripted_crusade.0004
+# 					days = { 60 250 }
+# 				}
+# 			}
+
+
+
+			
+# 			every_faith_holy_order = {
+# 				trigger_event = {
+# 					#Holy orders always join
+# 					id = great_holy_war.0090
+# 					days = { 30 60 }
+# 				}
+# 			}
+	
+# 			#Defenders Pledge to the Crusade. (AI only)
+# 			every_ruler = {
+# 				limit = {
+# 					faith.religion = scope:crusade_enemy.faith.religion
+# 					is_ai = yes
+# 					is_landed = yes
+# 					highest_held_title_tier >= tier_county
+# 					NOT = {
+# 						root.great_holy_war = { has_pledged_defender = prev }
+# 					}
+# 				}
+# 			}
+# 			scope:crusade_enemy = {
+# 				faith = {
+# 					every_faith_holy_order = {
+# 						trigger_event = {
+# 							# Holy orders always join
+# 							id = great_holy_war.0091
+# 							days = { 30 60 }
+# 						}
+# 					}
+# 				}
+# 			}
+# 		} ##
+# }
+
+
+# ## Crusade Preparation Event - Allows you to pledge troops, gold, decline. Flavor for the crusade is based on the global_variables
+# ## that have been triggered. This gives each crusade its own flavor unlike vanilla, where it's the same rehashed event with no continuity.
+# scripted_crusade.0003 = {
+# 	title = {
+# 		first_valid = {
+
+# 			triggered_desc = {
+# 				trigger = {
+# 					has_global_variable = fourth_crusade_pink_jerusalem
+# 				}
+# 				desc = scripted_crusade.0003.title.fourth_crusade_pink_jerusalem
+# 			}
+# 			triggered_desc = {
+# 				trigger = {
+# 					has_global_variable = byzantine_fourth_crusade_flag
+# 				}
+# 				desc = scripted_crusade.0003.title.fourth_crusade_byzantine
+# 			}
+# 			triggered_desc = { ## Third Crusade Cyan Egypt
+# 				trigger = {
+# 					has_global_variable = third_crusade_cyan_egypt
+# 				}
+# 				desc = scripted_crusade.0003.title.third_crusade_cyan_egypt
+# 			}
+# 			triggered_desc = { ## Third Crusade Cyan Africa
+# 				trigger = {
+# 					has_global_variable = third_crusade_cyan_africa
+# 				}
+# 				desc = scripted_crusade.0003.title.third_crusade_cyan_africa
+# 			}
+# 			triggered_desc = { ## Third Crusade Cyan Anatolia
+# 				trigger = {
+# 					has_global_variable = third_crusade_cyan_anatolia
+# 				}
+# 				desc = scripted_crusade.0003.title.third_crusade_cyan_anatolia 
+# 			}
+
+
+# 			triggered_desc = { ## Third Crusade Green
+# 				trigger = {
+# 					has_global_variable = third_crusade_green
+# 				}
+# 				desc = scripted_crusade.0003.title.third_crusade_green
+# 			}
+	
+# 			triggered_desc = { ## Second Crusade Burgundy(Reclaim Jerusalem)
+# 				trigger = {
+# 					has_global_variable = second_crusade_burgundy
+# 				}
+# 				desc = scripted_crusade.0003.title.second_crusade_burgundy
+# 			}
+# 			triggered_desc = { ## Second Crusade Green(Reinforce Jerusalem)
+# 				trigger = {
+# 					has_global_variable = second_crusade_green
+# 				}
+# 				desc = scripted_crusade.0003.title.second_crusade_green
+# 			}
+
+# 			triggered_desc = { ## First Crusade Title
+# 				trigger = {
+# 					has_global_variable = first_crusade_chain
+
+# 				}
+# 				desc = scripted_crusade.0003.title.first_crusade
+# 			}
+# 		}
+# 	}
+# 	desc = {
+# 		first_valid = {
+
+# 			triggered_desc = {
+# 				trigger = {
+# 					has_global_variable = fourth_crusade_pink_jerusalem
+# 				}
+# 				desc = scripted_crusade.0003.desc.fourth_crusade_pink_jerusalem
+# 			}
+
+# 			triggered_desc = {
+# 				trigger = {
+# 					has_global_variable = byzantine_fourth_crusade_flag
+# 				}
+# 				desc = scripted_crusade.0003.desc.fourth_crusade_byzantine
+# 			}
+
+# 			triggered_desc = { ## Third Crusade Cyan Anatolia
+# 				trigger = {
+# 					has_global_variable = third_crusade_cyan_anatolia
+# 			}
+# 				desc = scripted_crusade.0003.desc.third_crusade_cyan_anatolia
+						
+# 			}
+# 			triggered_desc = { ## Third Crusade Cyan Africa
+# 				trigger = {
+# 					has_global_variable = third_crusade_cyan_africa
+# 				}
+# 				desc = scripted_crusade.0003.desc.third_crusade_cyan_africa
+# 			}
+
+# 			triggered_desc = { ## Third Crusade Cyan Egypt
+# 				trigger = {
+# 					has_global_variable = third_crusade_cyan_egypt
+# 				}
+# 				desc = scripted_crusade.0003.desc.third_crusade_cyan_egypt
+# 			}
+
+			
+# 			triggered_desc = { ## Third Crusade Green
+# 				trigger = {
+# 					has_global_variable = third_crusade_green
+# 				}
+# 				desc = scripted_crusade.0003.desc.third_crusade_green
+# 			}
+
+# 			triggered_desc = { ## Second Crusade Burgundy(Reclaim Jerusalem)
+# 				trigger = {
+# 					has_global_variable = second_crusade_burgundy
+# 				}
+# 			desc = scripted_crusade.0003.desc.second_crusade_burgundy
+# 		}
+# 			triggered_desc = { ## Second Crusade Green(Reinforce Jerusalem)
+# 				trigger = {
+# 					has_global_variable = second_crusade_green
+# 				}
+# 				desc = scripted_crusade.0003.desc.second_crusade_green
+# 			}
+
+# 			triggered_desc = { ## First Crusade Title
+# 				trigger = {
+# 					has_global_variable = first_crusade_chain
+# 				}
+# 				desc = scripted_crusade.0003.desc.first_crusade
+# 			}
+# 		}
+# 	}
+
+# 	theme = faith
+# 	override_background = {
+# 		event_background = temple_scope
+# 	}
+# 	left_portrait = {
+# 		character = scope:pope
+# 		animation = personality_zealous
+# 	}
+# 	lower_left_portrait = scope:bishop
+# 	lower_right_portrait = scope:archbishop
+
+# 	immediate = {
+# 		scope:pope= {
+# 			save_scope_as = background_temple_scope
+# 		}
+# 		play_music_cue = "mx_cue_general_crusade_event_2"
+
+# 		set_variable = {
+# 			name = ghw_pledge_amount
+# 			value = great_holy_war_pledge_amount
+# 		}
+# 		set_variable = {
+# 			name = half_great_holy_war_pledge_amount
+# 			value = {
+# 				value = root.great_holy_war_pledge_amount
+# 				multiply = 0.5
+# 			}
+# 		}
+# 	}
+	
+# 	option = {	
+# 		trigger = {
+# 			root.faith = scope:catholicism
+# 			NOR = {
+# 				exists = scope:catholicism.great_holy_war.ghw_war
+# 				#Religious head should never unpledge:
+# 				this = scope:catholicism.great_holy_war.ghw_war_declarer
+# 				has_character_flag = ghw_unpledging_cooldown #Safety event.
+# 				#Do not pledge against your own liege:
+# 				any_liege_or_above = { this = scope:catholicism.great_holy_war.ghw_target_character }
+# 			}
+# 			OR = { #Either be independent, or all lieges above you MUST be of the same Faith declaring the war to avoid messy situations of vassals and lieges fighting against each other.
+# 				is_independent_ruler = yes
+# 				NOT = {
+# 					any_liege_or_above = {
+# 						NOT = { faith = scope:catholicism }
+# 					}
+# 				}
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				NOT = {
+# 					scope:catholicism.great_holy_war = { has_pledged_attacker = root }
+# 				}
+# 			}
+# 			pledge_ghw_piety_gain_effect = yes
+# 			#Excommunication lifted.
+# 			if = {
+# 				limit = {
+# 					has_trait = excommunicated
+# 					faith = { has_doctrine_parameter = excommunication_active }
+# 				}
+# 				custom_tooltip = great_holy_war.0003.a.lifted_excommunication
+# 				trigger_event = {
+# 					id = great_holy_war.0015
+# 					days = 37
+# 				}
+# 			}
+# 		}
+# 		scope:catholicism.great_holy_war = {
+# 			# hidden_effect = { pledge_attacker = root }
+# 			pledge_ghw_war_chest_prestige_effect = yes
+# 			pledge_ghw_war_chest_piety_effect = yes
+# 		}
+
+# 		ai_chance = { ## This changes the ai_chance of accepting the initial pledge, base is multiplied by every factor that is true for a given character.
+# 			base = 10
+# 			modifier = { ## Lesser lords more keen to gain wealth and prestige through risky enterprise.
+# 				factor = 3
+# 				is_independent_ruler = no
+# 			}
+# 			modifier = {
+# 				factor = 1.5
+# 				highest_held_title_tier = tier_county
+# 			}
+# 			modifier = {
+# 				factor = 3
+# 				highest_held_title_tier = tier_duchy
+# 			}
+# 			modifier = {
+# 				factor = 1
+# 				highest_held_title_tier >= tier_kingdom
+# 			}
+
+# 			modifier = { ## More french people please.
+# 				add = 1000
+# 				has_culture_group = culture_group:frankish_group
+# 			}
+
+
+
+# 			modifier = { ## Iberians have their own shit to deal with.
+# 				factor = 0
+# 				has_culture_group = culture_group:iberian_group
+				
+				
+# 			}
+# 			modifier = {	#Excommunicated characters like getting rid of the trait.
+# 				factor = 2
+# 				has_trait = excommunicated
+# 			}
+# 		}
+
+# 	}
+	
+# 	option = {
+# 		add_piety = root.var:half_great_holy_war_pledge_amount
+# 		#Excommunication lifted.
+# 		if = {
+# 			limit = {
+# 				has_trait = excommunicated
+# 				faith = { has_doctrine_parameter = excommunication_active }
+# 			}
+# 			trigger_event = {
+# 				id = great_holy_war.0015
+# 				days = 37
+# 			}
+# 		}
+# 		remove_short_term_gold = var:ghw_pledge_amount
+# 		set_variable = {
+# 			name = ghw_war_chest_donated_sum
+# 			value = var:ghw_pledge_amount
+# 		}
+# 		scope:catholicism.great_holy_war = {
+# 			change_war_chest_gold = root.var:ghw_pledge_amount
+# 		}
+# 		if = {
+# 			limit = {
+# 				NOT = { has_character_flag = ghw_pledged_gold }
+# 				is_ai = no
+# 			}
+# 			add_character_flag = { #Used to check whether the Pope will harass for more later.
+# 				flag = ghw_pledged_gold
+# 				days = 7300
+# 			}
+# 		}
+# 		ai_chance = {
+# 			base = 10
+# 		}
+# 	}
+	
+# 	option = {
+# 		name = great_holy_war.0003.c
+# 		ai_chance = {
+# 			base = 0
+# 		}
+# 	}
+	
+# 	after = {
+# 		remove_variable = ghw_pledge_amount
+# 	}
+# }
+# scripted_crusade.0004 = {
+# 	hidden = yes
+	
+# 	trigger = {
+# 		is_ai = yes
+# 		is_ruler = yes
+# 		is_landed = yes
+# 		is_at_war = no
+# 		is_imprisoned = no
+# 		highest_held_title_tier >= tier_county
+# 		NOT = { has_trait = incapable }
+# 		ai_zeal >= 0
+# 		root.faith = scope:catholicism
+# 		scope:catholicism = { # Crusade still exists
+# 			exists = great_holy_war
+# 			great_holy_war = {
+# 				NOT = { has_pledged_attacker = root }
+# 			}
+# 		}
+# 	}
+
+# 	immediate = {
+# 		scope:catholicism.great_holy_war = {
+# 			set_variable = {
+# 				name = triple_defenders_strength
+# 				value = {
+# 					value = ghw_defenders_strength
+# 					multiply = 3
+# 				}
+# 			}
+# 			set_variable = {
+# 				name = double_defenders_strength
+# 				value = {
+# 					value = ghw_defenders_strength
+# 					multiply = 2
+# 				}
+# 			}
+# 			set_variable = {
+# 				name = one_and_a_half_of_defenders_strength
+# 				value = {
+# 					value = ghw_defenders_strength
+# 					multiply = 1.5
+# 				}
+# 			}
+# 			set_variable = {
+# 				name = half_of_defenders_strength
+# 				value = {
+# 					value = ghw_defenders_strength
+# 					multiply = 0.5
+# 				}
+# 			}
+# 			set_variable = {
+# 				name = quarter_of_defenders_strength
+# 				value = {
+# 					value = ghw_defenders_strength
+# 					multiply = 0.25
+# 				}
+# 			}
+# 		}
+# 		random_list = {
+# 			25 = { # Pledge.
+# 				trigger = {
+# 					OR = { # Either be independent, or have no liege above you of the defending Faith, to avoid messy situations of vassals and lieges fighting against each other.
+# 						is_independent_ruler = yes
+# 						any_liege_or_above = {
+# 							count = all
+# 							NOT = { faith = scope:target_faith }
+# 						}
+# 					}
+# 				}
+# 				scope:catholicism.great_holy_war = {
+# 					pledge_attacker = root
+# 					pledge_ghw_war_chest_prestige_effect = yes
+# 					pledge_ghw_war_chest_piety_effect = yes
+# 				}
+
+# 				pledge_ghw_piety_gain_effect = yes
+# 				# Excommunication lifted.
+# 				if = {
+# 					limit = {
+# 						has_trait = excommunicated
+# 						faith = { has_doctrine_parameter = excommunication_active }
+# 					}
+# 					trigger_event = {
+# 						id = great_holy_war.0015
+# 						days = 37
+# 					}
+# 				}
+# 				if = {
+# 					limit = { is_ai = yes }
+# 					trigger_event = { id = great_holy_war.0026 } # Set Beneficiary automatically.
+# 				}
+# 			}
+# 			75 = { # Do not pledge.
+# 				random = { # When not pledging, there is still a chance that the AI will donate money.
+# 					chance = 35
+# 					modifier = {
+# 						factor = 0.75
+# 						has_trait = greedy
+# 					}
+# 					modifier = {
+# 						factor = 1.5
+# 						has_trait = generous
+# 					}
+# 					modifier = {
+# 						factor = 0.25
+# 						has_trait = cynical
+# 					}
+# 					modifier = {
+# 						factor = 1.75
+# 						has_trait = zealous
+# 					}
+# 					modifier = {
+# 						factor = 1.75
+# 						short_term_gold >= root.great_holy_war_pledge_amount
+# 					}
+# 					ai_value_modifier = { # Raw Zeal
+# 						ai_zeal = 1.0
+# 					}
+# 					scope:catholicism.great_holy_war = {
+# 						change_war_chest_gold = {
+# 							value = root.great_holy_war_pledge_amount
+# 							multiply = 0.5
+# 						}
+# 					}
+# 				}
+
+# 				modifier = { # More pledging happening at start of preparation phase.
+# 					factor = 0.75
+# 					NOT = { exists = great_holy_war.ghw_war }
+# 					scope:catholicism.great_holy_war = { days_until_ghw_launch > 200 }
+# 				}
+# 				modifier = { # Less pledging happening after.
+# 					factor = 1.5
+# 					NOT = { exists = great_holy_war.ghw_war }
+# 					scope:catholicism.great_holy_war = { days_until_ghw_launch < 150 }
+# 				}
+# 				modifier = { # Less pledging happening after.
+# 					factor = 1.75
+# 					NOT = { exists = great_holy_war.ghw_war }
+# 					scope:catholicism.great_holy_war = { days_until_ghw_launch < 100 }
+# 				}
+# 				modifier = { # Less pledging happening after.
+# 					factor = 1.75
+# 					NOT = { exists = great_holy_war.ghw_war }
+# 					scope:catholicism.great_holy_war = { days_until_ghw_launch < 70 }
+# 				}
+# 				modifier = { # More likely if war is close by.
+# 					factor = 0.85
+# 					scope:crusade_target = {
+# 						capital_vassal.capital_vassal = {
+# 							squared_distance = { target = root.capital_county value < 150000 }
+# 						}
+# 					}
+# 				}
+# 				modifier = { # More likely if war is close by.
+# 					factor = 0.9
+# 					scope:crusade_target = {
+# 						capital_vassal.capital_vassal = {
+# 							squared_distance = { target = root.capital_county value < 1500000 } # Roughly Rome to Portugal
+# 						}
+# 					}
+# 				}
+# 				modifier = { # Less likely if war is far away.
+# 					factor = 1.5
+# 					scope:crusade_target = {
+# 						capital_vassal.capital_vassal = {
+# 							squared_distance = { target = root.capital_county value > 2000000 }
+# 						}
+# 					}
+# 				}
+# 				modifier = { # Just too darn far away...
+# 					factor = 1.75
+# 					scope:crusade_target = {
+# 						capital_vassal.capital_vassal = {
+# 							squared_distance = { target = root.capital_county value > 2500000 }
+# 						}
+# 					}
+# 				}
+# 				modifier = { # Much less likely to happen if the war has started.
+# 					factor = 0.25
+# 					exists = great_holy_war.ghw_war
+# 				}
+# 				modifier = { # Don't get too crowded now.
+# 					factor = 2
+# 					scope:catholicism.great_holy_war = { ghw_attackers_strength > ghw_defenders_strength }
+# 				}
+# 				modifier = { # Don't get too crowded now.
+# 					factor = 1.85
+# 					scope:catholicism.great_holy_war = { ghw_attackers_strength > var:triple_defenders_strength }
+# 				}
+# 				modifier = { # Don't get too crowded now.
+# 					factor = 1.75
+# 					scope:catholicism.great_holy_war = { ghw_attackers_strength > var:double_defenders_strength }
+# 				}
+# 				modifier = { # Don't get too crowded now.
+# 					factor = 1.5
+# 					scope:catholicism.great_holy_war = { ghw_attackers_strength > var:one_and_a_half_of_defenders_strength }
+# 				}
+# 				modifier = { # Try to prevent the Crusade from failing before even starting. (Less strength than defenders)
+# 					factor = 0.75
+# 					NOT = { exists = great_holy_war.ghw_war }
+# 					scope:catholicism.great_holy_war = { ghw_attackers_strength < ghw_defenders_strength }
+# 				}
+# 				modifier = { # Try to prevent the Crusade from failing before even starting. (Less than half of the defenders' strength)
+# 					factor = 0.5
+# 					NOT = { exists = great_holy_war.ghw_war }
+# 					scope:catholicism.great_holy_war = { ghw_attackers_strength < var:half_of_defenders_strength }
+# 				}
+# 				modifier = { # Try to prevent the Crusade from failing before even starting. (Less than half of the defenders' strength)
+# 					factor = 0.35
+# 					NOT = { exists = great_holy_war.ghw_war }
+# 					scope:catholicism.great_holy_war = { ghw_attackers_strength < var:quarter_of_defenders_strength }
+# 				}
+# 				modifier = { # Slightly more likely to join when fighting for a Holy Site.
+# 					factor = 0.85
+# 					scope:crusade_target = {
+# 						any_in_de_jure_hierarchy = {
+# 							tier = tier_barony
+# 							continue = { tier > tier_barony }
+# 							is_holy_site_of = scope:catholicism
+# 						}
+# 					}
+# 				}
+# 				modifier = { # Hoping for forgiveness
+# 					factor = 0.8
+# 					has_trait = excommunicated
+# 				}
+# 				ai_value_modifier = { # Raw Zeal
+# 					ai_zeal = -1.0
+# 				}
+# 				modifier = { # Basic traits
+# 					factor = 2
+# 					has_trait = cynical
+# 				}
+# 				modifier = { # Basic traits
+# 					factor = 0.5
+# 					has_trait = zealous
+# 				}
+# 				modifier = { # Tier
+# 					factor = 0.75
+# 					highest_held_title_tier = tier_kingdom
+# 				}
+# 				modifier = { # Tier
+# 					factor = 0.5
+# 					highest_held_title_tier = tier_empire
+# 				}
+# 			}
+# 		}
+# 	}
+# }
+
+
+
+	
+
+
+# 	scripted_crusade.0050 = {
+# 		hidden = yes
+# 		scope = ghw
+# 		trigger = {
+# 			NOR = {
+# 			has_global_variable = first_crusade_victory
+# 			has_global_variable = first_crusade_defeat
+
+# 			}
+
+# 		}
+
+
+# 		immediate = {
+
+
+# 			every_player = {
+# 				limit = {
+# 				has_character_flag = jerusalem_flag
+# 				}
+# 				trigger_event = scripted_crusade.1000
+# 			}
+# 		}	
+# 	}
+
+# 	scripted_crusade.1000 = {
+# 		title = "Victory in the North"
+# 		desc = "work"
+# 		theme = martial
+# 		override_background = {
+# 			event_background = wilderness_desert
+# 		}
+# 		left_portrait = { 
+# 		character = scope:count_edessa
+# 		animation = war_over_win
+# 		}
+# 		right_portrait = {
+# 			character = scope:prince_antioch
+# 			animation = war_over_win 
+# 		}
+		 
+# 		lower_left_portrait = scope:pope 
+# 		lower_center_portrait = scope:roman_emperor
+
+# 		immediate = {
+# 			play_music_cue = "mx_cue_crusade_starts"
+
+	
+# 			title:k_jerusalem = {
+# 				save_scope_as = jerusalem
+# 			}
+# 			title:c_jerusalem= {
+# 				every_de_jure_top_liege = {
+# 					save_scope_as = jerusalem_liege
+	
+# 				}
+# 			}
+# 				faith:catholic = {
+# 					religious_head = {
+# 						save_scope_as = pope
+# 					}
+# 			}
+# 				faith:catholic = {
+# 					save_scope_as = catholicism
+# 				}
+				
+# 				title:d_antioch = {
+# 					every_de_jure_top_liege = {
+# 						save_scope_as = prince_antioch
+# 					}
+
+# 				}
+# 				title:d_edessa = {
+# 					every_de_jure_top_liege = {
+# 						save_scope_as = count_edessa
+# 					}
+# 				}
+
+# 				title:e_byzantium.holder = {
+# 					save_scope_as = roman_emperor
+# 				}
+
+# 		}
+# 		option = {
+# 			trigger = {
+# 				has_character_flag = jerusalem_flag
+# 			}
+# 			name = "Onwards to Jerusalem!"	
+# 							scope:catholicism = {
+# 					trigger_event = scripted_crusade.0101
+# 				}
+
+# 		}
+
+# 		option = {
+# 			name = "Interesting"
+# 			trigger = {
+# 				NOT = {
+# 					has_character_flag = jerusalem_flag
+# 				}
+# 			}
+# 			scope:catholicism = {
+# 				trigger_event = scripted_crusade.0101
+# 			}
+# 		}
+	
+# 	}
+
+
+	
+			
+
+
+# 	scripted_crusade.0020 = { ## add flag to characters who join crusadede for edessa and antioch
+# 	hidden = yes
+# 	scope = ghw
+# 		immediate = {
+			
+# 			every_pledged_attacker = {
+# 				add_character_flag = jerusalem_flag
+# 			}
+# 		}		
+# 	}
+
+# 	scripted_crusade.0021 = {
+# 		hidden = yes
+
+# 		trigger = {
+# 			has_character_flag = jerusalem_flag
+# 			NOT = {
+# 				has_character_flag = met_emperor
+# 			}
+		
+# 			scope:army = {
+# 				location = { save_temporary_scope_as = current_location }
+# 			}
+# 		}
+
+# 		immediate = {
+
+# 			title:e_byzantium.holder = {
+# 				save_scope_as = roman_emperor
+# 				}
+			
+			
+# 			scope:roman_emperor.capital_province = {
+# 				save_scope_as = emperor_capital
+	
+# 			}
+# 			trigger_event = scripted_crusade.0022
+# 		}
+# 	}
+
+# 	scripted_crusade.0022 = { ## Pledges to the emperor.
+# 	type = character_event
+# 	title = scripted_crusade.0022.title
+# 	desc = scripted_crusade.0022.desc
+# 	theme = vassal
+# 	override_background = {
+# 		event_background = throne_room_mediterranean
+# 	}
+# 	left_portrait = {
+# 		character = root
+# 		animation = admiration
+# 	}
+
+# 	right_portrait = {
+# 		character = scope:roman_emperor
+# 		animation = personality_honorable
+# 	}
+	
+
+# 	trigger = {
+# 		scope:army = {
+# 			location = scope:emperor_capital
+# 		}
+# 	}
+
+# 	immediate = {
+
+# 		play_music_cue = "mx_cue_peace_ensues"
+# 		add_character_flag = met_emperor
+# 	}
+
+
+# 		option = {
+# 			name = scripted_crusade.0022.option.a
+# 			add_gold = 400
+			
+# 			custom_tooltip = scripted_crusade.0022.option.a.tt
+# 			add_character_flag = roman_pledge
+# 		}
+		
+# 		option = {
+# 			name = scripted_crusade.0022.option.b
+# 			trigger = {
+# 				OR = {
+# 				has_trait = ambitious
+# 				has_trait = arrogant
+# 				}
+# 			}
+# 			scope:roman_emperor = {
+# 				trigger_event = scripted_crusade.0023
+# 			}
+# 			custom_tooltip = scripted_crusade.0022.option.b.tt
+# 		}
+
+# 		option = {
+# 			name = scripted_crusade.0022.option.c
+# 			trigger = {
+# 				has_trait = deceitful
+# 			}
+# 			custom_tooltip = scripted_crusade.0022.option.c.tt
+# 			custom_tooltip = scripted_crusade.0022.option.c.tt.two
+# 			add_character_flag = roman_pledge_deceit
+
+# 		}
+
+
+# 	}
+	
+# 	scripted_crusade.0023 = {
+
+# 	}
+
+# 	scripted_crusade.0101 = { ## Starts the crusade for jerusalem after the north has been taken.
+# 		hidden = yes
+# 		scope = faith
+	
+# 		immediate = {
+	
+# 			start_great_holy_war = {
+# 				target_character = scope:jerusalem_liege
+# 				target_title = scope:jerusalem
+# 				delay = { 1 2 }
+# 			}
+	
+# 			scope:jerusalem_liege.faith = { save_scope_as = target_faith }
+			
+# 			great_holy_war = {
+# 				set_war_declarer = scope:pope
+# 			}
+
+# 			great_holy_war = {
+# 				pledge_attacker = scope:pope
+# 			}
+# 			great_holy_war = {
+# 				save_scope_as = crusade_for_jerusalem
+# 			}
+# 			every_living_character = {
+# 				limit = {
+# 					has_character_flag = jerusalem_flag
+# 				}
+# 				trigger_event = scripted_crusade.0102
+# 			}
+# 		}	
+# 	}
+
+# 	scripted_crusade.0102 = { ## Victorious crusade
+# 		hidden = yes
+
+# 		immediate = {
+# 			scope:crusade_for_jerusalem = {
+# 				pledge_attacker = root
+# 			}
+# 		}
+# 	}
+
+# 	scripted_crusade.0103 = { ## Victorious Crusade HUB, Managing outcomes for all the victorious crusades.
+# 	hidden = yes
+
+		
+# 		immediate = {
+
+
+# 			if = {
+# 				limit = {
+# 					has_global_variable = fourth_crusade_chain
+# 				}
+# 				set_global_variable = byzantine_fourth_crusade_victory
+# 				set_global_variable = {
+# 					name = fourth_crusade_cooldown
+# 					value = yes
+# 					days = 3650
+# 				}
+# 				trigger_event = {
+# 					id = scripted_crusade.0413
+# 					days = { 1 2 } 
+# 				}
+				
+# 			}
+
+# 			else_if = {
+# 				limit = {
+# 					has_global_variable = third_crusade_green
+# 				}
+# 				set_global_variable = third_crusade_victory
+# 				set_global_variable = third_crusade_green_victory
+# 				set_global_variable = {
+# 					name = third_crusade_cooldown
+# 					value = yes
+# 					days = 7300
+# 				}
+# 			}
+# 			else_if = {
+# 				limit = {
+# 					has_global_variable = third_crusade_cyan_egypt
+# 				}
+# 				set_global_variable = third_crusade_victory
+# 				set_global_variable = third_crusade_cyan_egypt_victory
+# 				set_global_variable = {
+# 					name = third_crusade_cooldown
+# 					value = yes
+# 					days = 7300
+# 				}
+# 			}
+# 			else_if = {
+# 				limit = {
+# 					has_global_variable = third_crusade_cyan_africa
+# 				}
+# 				set_global_variable = third_crusade_victory
+# 				set_global_variable = third_crusade_cyan_africa_victory
+# 				set_global_variable = {
+# 					name = third_crusade_cooldown
+# 					value = yes
+# 					days = 7300
+# 				}
+# 			}
+# 			else_if = {
+# 				limit = {
+# 					has_global_variable = third_crusade_cyan_anatolia
+# 				}
+# 				set_global_variable = third_crusade_victory
+# 				set_global_variable = third_crusade_cyan_anatolia_victory
+# 				set_global_variable = {
+# 					name = third_crusade_cooldown
+# 					value = yes
+# 					days = 7300
+# 				}
+# 			}
+
+
+# 			else_if = {
+# 				limit = {
+# 					has_global_variable = second_crusade_green
+# 					}
+# 					trigger_event = scripted_crusade.0202
+# 				}
+# 			else_if = {
+# 				limit = {
+# 					has_global_variable = second_crusade_burgundy
+# 				}
+# 				trigger_event = scripted_crusade.0205
+# 			}
+			
+# 			else_if = {
+# 				limit = {
+# 					has_global_variable = first_crusade_chain
+# 				}
+# 				set_global_variable = first_crusade_victory
+# 				set_global_variable = {
+# 					name = first_crusade_cooldown
+# 					value = yes
+# 					days = 10950
+# 				}
+# 				remove_global_variable = first_crusade_chain
+
+# 			}
+
+# 		}
+		
+
+	
+# 		after = { remove_variable = ghw_war_chest_donated_sum }
+# 	}
+
+# 	scripted_crusade.0104 = { ## Failed Crusade HUB, Managing outcomes for all failed crusades.
+# 	hidden = yes
+
+# 		immediate = {
+
+		
+# 			if = {
+# 				limit = {
+# 					has_global_variable = third_crusade_green
+# 				}
+# 				set_global_variable = third_crusade_defeat
+# 				set_global_variable = third_crusade_green_defeat
+# 				set_global_variable = {
+# 					name = third_crusade_cooldown
+# 					value = yes
+# 					days = 7300
+# 				}
+# 			}
+# 			else_if = {
+# 				limit = {
+# 					has_global_variable = third_crusade_cyan_egypt
+# 				}
+# 				set_global_variable = third_crusade_defeat
+# 				set_global_variable = third_crusade_cyan_egypt_defeat
+# 				set_global_variable = {
+# 					name = third_crusade_cooldown
+# 					value = yes
+# 					days = 7300
+# 				}
+# 			}
+# 			else_if = {
+# 				limit = {
+# 					has_global_variable = third_crusade_cyan_africa
+# 				}
+# 				set_global_variable = third_crusade_defeat
+# 				set_global_variable = third_crusade_cyan_africa_defeat
+# 				set_global_variable = {
+# 					name = third_crusade_cooldown
+# 					value = yes
+# 					days = 7300
+# 				}
+# 			}
+# 			else_if = {
+# 				limit = {
+# 					has_global_variable = third_crusade_cyan_anatolia
+# 				}
+# 				set_global_variable = third_crusade_defeat
+# 				set_global_variable = third_crusade_cyan_anatolia_defeat
+# 				set_global_variable = {
+# 					name = third_crusade_cooldown
+# 					value = yes
+# 					days = 7300
+# 				}
+# 			}
+
+# 			else_if = {
+# 				limit = {
+# 					has_global_variable = first_crusade_chain
+# 				}
+# 				set_global_variable = first_crusade_defeat
+# 				set_global_variable = {
+# 					name = first_crusade_cooldown
+# 					value = yes
+# 					days = 10950
+# 				}
+# 				remove_global_variable = first_crusade_chain
+# 			}
+
+# 			else_if = {
+# 				limit = {
+# 					has_global_variable = second_crusade_chain
+# 				}
+# 				if = {
+# 					limit = {
+# 						has_global_variable = second_crusade_green
+# 					}
+				
+# 				set_global_variable = second_crusade_green_defeat
+# 				set_global_variable = second_crusade_defeat
+# 					set_global_variable = {
+# 						name = second_crusade_cooldown
+# 						value = yes
+# 						days = 18250
+# 					}	
+# 					trigger_event = scripted_crusade.0204		
+# 				}
+			
+# 				else_if = {
+# 					limit = {
+# 						has_global_variable = second_crusade_burgundy
+# 					}
+# 					set_global_variable = second_crusade_burgundy_defeat
+# 					set_global_variable = second_crusade_defeat
+# 					set_global_variable = {
+# 						name = second_crusade_cooldown
+# 						value = yes
+# 						days = 18250
+# 					}
+# 					trigger_event = scripted_crusade.0206 
+# 				}
+# 			}
+
+			
+# 		}
+# 		after = { remove_variable = ghw_war_chest_donated_sum }
+
+# 	}
+
+
+
+
+
+
+
+# 	scripted_crusade.0200 = { ## If first crusade was a victory
+# 		hidden = yes
+
+# 		immediate = {
+# 			remove_global_variable = first_crusade_chain
+
+
+# 			## If any kingdom in western europe is owned by non christians - set_global_variable = muslims_in_heartland
+# 			if = {
+# 				limit = {
+# 					exists = title:d_edessa
+# 				}
+# 				title:d_edessa.holder = {
+# 					AND = {
+# 						NOT = {
+# 							religion = religion:christianity_religion
+# 						}
+# 						title:d_edessa = {
+# 							has_variable = crusader_state_duchy
+# 						}
+# 					}
+# 				}			
+# 				set_global_variable = crusader_state_fallen
+# 			}
+
+# 					else_if = {
+# 						limit = {
+# 							exists = title:d_antioch
+# 						}
+# 							title:d_antioch.holder = {
+# 								AND = {
+# 									NOT = {
+# 										religion = religion:christianity_religion
+# 									}
+# 									title:d_antioch = {
+# 									has_variable = crusader_state_duchy
+# 									}
+# 								}
+# 							}				
+# 						set_global_variable = crusader_state_fallen
+# 					}
+
+# 					else_if = {
+# 						limit = {
+# 							exists = title:d_lebanon 
+# 						}												
+# 							title:d_lebanon.holder = {
+# 								AND = {
+# 									NOT = {
+# 										religion = religion:christianity_religion
+# 									}
+# 									title:d_antioch = {
+# 									has_variable = crusader_state_duchy
+# 									}
+# 								}
+# 							}		
+# 						set_global_variable = crusader_state_fallen
+# 					}
+						
+
+# 			if = { ## CHECK IF JERUSALEM HAS FALLEN
+# 				limit = {
+# 					title:k_jerusalem.holder = {
+# 						NOT = {
+# 							religion = religion:christianity_religion
+# 						}
+# 					}
+# 				}
+# 				set_global_variable = jerusalem_fallen
+# 			}
+			
+# 			if = { ## If jerusalem and a crusader state, or if jerusalem has fallen
+# 				limit = {
+# 					OR = {
+# 						AND = {
+# 							has_global_variable = crusader_state_fallen
+# 							has_global_variable = jerusalem_fallen
+# 						}
+# 						has_global_variable = jerusalem_fallen
+
+# 					}
+# 				}
+# 				title:k_jerusalem= {
+# 					save_scope_as = crusade_target
+# 					}
+# 				title:k_jerusalem.holder = {
+# 					save_scope_as = crusade_enemy
+# 				}
+				
+# 				faith:catholic = {
+# 					religious_head = {
+# 						save_scope_as = pope
+# 					}
+# 				}
+# 				faith:catholic = {
+# 					save_scope_as = catholicism
+# 				}	
+				
+# 				scope:crusade_enemy.faith = {
+# 					save_scope_as = target_faith
+# 				}
+# 				set_global_variable = second_crusade_burgundy
+
+# 				scope:catholicism = {
+# 					trigger_event = {
+# 						id = scripted_crusade.0002 ## Reclaim Jerusalem Event(Second Crusade Burgundy)
+# 						days = { 1 2 }
+# 					}
+# 				}
+# 			}
+# 			else_if = { ## If only a crusader state has fallen, and jerusalem still exists
+# 				limit = {
+# 					AND = {
+# 						has_global_variable = crusader_state_fallen
+# 						NOT = {
+# 							has_global_variable = jerusalem_fallen
+# 						}
+# 					}
+# 				}
+# 				title:k_syria= {
+# 					save_scope_as = crusade_target
+# 					}
+# 				title:c_damascus = {
+# 					every_de_jure_top_liege = {
+# 						if = {
+# 							limit = {
+# 								NOT = {
+# 								religion = religion:christianity_religion
+# 								}
+# 							}
+# 							save_scope_as = crusade_enemy
+
+# 						}
+# 					}
+# 				}
+# 				faith:catholic = {
+# 					religious_head = {
+# 						save_scope_as = pope
+# 					}
+# 				}
+# 				faith:catholic = {
+# 					save_scope_as = catholicism
+# 				}	
+				
+# 				scope:crusade_enemy.faith = {
+# 					save_scope_as = target_faith
+# 				}
+# 				set_global_variable = second_crusade_green
+
+# 				scope:catholicism = {
+# 					trigger_event = {
+# 						id = scripted_crusade.0002 ## Reinforce Jerusalem Event(Second Crusade Green)
+# 						days = { 1 2 }
+# 					}
+# 				}
+# 			}
+			
+# 			#else = { ## Have to think more about how to solve this, it needs to redirect to another event eventually so..
+# 				## 15 Year Cool Down and then refire event
+# 				#set_global_variable = {
+# 					#name = fifteen_year_cooldown
+# 					#value = yes
+# 					#days = 5475
+# 				#}
+# 			#}
+# 		}
+# 	}
+
+
+# 	scripted_crusade.0201 = {
+# 		hidden = yes
+# 		immediate = {
+# 		}
+# 	}
+
+# 	scripted_crusade.0202 = { ## Victorious second crusade_green
+# 	hidden = yes
+# 		immediate = {
+# 			if = {
+# 				limit = {
+# 					exists = title:k_syria
+# 				}
+# 				title:k_syria.holder = {
+# 					save_scope_as = lord_of_damascus
+# 					remove_trait = crusader_king
+# 					add_trait = crusader_lord
+# 				}
+# 				destroy_title = title:k_syria
+# 			}
+# 			title:d_aleppo.holder = {
+# 			save_scope_as = prince_of_aleppo 
+# 			}
+# 			title:d_homs.holder = {
+# 				save_scope_as = duke_homs
+# 			}
+# 			title:d_palmyra.holder = {
+# 				save_scope_as = duke_palmyra
+# 			}
+# 			if = {
+# 				limit = {
+# 					exists = title:d_aleppo
+# 					AND = {
+# 						NOT = {
+# 							scope:prince_of_aleppo = scope:lord_of_damascus
+								
+# 							}
+# 							scope:prince_of_aleppo.faith = faith:catholic
+# 					}
+# 				}
+# 				scope:prince_of_aleppo = {
+# 				add_trait = crusader_lord
+
+# 				}
+# 				title:d_aleppo = {
+# 					set_color_from_title = title:d_crusader_aleppo
+# 					set_coa = scope:prince_of_aleppo.house
+# 				}
+# 				title:d_damascus = {
+# 					set_color_from_title = title:d_crusader_damascus
+# 					set_coa = scope:lord_of_damascus.house
+# 				}
+# 				title:d_homs = {
+# 					set_color_from_title = title:d_crusader_homs
+# 					set_coa = scope:duke_homs.house
+					
+# 				}
+# 				title:d_palmyra = {
+# 					set_color_from_title = title:d_crusader_palmyra
+# 					set_coa = scope:duke_palmyra.house
+# 				}
+# 			}
+
+# 			set_global_variable = second_crusade_green_victory
+# 			set_global_variable = {
+# 				name = second_crusade_cooldown
+# 				value = yes
+# 				days = 18250
+# 			}
+# 			trigger_event = scripted_crusade.0203
+# 		}
+# 	}
+	
+# 	scripted_crusade.0203 = { ## Flavor event for successful Second Crusade Green
+
+# 		title = "Glory to Christendom"
+# 		desc = "null"
+# 		theme = war
+# 		override_background = {
+# 			event_background = wilderness_desert
+# 		}
+		
+# 		left_portrait = {
+# 			character = scope:lord_of_damascus
+# 			animation = war_over_win
+# 		}
+# 		right_portrait = {
+# 			character = scope:prince_of_aleppo
+# 			animation = war_over_win
+# 		}
+
+# 		immediate = {
+# 			play_music_cue = "mx_cue_sacredrite"
+# 		}
+
+# 		option = {
+# 			name = "Glory be to God!"
+
+# 		}
+
+# 	}
+
+# 	scripted_crusade.0204 = { ## Flavor event for failed Second Crusade Green 
+# 		title = scripted_crusade.0204.title
+# 		desc = scripted_crusade.0204.desc
+# 		theme = war
+# 		override_background = {
+# 			event_background = temple_mosque
+# 		}
+# 		left_portrait = {
+# 			character = scope:pope
+# 			animation = shame
+# 		}
+# 		right_portrait = { 
+# 			character = scope:defender
+# 			animation = war_over_win
+# 		}
+
+# 		immediate = {
+# 		play_music_cue ="mx_cue_negative"
+
+# 			faith:catholic = {
+# 				religious_head = {
+# 					save_scope_as = pope
+# 				}
+# 			}
+# 		}
+
+# 		option = {
+# 			name = scripted_crusade.0204.option.a
+			
+# 		}
+# 	}
+
+
+# 	scripted_crusade.0205 = { ## Flavor event for successful Second Crusade Burgundy
+# 		title = scripted_crusade.0205.title
+# 		desc = scripted_crusade.0205.desc
+# 		theme = war
+# 		override_background = {
+# 			event_background = temple_mosque
+# 		}
+# 		left_portrait = {
+# 			character = scope:king_of_jerusalem
+# 			animation = war_over_win
+# 		}
+# 		right_portrait = { 
+# 			character = scope:defender
+# 			animation = shame
+# 		}
+
+
+# 		immediate = {
+# 			play_music_cue = "mx_cue_crusade_starts"
+# 			title:k_jerusalem.holder = {
+# 				save_scope_as = king_of_jerusalem
+
+
+# 			}
+# 		}
+
+
+# 		option = {
+# 			name = "Praise God in Heaven!"
+# 		}
+# 	}
+
+
+
+
+# 	scripted_crusade.0206 = { ## Flavor event for failed Second Crusade Burgundy
+# 		title = scripted_crusade.0206.title
+# 		desc = scripted_crusade.0206.desc
+# 		theme = war
+# 		override_background = {
+# 			event_background = temple_mosque
+# 		}
+# 		left_portrait = {
+# 			character = scope:pope
+# 			animation = shame
+# 		}
+# 		right_portrait = { 
+# 			character = scope:defender
+# 			animation = war_over_win
+# 		}
+
+# 		immediate = {
+# 		play_music_cue ="mx_cue_negative"
+
+# 			faith:catholic = {
+# 				religious_head = {
+# 					save_scope_as = pope
+# 				}
+# 			}
+# 		}
+
+# 		option = {
+# 			name = scripted_crusade.0206.option.a
+# 		}
+# 	}
+
+
+
+
+
+
+
+
+
+
+
+# 	scripted_crusade.0300 = { 
+# 	hidden = yes
+
+# 	immediate = {
+
+# 		## if = { If any kingdom in western europe is owned by non christians - set_global_variable = muslims_in_heartland }
+
+# 		## else_if..
+# 		if = { ## CHECK IF JERUSALEM HAS FALLEN
+# 			limit = {
+# 				title:k_jerusalem.holder = {
+# 					NOT = {
+# 						religion = religion:christianity_religion
+# 					}
+# 				}
+# 			}
+# 			set_global_variable = jerusalem_fallen_third
+
+# 			title:k_jerusalem= {
+# 				save_scope_as = crusade_target
+# 				}
+# 			title:k_jerusalem.holder = {
+# 				save_scope_as = crusade_enemy
+# 			}
+				
+# 			faith:catholic = {
+# 				religious_head = {
+# 					save_scope_as = pope
+# 				}
+# 			}
+# 			faith:catholic = {
+# 				save_scope_as = catholicism
+# 			}	
+				
+# 			scope:crusade_enemy.faith = {
+# 				save_scope_as = target_faith
+# 			}
+# 			set_global_variable = third_crusade_green
+
+# 			scope:catholicism = {
+# 				trigger_event = {
+# 					id = scripted_crusade.0002 ## Reclaim Jerusalem Event(Third Crusade Green)
+# 					days = { 1 2 }
+# 				}
+# 			}
+# 		}
+# 		else_if = {
+# 			limit = {
+# 				title:k_egypt.holder = {
+# 					NOT = {
+# 						religion = religion:christianity_religion
+# 					}
+# 				}
+# 			}
+
+# 			title:k_egypt.holder = {
+# 				save_scope_as = crusade_enemy
+# 			}
+# 			title:k_egypt= {
+# 				save_scope_as = crusade_target
+# 				}
+
+# 			faith:catholic = {
+# 				religious_head = {
+# 					save_scope_as = pope
+# 				}
+# 			}
+# 			faith:catholic = {
+# 				save_scope_as = catholicism
+# 			}	
+				
+# 			scope:crusade_enemy.faith = {
+# 				save_scope_as = target_faith
+# 			}
+# 			set_global_variable = third_crusade_cyan_egypt
+
+# 			scope:catholicism = {
+# 				trigger_event = {
+# 					id = scripted_crusade.0002 ## Conquer Egypt Event(Third Crusade Cyan)
+# 					days = { 1 2 }
+# 				}
+# 			}
+# 		}
+# 		else_if = {
+# 			limit = {
+# 				OR = {
+# 					AND = {
+# 						exists = title:k_africa
+# 							title:k_africa.holder = {
+# 								NOT = {
+# 									religion = religion:christianity_religion
+# 								}
+# 							}
+# 						}
+						
+# 						AND = {
+# 							NOT = {
+# 							exists = title:k_africa
+# 							}
+# 							title:c_tunis.holder = {
+# 								NOT = {
+# 									religion = religion:christianity_religion
+# 								}
+# 							}
+# 						}
+# 					}		
+# 				}
+
+# 				title:k_africa.holder = {
+# 					save_scope_as = crusade_enemy
+# 				}
+
+# 				title:k_africa= {
+# 					save_scope_as = crusade_target
+# 					}
+	
+# 				faith:catholic = {
+# 					religious_head = {
+# 						save_scope_as = pope
+# 					}
+# 				}
+# 				faith:catholic = {
+# 					save_scope_as = catholicism
+# 				}	
+					
+# 				scope:crusade_enemy.faith = {
+# 					save_scope_as = target_faith
+# 				}
+# 				set_global_variable = third_crusade_cyan_africa
+	
+# 				scope:catholicism = {
+# 					trigger_event = {
+# 						id = scripted_crusade.0002 ## Conquer Egypt Event(Third Crusade Cyan)
+# 						days = { 1 2 }
+# 					}
+# 				}
+# 			}
+
+# 			else_if = {
+# 				limit = {
+# 					OR = {
+# 						AND = {
+# 						exists = title:k_anatolia.holder
+# 							title:k_anatolia.holder = {
+# 								NOT = {
+# 									religion = religion:christianity_religion
+# 								}
+# 							}
+# 						}
+# 						AND = {
+# 							NOT = {
+# 								exists = title:k_anatolia.holder
+# 							}
+# 							OR = {
+# 								title:d_cilicia.holder = {
+# 									NOT = {
+# 										religion = religion:christianity_religion
+# 									}
+# 								}
+# 								title:d_cibyrrhaeot.holder = {
+# 									NOT = {
+# 										religion = religion:christianity_religion
+# 									}
+# 								}
+# 							}
+# 						}
+# 					}		 
+# 				}
+# 				if = {
+# 					limit = {
+# 						exists = title:k_anatolia.holder
+# 					}
+# 					title:k_anatolia.holder = {
+# 						save_scope_as = crusade_enemy
+						
+# 					}
+# 				}
+# 				else_if = {
+# 					limit = {
+# 							AND = {
+# 								exists = title:d_cilicia.holder
+# 								title:d_cilicia.holder = {
+# 									NOT = {
+# 										religion = religion:christianity_religion
+# 									}
+# 								}
+# 							}
+# 						}
+# 						save_scope_as = crusade_enemy
+# 					}
+# 					else_if = {
+# 						limit = {		
+# 							AND = {
+# 								exists = title:d_cibyrrhaeot.holder
+# 								title:d_cibyrrhaeot.holder = {
+# 									NOT = {
+# 										religion = religion:christianity_religion
+# 									}
+# 								}
+# 							}
+# 						}
+# 						save_scope_as = crusade_enemy
+# 					}
+		
+# 				title:k_anatolia= {
+# 					save_scope_as = crusade_target
+# 					}
+		
+# 				faith:catholic = {
+# 					religious_head = {
+# 						save_scope_as = pope
+# 					}
+# 				}
+# 				faith:catholic = {
+# 					save_scope_as = catholicism
+# 				}	
+						
+# 				scope:crusade_enemy.faith = {
+# 					save_scope_as = target_faith
+# 				}
+# 				set_global_variable = third_crusade_cyan_anatolia
+		
+# 				scope:catholicism = {
+# 					trigger_event = {
+# 						id = scripted_crusade.0002 ## Conquer Anatolia Event(Third Crusade Cyan)
+# 						days = { 1 2 }
+# 					}
+# 				}
+# 			}
+# 		}
+# 	}		
+
+
+# scripted_crusade.0301 = {
+
+# }
+
+# scripted_crusade.0320 = {
+# 	type = character_event
+# 	title = "ok"
+
+# 	option = {
+
+# 	}
+# }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# scripted_crusade.0401 = {
+
+# }
+
+
+# 	scripted_crusade.0402 = { ## Fourth Crusade
+# 		hidden = yes
+
+# 		immediate = {
+
+# 			title:k_jerusalem= {
+# 				save_scope_as = crusade_target
+# 				}
+
+# 				set_global_variable = {
+# 					name = original_crusade_target
+# 					value = scope:crusade_target
+# 				}
+# 			title:c_jerusalem= {
+# 				every_de_jure_top_liege = {
+# 					save_scope_as = crusade_enemy
+# 				}
+# 			}
+# 			faith:catholic = {
+# 				religious_head = {
+# 					save_scope_as = pope
+# 				}
+# 			}
+# 			faith:catholic = {
+# 				save_scope_as = catholicism
+# 			}	
+				
+# 			scope:crusade_enemy.faith = {
+# 				save_scope_as = target_faith
+# 			}
+		
+			
+
+		
+# 			if = { ## Redirect to Byzantium Check
+# 				limit = {
+# 					exists = title:e_byzantium.holder
+# 				}
+			
+# 				title:e_byzantium = {
+# 					every_claimant = {
+# 						limit = {
+# 							AND = {
+# 								has_trait = ambitious
+# 								OR = {
+# 									has_trait = callous
+# 									has_trait = deceitful
+# 									has_trait = vengeful								
+# 								}			
+# 							}
+# 							is_landed = no
+# 							is_local_player = no
+# 							is_adult = yes
+# 							any_close_family_member = {
+# 								AND = {
+# 									is_landed = yes
+								
+# 									any_held_title = {
+# 										NOR = {
+# 											this = title:e_byzantium
+# 											this = title:c_byzantion
+# 										}
+# 									}
+# 								}
+# 							}
+# 						} 
+# 						save_scope_as = byzantine_claimant
+# 						set_global_variable = byzantine_fourth_crusade_flag
+
+
+# 						scope:catholicism = {
+# 							trigger_event = {
+# 								id = scripted_crusade.0002
+# 								days = { 1 2 }
+# 							}
+# 						}					
+# 					}
+# 				}
+
+# 			}
+
+# 			if = {
+# 				limit = {
+# 					exists = scope:byzantine_claimant
+# 				}
+				
+# 					set_global_variable = {
+# 						name = byzantine_claimant_var
+# 						value = scope:byzantine_claimant
+# 					}
+
+# 					title:k_venice.holder = {
+# 						save_scope_as = doge
+# 					}
+		
+# 						set_global_variable = {
+# 							name = initial_doge
+# 							value = scope:doge
+# 						}	
+				
+				
+# 				scope:doge = {
+# 					add_visiting_courtier = scope:byzantine_claimant			
+# 				}
+# 			}
+
+# 			if = { ## Can also fire if the Byzantines are in currently in a civil war.
+# 				limit = {
+# 					exists = title:e_byzantium.holder
+# 				}
+# 					title:e_byzantium.holder = {
+# 						every_character_war = {
+# 							limit = {
+# 								AND = {
+# 									OR = {
+# 										using_cb = claimant_faction_war
+# 										using_cb = independence_war
+# 										using_cb = liberty_faction_war
+# 									}
+# 									AND = {
+# 										is_defender = title:e_byzantium.holder
+# 										is_war_leader = title:e_byzantium.holder
+# 									}
+# 								}
+# 							}
+# 							save_scope_as = civil_war
+# 						}
+# 					}
+# 				}
+
+# 				if = {
+# 					limit = {
+# 						exists = scope:civil_war
+# 					}
+# 					scope:civil_war = {
+# 						primary_attacker = {
+# 							save_scope_as = byzantine_claimant
+# 						}
+# 					}
+
+# 				scope:byzantine_claimant = {
+# 				add_character_flag = civil_war_leader
+# 			}
+
+# 					set_global_variable = byzantine_fourth_crusade_flag
+# 					scope:catholicism = {
+# 						trigger_event = {
+# 							id = scripted_crusade.0002
+# 							days = { 1 2 }
+# 						}
+# 					}
+
+
+# 				}
+
+
+# 				else_if = { ## If the Byzantine Redirect Checks not met just do a regular crusade		
+# 					scope:catholicism = {
+# 						trigger_event = {
+# 							id = scripted_crusade.0002
+# 							days = { 1 2 }
+# 						}
+# 					}
+# 					set_global_variable = fourth_crusade_pink_jerusalem
+# 				}
+
+# 			}
+# 		}	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			
+
+# 	scripted_crusade.0405 = {
+
+# 		title = {
+# 			first_valid = {
+# 				triggered_desc = {
+# 					trigger = {
+# 						scope:byzantine_claimant = {
+# 							has_character_flag = civil_war_leader
+# 						}
+# 					}
+# 					desc = scripted_crusade.0405.civil_war.title
+					
+# 				}
+
+# 					triggered_desc = {
+# 						trigger = {
+# 							scope:byzantine_claimant = {
+# 								NOT = {
+# 									has_character_flag = civil_war_leader
+# 								}
+# 							}
+# 						}
+# 						desc = scripted_crusade.0405.claimant.title
+# 					}
+# 				}
+# 			}
+# 		desc = {
+# 			first_valid = {
+# 				triggered_desc = {
+# 					trigger = {
+# 						scope:byzantine_claimant = {
+# 							has_character_flag = civil_war_leader
+# 						}
+# 					}
+# 					desc = scripted_crusade.0405.civil_war.desc
+						
+# 				}
+# 				triggered_desc = {
+# 					trigger = {
+# 						scope:byzantine_claimant = {
+# 							NOT = {
+# 								has_character_flag = civil_war_leader
+# 							}
+# 						}
+# 					}
+# 					desc = scripted_crusade.0405.claimant.desc
+# 				}
+# 			}
+# 		}
+
+# 		left_portrait = {
+# 			character = scope:byzantine_claimant
+# 			animation = personality_callous
+
+# 		}
+# 		right_portrait = {
+# 			trigger = {
+# 				scope:byzantine_claimant = {
+# 					NOT = {
+# 						has_character_flag = civil_war_leader
+# 					}
+# 				}
+# 			}
+# 			character = scope:doge
+# 			animation = personality_greedy
+# 		}
+# 		lower_left_portrait = scope:pope
+# 		lower_center_portrait = title:e_byzantium.holder
+# 		lower_right_portrait = scope:crusade_enemy
+# 		theme = scheme
+# 		override_background = {
+# 			trigger = {
+# 				scope:byzantine_claimant = {
+# 					has_character_flag = civil_war_leader
+# 				}
+# 			}
+# 			event_background = army_camp
+# 		}
+
+# 		override_background = {
+# 			trigger = {
+# 				scope:byzantine_claimant = {
+# 					NOT = {
+# 						has_character_flag = civil_war_leader
+# 					}
+# 				}
+# 			}
+# 			event_background = corridor_day
+# 		}
+
+# 		immediate = {
+			
+# 			play_music_cue = "mx_cue_general_crusade_event_2"
+# 		}
+	
+		
+
+# 		option = {
+			
+# 		}
+
+# 	}
+
+# 	# scripted_crusade.0406 = { ## Redirects the crusade the byzantium.
+# 	# 	hidden = yes
+	
+# 	# 	immediate = {
+
+# 	# 		faith:catholic = {
+# 	# 			religious_head = {
+# 	# 				save_scope_as = pope
+# 	# 			}
+# 	# 		}
+# 	# 		scope:doge = {
+# 	# 			if = {
+# 	# 				limit = {
+# 	# 					NOT = {
+# 	# 						has_character_flag = attacking_byzantines
+# 	# 					}
+# 	# 				}
+# 	# 			}
+
+				
+# 	# 			start_war = {
+# 	# 				casus_belli = claim_cb
+# 	# 				target = title:e_byzantium.holder
+# 	# 				claimant = scope:byzantine_claimant
+# 	# 				target_title = title:e_byzantium
+# 	# 			}
+# 	# 			add_character_flag = attacking_byzantines
+# 	# 		}
+
+# 	# 		scope:doge = {
+# 	# 			every_character_war = {
+# 	# 				limit = {
+# 	# 					using_cb = claim_cb
+# 	# 				}
+# 	# 				save_scope_as = fourth_crusade_war			
+# 	# 			}
+# 	# 		}
+# 	# 		trigger_event = scripted_crusade.0407
+# 	# 	}
+# 	# }
+
+
+
+# 	scripted_crusade.0408 = { ## REDIRECTING THE CRUSADE
+# 		scope = ghw
+# 		trigger = {
+# 			has_global_variable = byzantine_fourth_crusade_flag
+# 		}
+# 		hidden = yes
+# 		immediate = {
+
+
+# 			faith:catholic.great_holy_war = {
+# 				set_great_holy_war_target = {
+# 					target_character = title:e_byzantium.holder
+# 					target_title = title:k_thessalonika
+# 				}
+# 			}
+# 				# every_pledged_attacker = {
+# 				# trigger_event = scripted_crusade.0406
+# 				# }
+			
+
+# 		}		
+# 	}
+
+
+
+
+# 	scripted_crusade.0411 = {
+# 		scope = casus_belli
+# 		hidden = yes
+
+# 		trigger = {
+# 			has_global_variable = byzantine_fourth_crusade_flag
+# 		}
+
+
+# 		immediate = {
+# 			remove_global_variable = byzantine_fourth_crusade_flag
+
+# 			title:e_byzantium.holder = { ##Get the current Byzantine Emperor.
+# 				save_scope_as = last_emperor
+# 			}
+
+
+# 			if = { ## If that claimant that was selected to start this whole crusade is still alive, give him the title until he kill him.
+# 				limit = {
+# 					AND = {
+# 						exists = scope:byzantine_claimant
+# 						is_alive = yes
+# 					}
+# 				}
+# 				get_title = title:e_byzantium
+
+# 			}
+# 			title:k_thessalonika.holder = {
+
+# 				get_title = title:e_latin_empire
+# 				destroy_title = title:k_thessalonika
+# 			}
+
+
+# 			title:e_byzantium = {
+# 				every_in_de_facto_hierarchy = {
+# 					if = {
+# 						limit = {
+# 							this = title:d_krete
+# 						}
+# 						every_in_de_jure_hierarchy = {
+# 							add_to_list = greek_islands
+# 						}
+# 					}
+# 					if = {
+# 						limit = {
+# 							this = title:d_cyprus
+# 						}
+# 						every_in_de_jure_hierarchy = {
+# 							add_to_list = greek_islands
+# 						}
+# 					}
+# 					if = {
+# 						limit = {
+# 							this = title:d_aegean_islands
+# 						}
+# 						every_in_de_jure_hierarchy = {
+# 							add_to_list = greek_islands
+# 						}
+# 					}
+# 					if = {
+# 						limit = {
+# 							this = title:c_euboea
+# 						}
+# 						every_in_de_jure_hierarchy = {
+# 							add_to_list = greek_islands
+# 						}
+# 					}
+
+# 					if = {
+# 						limit = {
+# 							this = title:c_naxos
+# 						}
+# 						every_in_de_jure_hierarchy = {
+# 							add_to_list = greek_islands
+# 						}
+# 					}
+# 					if = {
+# 						limit = {
+# 							this = title:c_chios
+# 						}
+# 						every_in_de_jure_hierarchy = {
+# 							add_to_list = greek_islands
+# 						}
+# 					}
+# 					if = {
+# 						limit = {
+# 							this = title:c_rhodos
+# 						}
+# 						every_in_de_jure_hierarchy = {
+# 							add_to_list = greek_islands
+# 						}
+# 					}
+# 					create_title_and_vassal_change = {
+# 						type = revoked
+# 						save_scope_as = change
+# 						add_claim_on_loss = yes
+# 					}
+# 					every_in_list = {
+# 						list = greek_islands
+	
+# 						change_title_holder_include_vassals = {
+# 							holder = title:k_venice.holder
+# 							change = scope:change
+# 						}
+# 					}			
+# 					resolve_title_and_vassal_change = scope:change	
+# 				}
+# 			}
+
+# 			title:e_byzantium = {
+# 				every_in_de_facto_hierarchy = {
+# 					limit = {
+# 						exists = holder
+# 					}
+# 					holder = {
+# 						if = {
+# 							limit = {
+# 								NOT = {
+# 									is_in_list = byz_vassals
+# 								}
+# 							}
+# 							add_to_list = byz_vassals
+# 						}
+# 					}
+					
+# 				}
+# 				every_in_de_jure_hierarchy = {
+# 					limit = {
+# 						exists = holder
+# 						holder = {
+# 							if = {
+# 								limit = {
+# 									NOT = {
+# 										is_in_list = byz_vassals
+# 									}
+# 								}
+# 								remove_from_list = byz_vassals
+# 							}
+# 						}
+# 					}
+# 				}
+# 			}
+# 			every_in_list = {
+# 				list = byz_vassals
+# 				add_character_flag = byzantine_vassal
+# 			}
+
+# 			title:e_byzantium = { ## Flag every character with a claim on the empire.
+# 				every_claimant = {
+# 					add_character_flag = potential_successor 
+# 				}
+# 			}
+
+# 			scope:last_emperor = { ## Kill the Byzantine Emperor.
+# 				death = {
+# 					death_reason = death_murder
+# 				}
+# 			}
+
+# 			global_var:byzantine_claimant_var = { ## Kill the byzantine claimant
+# 				death = {
+# 					death_reason = death_siege
+# 				}
+# 			}
+		
+
+
+# 			title:e_byzantium.holder = {
+# 				destroy_title = title:e_byzantium
+# 			}
+
+			
+# 			scope:last_emperor = { ## Give the heir of the last emperor claims.
+# 					every_child = {
+# 						limit = {
+# 							NOR = {
+# 								has_trait = disinherited
+# 								has_trait = bastard
+# 							}
+# 						}
+# 						add_unpressed_claim = title:e_byzantium
+# 						add_unpressed_claim = title:c_byzantion
+# 						add_character_flag = rightful_heir_byz
+# 					}		
+# 			}
+			
+
+# 			title:e_latin_empire.holder = { ## Trigger flavour event for Latin emperor
+# 				trigger_event = {
+# 					id = scripted_crusade.0415
+# 					days = { 10 20 }
+# 				}
+# 			}
+
+# 			every_ruler = { ## Trigger flavour event for Succession states
+# 				limit = {
+# 					has_character_flag = byzantine_successor	
+# 				}
+# 				trigger_event = scripted_crusade.0415
+# 			}
+
+
+# 			every_ruler = {
+# 				limit = {
+# 					has_character_flag = potential_successor
+# 					NOT = {
+# 						has_character_flag = byzantine_successor
+# 					}
+# 				}
+
+# 				trigger_event = {
+# 					id = scripted_crusade.0414
+# 					days = { 1 14 }
+# 				}
+# 			}
+# 		}
+# 	}
+
+# 		scripted_crusade.0410 = { ## Grab the sacker of constantinople for scripted_crusade.0413 flavour.
+# 			trigger = {
+# 				NOT = {
+# 					has_global_variable = constantinople_sacked
+# 				}
+# 			}
+
+
+# 				immediate = {
+# 					faith:catholic = {
+# 						save_scope_as = catholicism
+# 					}	
+
+# 					if = {
+# 						limit = {
+# 							scope:barony = title:b_constantinople
+# 						}
+# 						add_character_flag = sacker_of_constantinople
+# 						set_global_variable = constantinople_sacked
+
+# 						trigger_event = {
+# 							id = scripted_crusade.0412
+# 							days = { 7 10 }
+# 						} 
+# 					}
+
+# 				}
+
+# 			}
+
+# 			scripted_crusade.0412 = {
+# 				immediate = {
+# 					scope:catholicism.great_holy_war.ghw_war = {
+# 						end_war = attacker
+# 					}	
+# 				}
+# 			}
+			
+
+
+
+# 		scripted_crusade.0413 = { ## Event for Catholic participants after fourth crusade victory
+# 			title = scripted_crusade.0413.title
+# 			desc = scripted_crusade.0413.desc
+# 			theme = crown
+
+# 			immediate = {
+# 				play_music_cue = "mx_cue_illness"
+
+# 				global_var:original_crusade_target = {
+# 					save_scope_as = initial_target
+# 				}
+# 				global_var:initial_doge = {
+# 					save_scope_as = initial_doge
+# 				}
+
+# 				global_var:byzantine_claimant_var = {
+# 					save_scope_as = byzantine_claimant
+# 				}
+
+# 				title:e_latin_empire.holder = {
+# 					save_scope_as = latin_emperor
+# 				}
+# 				every_ruler = {
+# 					limit = {
+# 						has_character_flag = sacker_of_constantinople
+# 					}
+# 					save_scope_as = sacker
+# 				}
+
+# 			}
+
+# 			option = {
+# 				name = scripted_crusade.0413.option	
+# 			}
+# 		}
+
+		
+	
+# 		scripted_crusade.0414 = { ## Event for Byzantine Claimants after Fourth Crusade defeat
+# 			title = scripted_crusade.0414.title
+# 			theme = crown
+# 			desc = scripted_crusade.0414.desc
+
+# 			left_portrait = {
+# 				character = root
+# 				animation = personality_vengeful
+# 			}
+
+# 			immediate = {
+
+# 				title:e_latin_empire.holder = {
+# 					save_scope_as = latin_emperor
+
+# 				}
+
+
+# 				play_music_cue = "mx_cue_negative"
+				
+# 				if = { ## If in Greece or Balkans, create Despotate
+# 					limit = {
+# 						capital_province = {
+# 							OR = {
+# 								geographical_region = ghw_region_greece
+# 								geographical_region = ghw_region_balkans
+# 							}
+# 						}
+
+# 					}
+# 					create_dynamic_title = {
+# 						tier = kingdom
+# 						name = SUCCESSOR_STATE_KINGDOM
+# 					}
+# 				}
+		
+# 				else = {  ## Else create an Empire tier title.
+# 					create_dynamic_title = {
+# 						tier = empire
+# 						name = SUCCESSOR_STATE_EMPIRE
+# 					}
+# 				}
+
+			
+# 				scope:new_title = { ## Sets the COA and Color of the successor state.
+# 					if = {
+# 						limit = {
+# 							NOT = {
+# 								has_global_variable = nicaea_coa
+# 							}
+# 						}
+# 						set_coa = e_nicaea
+# 						set_color_from_title = title:e_nicaea
+# 						set_global_variable = nicaea_coa
+# 					}
+# 					else_if = {
+# 						limit = {
+# 							NOT = {
+# 								has_global_variable = trebizond_coa
+# 							}
+# 						}
+# 						set_coa = e_trebizond
+# 						set_color_from_title = title:e_trebizond
+# 						set_global_variable = trebizond_coa
+# 					}
+# 					else_if = {
+# 						limit = {
+# 							NOR = {
+# 								has_global_variable = anatolia_coa
+# 								exists = title:k_anatolia.holder
+# 							}
+# 						}
+# 						set_coa = k_anatolia
+# 						set_color_from_title = title:e_anatolia
+# 						set_global_variable = anatolia_coa
+# 					}	
+# 					else_if = {
+# 						limit = {
+# 							any_house_member = {
+# 								NOT = {
+# 									has_character_flag = house_flag
+# 								}
+# 							}					
+# 						}
+# 						set_coa = root.house
+# 						add_character_flag = house_flag
+# 						set_color_from_title = root.primary_title
+# 					}
+# 					else = {
+# 						set_coa = root.primary_title
+# 						set_color_from_title = root.primary_title
+# 					}
+# 				}
+
+
+# 				root = {
+# 					every_neighboring_top_liege_realm = {
+# 						this.holder = {
+# 							add_to_list = neighbors
+# 						}
+# 					}
+# 				}
+
+# 				scope:new_title = {
+# 				set_definitive_form = yes
+# 				}
+
+# 			}
+
+# 			option = {
+# 				name = scripted_crusade.0414.option.a
+# 				get_title = scope:new_title
+# 				add_character_flag = byzantine_successor
+				
+# 				hidden_effect = {
+# 					add_pressed_claim = title:c_byzantion
+# 				}
+
+# 				every_in_list = {
+# 					list = neighbors
+# 					trigger_event = {
+# 						id = scripted_crusade.0416
+# 						days = { 30 90 }
+# 					}
+# 				}
+
+# 				ai_chance = {
+# 					base = 50
+# 					modifier = {
+# 						add = -50
+# 						has_trait = content
+# 						has_trait = craven
+# 					}
+# 					modifier = {
+# 						add = -30
+# 						NOT = {
+# 							has_culture_group = culture_group:byzantine_group
+# 						}
+# 					}
+
+# 					modifier = {
+# 						add = 50
+# 						has_trait = ambitious
+# 						has_trait = vengeful
+# 					}
+# 				}
+# 				custom_tooltip = scripted_crusade.0414.option.a.tt
+# 			}
+
+# 			option = {
+# 				name = scripted_crusade.0414.option.b
+# 				ai_chance = {
+# 					base = 50
+# 				}
+
+# 			}
+# 		}
+
+
+# 		scripted_crusade.0416 = {
+# 			title = scripted_crusade.0416.title
+# 			desc = scripted_crusade.0416.desc
+# 			theme = crown
+
+
+# 			left_portrait = {
+# 				character = root
+# 				animation = personality_rational
+# 			}
+# 			right_portrait = {
+# 				character = scope:new_title.holder
+# 				animation = personality_bold
+# 			}
+
+			
+# 			trigger = {
+# 				has_character_flag = byzantine_vassal
+# 				NOR = {
+# 					has_character_flag = byzantine_successor
+# 					has_character_flag = declined_0416
+# 				}
+# 			}
+
+# 			immediate = {
+# 				add_character_flag = declined_0416
+# 				scope:new_title.holder = {
+# 					save_scope_as = successor
+# 				}
+# 			}
+
+# 			option = {
+# 				name = scripted_crusade.0416.option.a
+# 					create_title_and_vassal_change = {
+# 						type = swear_fealty
+# 						save_scope_as = change
+# 						add_claim_on_loss = no
+# 					}
+# 					root = {
+		
+# 						change_liege = {
+# 							liege = scope:new_title.holder
+# 							change = scope:change
+# 						}
+# 					}
+# 					resolve_title_and_vassal_change = scope:change
+
+			
+# 				ai_chance = {
+# 					base = 50
+# 					modifier = {
+# 						add = 25
+# 						AND = {
+# 							root.culture = scope:successor.culture
+# 							root.faith = scope:successor.faith
+# 							NOR = {
+# 								has_trait = ambitious
+# 								highest_held_title_tier >= tier_kingdom
+# 							}
+# 						}
+# 					}
+
+# 					modifier = {
+# 						add = 10
+# 						OR = {
+# 							root.culture = scope:successor.culture
+# 							root.faith = scope:successor.faith
+# 						}
+# 						NOR = {
+# 							has_trait = ambitious
+# 							highest_held_title_tier >= tier_kingdom
+# 						}			
+# 					}
+
+# 					modifier = {
+# 						add = -100
+# 						capital_province = {
+# 							squared_distance = {
+# 								target = scope:successor.capital_province value > 100000
+# 							}
+# 						}
+# 					}
+# 				}
+# 				# custom_tooltip = scripted_crusade.0416.tt
+# 			}
+# 			option = {
+# 				name = scripted_crusade.0416.option.b
+
+# 				ai_chance = {
+# 					base = 50
+
+# 					modifier = {
+# 						add = 35
+# 						has_trait = content
+# 						has_trait = craven
+# 					}
+
+# 					modifier = {
+# 						add = 100
+# 						highest_held_title_tier >= tier_kingdom
+# 					}
+# 				}
+# 				custom_tooltip = scripted_crusade.0416.option.b.tt
+# 			}
+# 		}
+
+
+
+
+
+
+
+# 		## INDIVIDUAL DRIVEN CRUSADES (POST FIFTH CRUSADE)
+
+
+# 		scripted_crusade.0700 = {     ## Grab all eligible rulers for individual crusades         
+# 			hidden = yes
+# 			trigger = {
+# 				NOT = {
+# 					has_global_variable = individual_crusade_in_progress
+# 				}
+# 			}
+# 			immediate = {
+# 				set_global_variable = individual_crusade_in_progress
+# 				every_independent_ruler = { ## Grab all Kings+ that meet these conditions. (todo: exclude iberians.)
+# 					limit = {
+# 						NOT = {
+# 							is_in_list = eligible_rulers
+# 						}
+# 						faith = faith:catholic
+# 						is_adult = yes
+# 						highest_held_title_tier >= tier_kingdom
+# 						is_imprisoned = no
+# 						is_incapable = no
+# 						OR = {
+# 							has_trait = ambitious
+# 							has_trait = zealous
+# 						}
+# 						NOR = {
+# 							has_trait = incapable
+# 							has_trait = cynical
+# 						}
+# 						NOT = {
+# 							has_character_flag = declined_independent_crusade
+# 						}
+# 						capital_province = {
+# 							NOR = {
+# 								geographical_region = world_europe_west_iberia
+# 								geographical_region = world_europe_north
+# 							}
+# 						}
+# 						NOR = {
+# 							has_culture_group = culture_group:iberian_group							
+# 						}
+# 					}
+# 				add_to_list = eligible_rulers
+# 				add_character_flag = eligible_rulers ## so i can see whats going on
+# 				}
+# 				random_in_list = {
+# 					list = eligible_rulers
+# 					trigger_event = scripted_crusade.0701
+# 				}
+
+# 			}
+# 		}
+		
+		
+# 		scripted_crusade.0701 = { ## Character has an event where they have some sort of inner dialogue with themselves about crusading.
+# 			trigger = {
+# 				NOT = {
+# 					has_character_flag = declined_independent_crusade
+# 				}
+# 			}
+			
+		
+# 			title = {
+# 				first_valid = {
+# 					triggered_desc = { ## Study
+# 						trigger = {
+# 							scope:letter = var:a
+# 						}
+# 						desc = scripted_crusade.0701.title.a
+# 					}
+# 					triggered_desc = { ## Throne room
+# 						trigger = {
+# 							scope:letter = var:b
+# 						}
+# 						desc = scripted_crusade.0701.title.b
+# 					}
+# 					triggered_desc = { ## Corridor_night
+# 						trigger = {
+# 							scope:letter = var:c
+# 						}
+# 						desc= scripted_crusade.0701.title.c
+# 					}
+# 				}	
+# 			}
+
+# 			desc = {
+# 				first_valid = {
+# 					triggered_desc = {
+# 						trigger = {
+# 							scope:letter = var:a
+# 						}
+# 						desc = scripted_crusade.0701.desc.a
+# 					}
+# 					triggered_desc = {
+# 						trigger = {
+# 							scope:letter = var:b
+# 						}
+# 						desc = scripted_crusade.0701.desc.b
+# 					}
+# 					triggered_desc = {
+# 						trigger = {
+# 							scope:letter = var:c
+# 						}
+# 						desc = scripted_crusade.0701.desc.c
+# 					}
+
+# 				}
+# 			}
+
+# 				override_background = {
+# 					trigger = {
+# 						scope:letter = var:a
+# 					}
+# 					event_background = study
+# 				}
+				
+# 				override_background = {
+# 					trigger = {	
+# 						scope:letter = var:b			
+# 					}
+# 					event_background = throne_room
+# 				}
+
+				
+# 				override_background = {
+# 					trigger = {
+# 						scope:letter = var:c
+# 					}
+# 					event_background = corridor_night
+# 				}
+
+# 				immediate = {
+# 					# Creating variables and making a list that contains those variables
+# 					# to determine which flavour event the character will get.
+					
+# 					set_variable = {
+# 						name = a
+# 						value = 1
+# 					}
+# 					set_variable = {
+# 						name = b
+# 						value = 2
+# 					}
+# 					set_variable = {
+# 						name = c
+# 						value = 3
+# 					}
+
+# 					var:a = {
+# 						add_to_list = abc
+# 					}
+# 					var:b = {
+# 						add_to_list = abc
+# 					}
+# 					var:c = {
+# 						add_to_list = abc
+# 					}
+# 					random_in_list = {
+# 						list = abc
+# 						save_scope_as = letter
+# 					}
+
+# 				}
+
+# 			option = {
+# 				add_character_flag = ACCEPTED_INDEPENDENT_CRUSADE
+
+# 				name = "option to go on the individual crusade"
+# 				trigger_event = {
+# 					id = scripted_crusade.0702
+# 					days = { 60 90 }
+# 				}
+# 				ai_chance = {
+# 					base = 1000
+# 				}
+# 			}
+		
+
+# 			option = {
+# 				name = "option to decline the individual crusade"
+# 				remove_global_variable = individual_crusade_in_progress
+# 				add_character_flag = declined_independent_crusade
+# 				ai_chance = { ## SO that i can test events, remove when the chain is working.
+# 					base = 50
+
+# 					modifier = {
+# 						is_at_war = yes
+# 						is_imprisoned = yes
+# 						is_incapable = yes
+# 						add = -25
+# 					}
+# 				}
+# 			}
+# 		}
+
+
+# 		scripted_crusade.0702 = { ## Character announces to their council that they will be going on a crusade(in this event they decide where to)
+# 			title = scripted_crusade.0702.title
+# 			theme = crown
+# 			desc = scripted_crusade.0702.desc
+
+# 			left_portrait = {
+# 				character = root
+# 				animation = personality_irrational
+# 			}
+# 			right_portrait = {
+# 				character = scope:right
+# 				animation = schadenfreude
+# 			}
+# 			lower_left_portrait = scope:lower_left
+# 			lower_center_portrait = scope:lower_center
+# 			lower_right_portrait = scope:lower_right
+# 			immediate = {		
+# 				play_music_cue = "mx_cue_general_crusade_event_1"
+
+# 				root = {
+# 					save_scope_as = crusader
+# 				}
+
+# 				## Pooling characters for event fluff
+# 				every_child = {
+# 					limit = {
+# 						NOT = {
+# 							is_in_list = character_pool
+# 						}
+# 						is_adult = yes
+# 						is_imprisoned = no
+# 						is_incapable = no
+# 						is_landed = no
+# 						is_courtier_of = root
+# 						is_male = yes
+# 					}
+# 					add_to_list = character_pool
+# 				}
+
+# 				every_sibling = {
+# 					limit = {
+# 						NOT = {
+# 							is_in_list = character_pool
+# 						}
+# 						is_adult = yes
+# 						is_imprisoned = no
+# 						is_incapable = no
+# 						is_landed = no
+# 						is_courtier_of = root
+# 						is_male = yes
+# 					}
+# 					add_to_list = character_pool
+# 				}
+				
+# 				every_councillor = {
+# 					limit = {
+# 						NOT = {
+# 							is_in_list = character_pool
+# 						}
+# 						is_adult = yes
+# 						is_imprisoned = no
+# 						is_incapable = no
+# 						is_male = yes			
+# 					}
+# 					add_to_list = character_pool
+# 				}
+
+
+# 				every_spouse = {
+# 					limit = {
+# 						NOT = {
+# 							is_in_list = character_pool
+# 						}
+# 						is_adult = yes
+# 						is_imprisoned = no
+# 						is_incapable = no
+# 					}
+# 					add_to_list = character_pool
+# 				}
+
+
+# 				every_courtier = {
+# 					limit = {
+# 						NOT = {
+# 							is_in_list = character_pool
+# 						}
+# 						is_adult = yes
+# 						is_imprisoned = no
+# 						is_incapable = no
+# 						is_male = yes
+# 						OR = {
+# 							is_lowborn = no
+# 							AND = {
+# 								is_lowborn = yes
+# 								is_knight_of = root
+# 							}
+# 						}
+# 					}
+# 					add_to_list = character_pool
+# 				}
+
+# 				random_in_list = {
+# 					list = character_pool
+# 					this = {
+# 						save_scope_as = right
+# 						remove_from_list = character_pool
+# 					}	
+# 				}
+# 				random_in_list = {
+# 					list = character_pool
+# 					this = {
+# 						save_scope_as = lower_left
+# 						remove_from_list = character_pool
+# 					}	
+# 				}
+# 				random_in_list = {
+# 					list = character_pool
+# 					this = {
+# 						save_scope_as = lower_center
+# 						remove_from_list = character_pool
+# 					}	
+# 				}
+# 				random_in_list = {
+# 					list = character_pool
+# 					this = {
+# 						save_scope_as = lower_right
+# 						remove_from_list = character_pool
+# 					}	
+# 				}
+
+
+
+
+				
+# 				## Need to grab all potential crusade targets.
+
+# 			## Is Jerusalem a valid target?
+# 				if = {
+# 					limit = {
+# 						exists = title:k_jerusalem.holder 
+# 					}
+# 					if = {
+# 						limit = {
+# 							OR = {
+# 								NOT = {
+# 									title:c_jerusalem.holder = {
+# 										religion = religion:christianity_religion
+# 									}
+# 								}
+# 								NOT = {
+# 									title:k_jerusalem.holder = {
+# 										religion = religion:christianity_religion
+# 									}
+# 								}
+# 							}
+# 						}
+# 						set_global_variable = jerusalem_county_or_kingdom
+# 					}
+# 				}
+# 				else_if = {
+# 					limit = {
+# 						NOT = {
+# 							exists = title:k_jerusalem.holder
+# 						}
+# 					}
+# 					if = {
+# 						limit = {
+# 							NOT = {
+# 								title:c_jerusalem.holder = {
+# 									religion = religion:christianity_religion
+# 								}
+# 							}
+# 						}
+# 						set_global_variable = jerusalem_county
+# 					}
+# 				}
+# 							## Is Egypt a valid target?
+
+
+# 				if = {
+# 					limit = {
+# 						exists = title:k_egypt.holder 
+# 					}
+# 					if = {
+# 						limit = {
+# 							OR = {
+# 								NOT = {
+# 									title:c_cairo.holder = {
+# 										religion = religion:christianity_religion
+# 									}
+# 								}
+# 								NOT = {
+# 									title:k_egypt.holder = {
+# 										religion = religion:christianity_religion
+# 									}
+# 								}
+# 							}
+# 						}
+# 						set_global_variable = egypt_county_or_kingdom
+# 					}
+# 				}
+# 				else_if = {
+# 					limit = {
+# 						NOT = {
+# 							exists = title:k_egypt.holder
+# 						}
+# 					}
+# 					if = {
+# 						limit = {
+# 							NOT = {
+# 								title:c_cairo.holder = {
+# 									religion = religion:christianity_religion
+# 								}
+# 							}
+# 						}
+# 						set_global_variable = egypt_county
+# 					}
+# 				}
+# 				## Is North Africa a valid target?
+				
+# 				if = {
+# 					limit = {
+# 						exists = title:k_africa.holder 
+# 					}
+# 					if = {
+# 						limit = {
+# 							OR = {
+# 								NOT = {
+# 									title:c_tunis.holder = {
+# 										religion = religion:christianity_religion
+# 									}
+# 								}
+# 								NOT = {
+# 									title:k_africa.holder = {
+# 										religion = religion:christianity_religion
+# 									}
+# 								}
+# 							}
+# 						}
+# 						set_global_variable = africa_county_or_kingdom
+# 					}
+# 				}
+# 				else_if = {
+# 					limit = {
+# 						NOT = {
+# 							exists = title:k_africa.holder
+# 						}
+# 					}
+# 					if = {
+# 						limit = {
+# 							NOT = {
+# 								title:c_tunis.holder = {
+# 									religion = religion:christianity_religion
+# 								}
+# 							}
+# 						}
+# 						set_global_variable = africa_county
+# 					}
+# 				}
+
+				
+# 				# If you are at war with some foe of equal repute you can potentially get them
+# 				# to join you a la richard and philippe.
+
+# 				if = { 
+# 					limit = {
+# 						AND = {
+# 							is_at_war = yes
+# 							is_in_civil_war = no
+# 						}
+# 					}
+# 					random_primary_war_enemy = {
+# 						limit = {
+# 							is_adult = yes
+# 							faith = faith:catholic
+# 							OR = {
+# 								is_independent_ruler = yes
+# 								highest_held_title_tier >= tier_kingdom
+# 							}
+# 						}
+# 						save_scope_as = war_enemy
+# 					}
+# 					scope:war_enemy = {
+# 						every_character_war = {
+# 							if = {
+# 								limit = {
+# 									any_primary_war_enemy = {
+# 										this = root
+# 									}
+# 								}
+# 								save_scope_as = the_war
+# 							}
+# 							save_scope_as = the_war
+
+			
+# 						}
+# 					}
+# 					trigger_event = {
+# 						id = scripted_crusade.0703
+# 						days = { 20 40 }
+# 					}
+# 				}
+
+# 				## Potential to invite neighboring rulers.
+
+# 				every_neighboring_and_across_water_top_liege_realm_owner = {
+# 					limit = {
+# 						is_adult = yes
+# 						is_at_war = no
+# 						NOT = {
+# 							has_relation_rival = root
+# 						}
+# 						highest_held_title_tier >= tier_duchy
+# 						OR = {
+# 							NOR = {
+# 								primary_title = title:k_castille
+# 								primary_title = title:k_leon
+# 								primary_title = title:k_aragon
+# 							}
+# 							NOT = {
+# 								culture_group = culture_group:iberian_group
+# 							}
+# 						}
+# 						faith = faith:catholic
+# 						NOT = {
+# 							has_trait = excommunicated
+# 						}
+# 					}
+# 					add_to_list = crusader_neighbors
+# 				}
+
+
+# 				## Potential to invite any dynasty members which hold land beneath you.
+
+
+
+# 				primary_title = {
+# 					every_in_de_facto_hierarchy = {
+# 						if = {
+# 							limit = {
+# 								this.holder.dynasty = root.dynasty
+# 								this.holder = {
+# 									is_ai = yes
+# 									highest_held_title_tier >= tier_county
+# 									is_imprisoned = no
+# 									is_adult = yes
+# 									is_incapable = no
+# 									faith = faith:catholic
+# 									is_close_or_extended_family_of = scope:crusader
+# 									is_at_war = no
+# 									NOT = {
+# 										has_relation_rival = root
+# 									}
+# 								}
+# 							}
+# 							this.holder = {
+# 								add_to_list = crusader_family
+# 							}
+# 						}
+# 					}
+# 				}
+# 			}
+			
+
+# 			option = {
+# 				name = "jerusalem county or kingdom"
+# 				trigger = {
+# 					AND  = {
+# 						has_global_variable = jerusalem_county_or_kingdom
+# 						NOT = {
+# 							has_global_variable = jerusalem_county
+# 						}
+# 					}
+# 				}
+# 				title:k_jerusalem = {
+# 					save_scope_as = crusade_target
+# 					}
+# 				title:c_jerusalem= {
+# 					every_de_jure_top_liege = {
+# 						save_scope_as = crusade_enemy
+# 					}
+# 				}
+# 				faith:catholic = {
+# 					religious_head = {
+# 						save_scope_as = pope
+# 					}
+# 				}
+# 				faith:catholic = {
+# 					save_scope_as = catholicism
+# 				}	
+					
+# 				scope:crusade_enemy.faith = {
+# 					save_scope_as = target_faith
+# 				}
+
+# 				trigger_event = { ## Starts the Crusade in a Year
+# 					id = scripted_crusade.0711
+# 					days = { 365 366 }
+# 				}
+
+# 				trigger_event = { ## Event to invite a neighboring ruler.
+# 				id = scripted_crusade.0706
+# 				days = { 150 151 }
+# 				}
+
+# 				trigger_event = {
+# 					id = scripted_crusade.0710 ## AI Vassal dynasty member asks to join event.
+# 					days = { 225 256}
+# 				}
+# 				every_player = {
+# 					trigger_event = {
+# 						id = scripted_crusade.0707 ## Player dynasty member vassal gets chance to join
+# 						days = { 1 2 } #test
+# 					}
+# 				}
+# 			}
+			
+# 			# option = {
+# 			# 	name = "jerusalem county"
+# 			# 	trigger = {
+# 			# 		has_global_variable = jerusalem_county
+# 			# 	}
+# 			# 	title:k_jerusalem = {
+# 			# 		save_scope_as = crusade_target
+# 			# 		}
+# 			# 	title:c_jerusalem= {
+# 			# 		every_de_jure_top_liege = {
+# 			# 			save_scope_as = crusade_enemy
+# 			# 		}
+# 			# 	}
+# 			# 	faith:catholic = {
+# 			# 		religious_head = {
+# 			# 			save_scope_as = pope
+# 			# 		}
+# 			# 	}
+# 			# 	faith:catholic = {
+# 			# 		save_scope_as = catholicism
+# 			# 	}	
+					
+# 			# 	scope:crusade_enemy.faith = {
+# 			# 		save_scope_as = target_faith
+# 			# 	}
+
+# 			# trigger_event = { ## Event to invite a neighboring ruler.
+# 			# 	id = scripted_crusade.0706
+# 			# 	days = { 150 151 }
+# 			# }
+
+# 			# trigger_event = {
+# 			# 	id = scripted_crusade.0710 ## AI Vassal dynasty member asks to join event.
+# 			# 	days = { 225 256}
+# 			# }
+# 			# every_player = {
+# 			# 	trigger_event = {
+# 			# 		id = scripted_crusade.0707 ## Player dynasty member vassal gets chance to join
+# 			# 		days = { 290 310 }
+# 			# 	}
+# 			# }
+
+				
+# 			# }
+			
+# 			# option = {
+# 			# 	name = "egypt county or kingdom"
+# 			# 	trigger = {
+# 			# 		AND  = {
+# 			# 			has_global_variable = egypt_county_or_kingdom
+# 			# 			NOT = {
+# 			# 				has_global_variable = egypt_county
+# 			# 			}
+# 			# 		}
+# 			# 	}
+# 			# 	title:k_egypt= {
+# 			# 		save_scope_as = crusade_target
+# 			# 		}
+# 			# 	title:c_cairo= {
+# 			# 		every_de_jure_top_liege = {
+# 			# 			save_scope_as = crusade_enemy
+# 			# 		}
+# 			# 	}
+# 			# 	faith:catholic = {
+# 			# 		religious_head = {
+# 			# 			save_scope_as = pope
+# 			# 		}
+# 			# 	}
+# 			# 	faith:catholic = {
+# 			# 		save_scope_as = catholicism
+# 			# 	}	
+					
+# 			# 	scope:crusade_enemy.faith = {
+# 			# 		save_scope_as = target_faith
+# 			# 	}
+
+# 			# 	trigger_event = { ## Event to invite a neighboring ruler.
+# 			# 	id = scripted_crusade.0706
+# 			# 	days = { 150 151 }
+# 			# }
+
+# 			# trigger_event = {
+# 			# 	id = scripted_crusade.0710 ## AI Vassal dynasty member asks to join event.
+# 			# 	days = { 225 256}
+# 			# }
+# 			# every_player = {
+# 			# 	trigger_event = {
+# 			# 		id = scripted_crusade.0707 ## Player dynasty member vassal gets chance to join
+# 			# 		days = { 290 310 }
+# 			# 	}
+# 			# }
+
+
+			
+# 			# }
+			
+# 			# option = {
+# 			# 	name = "egypt county"
+# 			# 	trigger = {
+# 			# 		has_global_variable = egypt_county
+# 			# 	}
+# 			# 	title:k_egypt = {
+# 			# 		save_scope_as = crusade_target
+# 			# 		}
+# 			# 	title:c_cairo= {
+# 			# 		every_de_jure_top_liege = {
+# 			# 			save_scope_as = crusade_enemy
+# 			# 		}
+# 			# 	}
+# 			# 	faith:catholic = {
+# 			# 		religious_head = {
+# 			# 			save_scope_as = pope
+# 			# 		}
+# 			# 	}
+# 			# 	faith:catholic = {
+# 			# 		save_scope_as = catholicism
+# 			# 	}	
+					
+# 			# 	scope:crusade_enemy.faith = {
+# 			# 		save_scope_as = target_faith
+# 			# 	}
+
+# 			# trigger_event = { ## Event to invite a neighboring ruler.
+# 			# 	id = scripted_crusade.0706
+# 			# 	days = { 150 151 }
+# 			# }
+
+# 			# trigger_event = {
+# 			# 	id = scripted_crusade.0710 ## AI Vassal dynasty member asks to join event.
+# 			# 	days = { 225 256}
+# 			# }
+# 			# every_player = {
+# 			# 	trigger_event = {
+# 			# 		id = scripted_crusade.0707 ## Player dynasty member vassal gets chance to join
+# 			# 		days = { 290 310 }
+# 			# 	}
+# 			# }
+
+
+			
+# 			# }
+			
+# 			# option = {
+# 			# 	name = "africa county or kingdom"
+# 			# 	trigger = {
+# 			# 		AND  = {
+# 			# 			has_global_variable = africa_county_or_kingdom
+# 			# 			NOT = {
+# 			# 				has_global_variable = africa_county
+# 			# 			}
+# 			# 		}
+
+# 			# 	}
+# 			# 	title:k_africa = {
+# 			# 		save_scope_as = crusade_target
+# 			# 		}
+# 			# 	title:c_tunis = {
+# 			# 		every_de_jure_top_liege = {
+# 			# 			save_scope_as = crusade_enemy
+# 			# 		}
+# 			# 	}
+# 			# 	faith:catholic = {
+# 			# 		religious_head = {
+# 			# 			save_scope_as = pope
+# 			# 		}
+# 			# 	}
+# 			# 	faith:catholic = {
+# 			# 		save_scope_as = catholicism
+# 			# 	}	
+					
+# 			# 	scope:crusade_enemy.faith = {
+# 			# 		save_scope_as = target_faith
+# 			# 	}
+
+# 			# trigger_event = { ## Event to invite a neighboring ruler.
+# 			# 	id = scripted_crusade.0706
+# 			# 	days = { 150 151 }
+# 			# }
+
+# 			# trigger_event = {
+# 			# 	id = scripted_crusade.0710 ## AI Vassal dynasty member asks to join event.
+# 			# 	days = { 225 256}
+# 			# }
+# 			# every_player = {
+# 			# 	trigger_event = {
+# 			# 		id = scripted_crusade.0707 ## Player dynasty member vassal gets chance to join
+# 			# 		days = { 290 310 }
+# 			# 	}
+# 			# }
+
+
+		
+# 			# }
+			
+# 			# option = {
+# 			# 	name = "africa county"
+# 			# 	trigger = {
+# 			# 		has_global_variable = africa_county
+# 			# 	}
+# 			# 	title:k_africa = {
+# 			# 		save_scope_as = crusade_target
+# 			# 		}
+# 			# 	title:c_tunis= {
+# 			# 		every_de_jure_top_liege = {
+# 			# 			save_scope_as = crusade_enemy
+# 			# 		}
+# 			# 	}
+# 			# 	faith:catholic = {
+# 			# 		religious_head = {
+# 			# 			save_scope_as = pope
+# 			# 		}
+# 			# 	}
+# 			# 	faith:catholic = {
+# 			# 		save_scope_as = catholicism
+# 			# 	}	
+					
+# 			# 	scope:crusade_enemy.faith = {
+# 			# 		save_scope_as = target_faith
+# 			# 	}
+
+# 			# trigger_event = { ## Event to invite a neighboring ruler.
+# 			# 	id = scripted_crusade.0706
+# 			# 	days = { 150 151 }
+# 			# }
+
+# 			# trigger_event = {
+# 			# 	id = scripted_crusade.0710 ## AI Vassal dynasty member asks to join event.
+# 			# 	days = { 225 256}
+# 			# }
+# 			# every_player = {
+# 			# 	trigger_event = {
+# 			# 		id = scripted_crusade.0707 ## Player dynasty member vassal gets chance to join
+# 			# 		days = { 290 310 }
+# 			# 	}
+# 			# }
+
+
+# 			# }	
+# 		}
+
+# 		scripted_crusade.0703 = { ## Event to decide whether or not to ask the war enemy to join your crusade
+
+# 			trigger = {
+# 				scope:the_war = {
+# 					NOT = {
+# 						using_cb = depose_war #Some wars have too much at stake for a reconcilitation such as this to be plausible.
+# 					}
+# 				}
+# 			}
+
+# 			title = scripted_crusade.0703.title
+# 			desc = {
+# 				first_valid = {
+# 					triggered_desc = {
+# 						trigger = {
+# 							exists = var:leading_troops
+# 						}
+# 						desc = scripted_crusade.0703.desc.a
+# 					}
+# 					desc = scripted_crusade.0703.desc.b
+# 				}
+# 			}
+# 			theme = faith
+	
+# 			left_portrait = {
+# 				character = root
+# 				animation = worry
+# 			}
+# 			lower_right_portrait = scope:war_enemy
+
+# 			override_background = {
+# 				trigger = {
+# 					exists = var:leading_troops
+# 				}
+# 				event_background = army_camp
+# 			}
+# 			override_background = {
+# 				event_background = temple
+# 			}
+			
+# 			immediate = {
+			
+# 				if = {
+# 					limit = {
+# 						is_commanding_army = yes
+# 					}
+# 					set_variable = {
+# 						name = leading_troops
+# 						value = yes
+# 					}
+# 					play_music_cue = "mx_cue_marriage"
+					
+# 				}
+
+# 				else = {
+# 					play_music_cue = "mx_cue_touching_moment"
+
+# 				}
+# 			}
+
+# 			option = {
+# 				name = scripted_crusade.0703.option.a
+# 				scope:war_enemy = {
+# 					trigger_event = scripted_crusade.0704
+# 				}
+
+# 			}
+# 			option = {
+# 				name = scripted_crusade.0703.option.b
+# 			}
+
+# 		}
+
+# 		scripted_crusade.0704 = { ## Event for the crusader's enemy to decide what to do.
+# 			title = scripted_crusade.0704.title
+# 			desc = scripted_crusade.0704.desc
+# 			theme = crown
+
+# 			override_background = {
+# 				trigger = {
+# 					exists = var:leading_troops2		
+# 				}
+# 				event_background = army_camp
+# 			}
+
+# 			immediate = {
+# 				if = {
+# 					limit = {
+# 						is_commanding_army = yes
+# 					}
+# 					set_variable = {
+# 						name = leading_troops2
+# 						value = yes
+# 					}
+# 					play_music_cue = "mx_cue_marriage"
+# 				}
+# 				else = {
+# 					play_music_cue = "mx_cue_ck3_vocal_maintheme"
+# 				}
+
+
+# 			}
+			
+
+# 			option = {
+# 				name = scripted_crusade.0704.option.a
+
+# 				add_truce_both_ways = {
+# 					character = scope:crusader
+# 					days = 1825
+# 					override = yes
+# 					name = TRUCE_GRANT_INDEPENDENCE
+# 				}
+					
+# 				add_character_flag = pledged_to_crusade
+# 				add_character_flag = crusader_good
+
+# 				scope:crusader = {
+# 					trigger_event = {
+# 						id = scripted_crusade.0705
+# 						days = { 30 31 }
+# 					}
+# 				}
+
+# 				ai_chance = {
+# 					base = 100 ## test
+# 				}
+
+
+				
+# 			}
+
+# 			option = {
+# 				name = scripted_crusade.0704.option.b
+# 				scope:the_war = {
+# 					end_war = white_peace
+# 				}
+# 				add_character_flag = crusader_neutral
+
+
+# 				scope:crusader = {
+# 					trigger_event = scripted_crusade.0705
+# 				}
+
+# 			}
+
+# 			option = {
+# 				name = scripted_crusade.0704.option.c
+
+# 				add_character_flag = crusader_bad
+
+# 				scope:crusader = {
+# 					trigger_event = scripted_crusade.0705
+# 				}
+
+# 				ai_chance = {
+# 					base = 0 ##test
+# 				}
+
+# 			}
+			
+
+
+# 		}
+
+
+# 		scripted_crusade.0705 = { ##Receive a letter from your enemy with his response to your proposal
+# 			type = letter_event
+# 			opening = {
+# 				desc = scripted_crusade.0705.opening.a
+# 			}
+# 			desc = scripted_crusade.0705.desc.a
+# 			sender = scope:war_enemy
+
+# 			option = {
+# 				name = scripted_crusade.0705.option.a
+# 				trigger = {
+# 					scope:war_enemy = {
+# 						has_character_flag = crusader_good
+# 					}
+# 				}
+# 				hidden_effect = {
+	
+# 					set_relation_potential_friend = scope:war_enemy
+
+# 				}
+# 				custom_tooltip = scripted_crusade.0705.tt.a
+
+# 			}
+# 			option = {
+# 				name = scripted_crusade.0705.option.b
+# 				trigger = {
+# 					scope:war_enemy = {
+# 						has_character_flag = crusader_neutral
+# 					}
+# 				}
+# 				custom_tooltip = scripted_crusade.0705.tt.b
+
+# 			}
+# 			option = {
+# 				name = scripted_crusade.0705.option.c
+# 				trigger = {
+# 					scope:war_enemy = {
+# 						has_character_flag = crusader_bad
+# 					}
+# 				}
+# 				custom_tooltip = scripted_crusade.0705.tt.c
+
+# 			}		
+# 		}
+
+		
+# 		scripted_crusade.0706 = { ## Should I invite a neighbor?
+
+# 			#council meeting, one of your councillors recommends several neighbors.			
+# 			title = {
+# 				first_valid = {
+# 					triggered_desc = {
+# 						trigger = {
+# 							is_at_war = yes
+# 							is_commanding_army = yes
+# 						}
+# 						desc = scripted_crusade.0706.title.a
+# 					}
+# 					desc = scripted_crusade.006.title.b
+# 				}
+# 			}
+# 			desc = {
+# 				first_valid = {
+# 					triggered_desc = {
+# 						trigger = {
+# 							is_at_war = yes
+# 							is_commanding_army = yes
+# 						}
+# 						desc = scripted_crusade.0706.desc.a
+# 					}
+# 					desc = scripted_crusade.0706.desc.b
+
+# 				}
+# 			}
+# 			theme = faith
+# 			left_portrait = {
+# 				character = root
+# 				animation = worry
+# 			}
+# 				right_portrait = {
+# 					character = scope:councillor
+# 					animation = personality_honorable
+# 				}
+
+# 			lower_left_portrait = scope:crusader_neighbor1
+# 			lower_center_portrait = scope:crusader_neighbor2
+# 			lower_right_portrait = scope:crusader_neighbor3
+
+# 			override_background = {
+# 				trigger = {
+# 					is_at_war = yes
+# 					is_commanding_army = yes
+# 				}
+# 				event_background = army_camp
+# 			}
+
+# 			override_background = {
+# 				event_background = study
+# 			}
+
+# 			trigger = {
+# 				list_size = {
+# 					name = crusader_neighbors
+# 					value > 0
+# 				}
+# 			}
+# 			immediate = {
+
+# 				if = {
+# 					limit = {
+# 						is_at_war = yes
+# 						is_commanding_army = yes
+# 					}
+# 					every_martial_councillor = {
+# 						limit = {
+# 							is_alive = yes
+# 							is_imprisoned = no
+# 							is_incapable = no
+# 						}
+# 						save_scope_as = councillor
+# 					}
+# 				}
+# 				else = {
+# 					every_diplomacy_councillor = {
+# 						limit = {
+# 							is_alive = yes
+# 							is_imprisoned = no
+# 							is_incapable = no
+# 						}
+# 						save_scope_as = councillor
+# 					}
+# 				}
+
+
+				
+
+# 				random_in_list = {
+# 					list = crusader_neighbors
+# 					save_scope_as = crusader_neighbor1
+# 					remove_from_list = crusader_neighbors
+# 				}
+# 				random_in_list = {
+# 					list = crusader_neighbors
+# 					save_scope_as = crusader_neighbor2
+# 					remove_from_list = crusader_neighbors
+# 				}
+# 				random_in_list = {
+# 					list = crusader_neighbors
+# 					save_scope_as = crusader_neighbor3
+# 					remove_from_list = crusader_neighbors
+# 				}
+# 			}
+
+
+
+
+
+
+
+
+# 			option = {
+# 				trigger = {
+# 					exists = scope:crusader_neighbor1
+# 				}
+
+# 				name = scripted_crusade.0706.option.a
+# 				scope:crusader_neighbor1 = {
+# 					trigger_event = {
+# 						id = scripted_crusade.0708		
+# 						days = { 5 7 }
+# 					}		
+# 				}
+# 			}
+
+# 			option = {
+# 				trigger = {
+# 					exists = scope:crusader_neighbor2
+# 				}
+# 				name = scripted_crusade.0706.option.b
+# 				scope:crusader_neighbor2 = {
+# 					trigger_event = {
+# 						id = scripted_crusade.0708		
+# 						days = { 5 7 }
+# 					}					
+# 				}
+# 			}
+
+			
+
+# 			option = {
+# 				trigger = {
+# 					exists = scope:crusader_neighbor3
+# 				}
+# 				name = scripted_crusade.0706.option.c
+# 				scope:crusader_neighbor3 = {
+# 					trigger_event = {
+# 						id = scripted_crusade.0708		
+# 						days = { 5 7 }
+# 					}					
+# 				}
+# 			}
+
+# 			option = {
+# 				name = scripted_crusade.0706.option.d
+# 				add_prestige = 500
+# 			}
+# 		}
+
+
+# 		scripted_crusade.0707 = { ## Event for family member PLAYER.
+# 			type = letter_event
+# 			opening = {
+# 				desc = scripted_crusade.0707.opening
+# 			}
+# 			desc = scripted_crusade.0707.desc
+
+# 			sender = scope:crusader
+
+	
+# 			trigger = {
+# 				AND = {
+# 					NOR = {
+# 						root = scope:crusader
+# 						has_character_flag = pledged_to_crusade
+# 						is_in_list = crusader_family
+# 					}
+# 					is_ai = no
+# 					dynasty = scope:crusader.dynasty
+# 					target_is_liege_or_above = scope:crusader
+
+# 				}
+# 			}
+
+# 			immediate = {
+# 				set_variable = {
+# 					name = one_quarter_yearly_income
+# 					value = {
+# 						value = yearly_character_income
+# 						multiply = 0.25
+# 				}
+
+# 			}
+# 				var:one_quarter_yearly_income = {
+# 					save_scope_as = gold_amount
+# 				}
+
+# 				primary_title = {
+# 					save_scope_as = primary_title
+# 				}
+# 			}
+
+
+# 			option = {
+# 				name = scripted_crusade.0707.option.a
+# 				add_character_flag = pledged_to_crusade
+# 			}
+# 			option = {
+# 				name = scripted_crusade.0707.option.b
+
+# 				pay_short_term_gold = {
+# 					target = scope:crusader
+# 					gold = var:one_quarter_yearly_income
+# 				}
+
+# 			}
+# 			option = {
+# 				name = scripted_crusade.0707.option.c
+# 			}
+# 		}
+
+# 		scripted_crusade.0708 = { ## EVENT WHERE NEIGHBORING RULER DECIDES WHETHER OR NOT TO JOIN
+
+# 			type = letter_event
+# 			opening = {
+# 				desc = scripted_crusade.0708.opening
+# 			}
+# 			desc = scripted_crusade.0708.desc
+# 			sender = scope:crusader
+
+# 			immediate = {
+# 				save_scope_as = crusader_neighbor
+# 				set_variable = {
+# 					name = one_quarter_yearly_income
+# 					value = {
+# 						value = yearly_character_income
+# 						multiply = 0.25
+# 					}
+# 				}
+# 			}
+		
+
+
+# 			option = { ## joins
+# 			name = scripted_crusade.0708.option.a
+# 				trigger = {
+# 					is_adult = yes
+# 					is_imprisoned = no
+# 					is_at_war = no
+# 				}
+
+# 				add_character_flag = pledged_to_crusade
+# 				scope:crusader = {
+# 					trigger_event = {
+# 						id = scripted_crusade.0709
+# 						days = { 14 21 }
+# 					}
+# 				}
+
+
+# 				ai_chance = {
+# 					base = 10
+# 					modifier = {
+# 						add = 10
+# 						has_trait = ambitious
+# 						has_trait = brave
+# 						has_trait = zealous
+# 					}
+# 					modifier = {
+# 						add = 5
+# 						max_military_strength < scope:crusader.max_military_strength
+# 					}
+# 					modifier = {
+# 						add = 15
+# 						has_relation_friend = scope:crusader
+# 						has_relation_best_friend = scope:crusader
+# 					}
+# 					modifier = {
+# 						add = 25
+# 						is_allied_to = scope:crusader
+# 					}
+# 				}
+# 			}
+
+# 			option = { ## gives gold
+# 				name = scripted_crusade.0708.option.b
+
+
+
+# 				pay_short_term_gold = {
+# 					target = scope:crusader
+# 					gold = var:one_quarter_yearly_income
+# 				}
+
+
+# 				hidden_effect = {
+# 					set_relation_potential_friend = scope:crusader
+# 					add_character_flag = gave_gold_crusade
+
+# 					scope:crusader = {
+# 						trigger_event = {
+# 							id = scripted_crusade.0709
+# 							days = { 14 21 }
+# 						}
+# 					}
+# 				}
+
+# 				ai_chance = {
+# 					base = 10
+# 					modifier = {
+# 						add = -5
+# 						has_trait = greedy
+
+# 					}
+# 					modifier = {
+# 						add = 5
+# 						has_trait = zealous
+# 						has_trait = content
+# 						has_trait = craven
+# 					}
+# 					modifier = {
+# 						add = 15
+# 						has_trait = craven
+# 						has_trait = generous
+# 						has_relation_friend = scope:crusader
+# 						has_relation_best_friend = scope:crusader
+# 					}					
+# 				}
+
+
+
+
+# 			}
+# 			option = { ## declines
+# 			name = scripted_crusade.0708.option.c
+# 				scope:crusader = {
+# 					trigger_event = {
+# 						id = scripted_crusade.0709
+# 						days = { 14 21 }
+# 					}
+
+# 				}
+# 				add_character_flag = declined_to_join
+
+# 				ai_chance = {
+# 					base = 10
+# 					modifier = {
+# 						add = 10
+# 						is_at_war = yes
+# 					}
+# 					modifier = {
+# 						has_trait = content
+# 						has_trait = craven
+# 						has_trait = cynical
+# 						has_trait = lazy
+# 						add = 2
+# 					}
+# 					modifier = {
+# 						max_military_strength > scope:crusader.max_military_strength
+# 						add = 5
+# 					}
+# 					modifier = {
+# 						highest_held_title_tier > scope:crusader.highest_held_title_tier
+# 						add = 15
+# 					}
+# 					modifier = {
+# 						has_relation_rival = scope:crusader
+# 						add = 1000
+# 					}
+# 				}
+# 			}
+		
+# 		}
+
+# 		scripted_crusade.0709 = { ##make letter event, notified of neighbors response.
+# 			type = letter_event
+# 			opening = {
+# 				desc = scripted_crusade.0709.opening
+# 			}
+# 			desc = {
+# 				first_valid = {
+# 					triggered_desc = {
+# 						trigger = {
+# 							scope:crusader_neighbor = {
+# 								has_character_flag = pledged_to_crusade
+# 							}
+# 						}
+# 						desc = scripted_crusade.0709.desc.a
+# 					}
+# 					triggered_desc = {
+# 						trigger = {
+# 							scope:crusader_neighbor = {
+# 								has_character_flag = gave_gold_crusade
+# 							}
+# 						}
+# 						desc =scripted_crusade.0709.desc.b
+# 					}
+# 					desc = scripted_crusade.0709.desc.c
+# 				}
+# 			}
+# 			sender = scope:crusader_neighbor
+
+# 			option = {
+# 				name = scripted_crusade.0709.option.a
+# 				trigger = {
+# 					scope:crusader_neighbor = {
+# 						has_character_flag = pledged_to_crusade
+# 					}
+# 				}
+# 				custom_tooltip = scripted_crusade.0709.option.a.tt
+
+# 			}
+# 			option = {
+# 				name = scripted_crusade.0709.option.b
+# 				trigger = {
+# 					scope:crusader_neighbor = {
+# 						has_character_flag = gave_gold_crusade
+# 					}
+# 				}
+# 				custom_tooltip = scripted_crusade.0709.option.b.tt
+
+# 			}
+# 			option = {
+# 				name = scripted_crusade.0709.option.c
+# 				trigger = {
+# 					scope:crusader_neighbor = {
+# 						has_character_flag = declined_to_join
+# 					}
+# 				}
+# 				custom_tooltip = scripted_crusade.0709.option.c.tt
+
+# 			}
+# 		}
+
+# 		scripted_crusade.0710 = { ## Dynasty member asks to join the crusade.
+		
+# 			title = {
+# 				first_valid = {
+# 					triggered_desc = {
+# 						trigger = {
+# 							is_at_war = yes
+# 							is_commanding_army = yes
+# 						}
+# 						desc = scripted_crusade.0710.title.a
+# 					}
+# 					desc = scripted_crusade.0710.title.b
+# 				}
+# 			}
+# 			desc = {
+# 				first_valid = {
+# 					triggered_desc = {
+# 						trigger = {
+# 							is_at_war = yes
+# 							is_commanding_army = yes
+# 						}
+# 						desc = scripted_crusade.0710.desc.a
+# 					}
+# 					triggered_desc = {
+# 						trigger = {
+# 							is_commanding_army = no
+# 							scope:family_member = {
+# 								is_councillor_of = root
+# 							}
+# 						}
+# 						desc = scripted_crusade.0710.desc.b
+# 					}		
+# 					desc = scripted_crusade.0710.desc.c
+# 				}
+# 			}
+
+
+# 			left_portrait = {
+# 				character = scope:family_member
+# 				animation = personality_greedy
+# 			}
+# 			right_portrait = {
+# 				character = root
+# 				animation = personality_bold
+# 			}
+# 			theme = faith
+# 			override_background = {
+# 				trigger = {
+# 					is_at_war = yes
+# 					is_commanding_army = yes
+# 				}
+# 				event_background = wilderness_scope
+# 			}
+# 			override_background = {
+# 				event_background = council_chamber
+# 			}
+
+# 			trigger = {
+# 				list_size = {
+# 					name = crusader_family
+# 					value > 0
+# 				}
+
+# 			}
+
+# 				immediate = {
+
+# 					## For flavour
+
+# 					if = {
+# 						limit = {
+# 							is_commanding_army = no
+# 						}
+# 						random_councillor = {
+# 							limit = {
+# 								NOT = {
+# 									is_spouse_of = scope:crusader
+# 								}
+# 							}
+# 							save_scope_as = councillor
+# 						}				
+# 					}
+
+# 					if = {
+# 						limit = {
+# 							any_in_list = {
+# 								list = crusader_family
+# 								highest_held_title_tier >= tier_duchy
+# 							}
+# 						}
+# 						random_in_list = {
+# 							list = crusader_family
+# 							limit = {
+# 								this = {
+# 									highest_held_title_tier >= tier_duchy
+# 								}
+# 							}
+# 							save_scope_as = family_member
+# 						}
+# 					}
+
+# 					else_if = {
+# 						limit = {
+# 							any_in_list = {
+# 								list = crusader_family
+# 								highest_held_title_tier >= tier_county
+# 							}
+# 						}
+# 						random_in_list = {
+# 							list = crusader_family
+# 							limit = {
+# 								this = {
+# 									highest_held_title_tier >= tier_county
+# 								}
+# 							}
+# 							save_scope_as = family_member
+# 						}
+# 					}
+					
+
+# 			}
+
+# 			option = {
+# 				name = scripted_crusade.0710.option.a
+
+# 				scope:family_member = {
+# 					add_character_flag = pledged_to_crusade
+# 				}
+
+# 			}
+# 			option = {
+# 				trigger = {
+# 					is_at_war = yes
+# 					is_commanding_army = yes
+# 				}
+# 				name = scripted_crusade.0710.option.b
+# 				add_prestige = 300
+
+# 			}
+# 			option = {
+# 				trigger = {
+# 					AND = {
+# 						OR = {
+# 							is_commanding_army = no
+# 						}
+# 						NOT = {
+# 							scope:family_member = {
+# 								is_councillor_of = root
+# 							}
+# 						}
+# 					}
+					
+
+# 				}
+# 				name = scripted_crusade.0710.option.c
+# 				add_prestige = 300
+# 			}
+
+# 			option = {
+# 				trigger = {
+# 					is_commanding_army = no
+# 					scope:family_member = {
+# 						is_councillor_of = root
+# 					}
+# 				}
+# 				name = scripted_crusade.0710.option.d
+# 				add_prestige = 300
+# 			}
+# 		}
+		
+
+# 		scripted_crusade.0711 = { ## Starts the crusade war and calls in anyone who promised to join.
+# 			title = scripted_crusade.0711.title
+# 			desc = scripted_crusade.0711.desc
+# 			theme = war
+# 			left_portrait = {
+# 				character = scope:your_knight
+# 				animation = war_attacker
+# 			}
+
+# 			right_portrait = {
+# 				character = root
+# 				animation = war_attacker
+# 			}
+			
+# 			override_background = {
+# 				event_background = courtyard
+# 			}
+
+# 			immediate = {
+
+# 				play_music_cue = "mx_cue_general_crusade_event_1"
+
+# 				random_knight = {
+# 					limit = {
+# 						is_imprisoned = no
+# 						is_alive = yes
+# 						is_ai = yes
+# 						NOT = {
+# 							has_character_flag = pledged_to_crusade
+# 						}
+# 					}
+# 					save_scope_as = your_knight
+
+# 				}
+
+
+				
+
+# 				start_war = {  # Starts the crusade
+# 					casus_belli = religious_war
+# 					target = scope:crusade_enemy
+# 					target_title = scope:crusade_target
+# 				}
+# 				scope:crusade_target = { 
+# 					set_variable = crusade_target
+# 				}
+			
+# 				every_character_war = { # Saves the crusade scope
+# 					limit = {
+# 						AND = {
+# 							using_cb = religious_war
+# 							any_war_defender = {
+# 								this = scope:crusade_enemy
+# 							}
+# 						}
+# 					}
+# 						save_scope_as = crusade_war
+# 				}
+				
+# 				every_ruler = {
+# 					limit = {
+# 						has_character_flag = pledged_to_crusade
+# 					}
+# 					add_to_list = pledges
+# 				}
+
+# 				every_in_list = { #Flavour event for those who pledged.
+# 					list = pledges
+# 					trigger_event = scripted_crusade.0712 
+# 				}
+
+# 				every_ruler = { #Flavour event for all other relevant characters.
+# 					trigger_event = scripted_crusade.0713 
+# 				}
+# 			}
+
+# 			option = {
+# 				name = scripted_crusade.0711.option
+# 			}
+# 		}
+
+
+
+
+
+
+# 		scripted_crusade.0712 = { #Flavour Event For Any Pledged Characters(They also join the crusade here.)
+# 			type = letter_event
+# 			opening = {
+# 				desc = scripted_crusade.0712.opening
+# 			}
+# 			desc = scripted_crusade.0712.desc
+# 			sender = scope:crusader
+			
+
+# 			trigger = {
+# 				is_in_list = pledges
+# 			}
+
+# 			immediate = {
+# 				play_music_cue = "mx_cue_general_crusade_event_1"
+			
+# 				random_knight = {
+# 					limit = {
+# 						is_imprisoned = no
+# 						is_alive = yes
+# 						is_ai = yes
+# 							NOT = {
+# 								has_character_flag = pledged_to_crusade
+# 							}
+# 						}
+# 						save_scope_as = your_knight
+# 					}
+				
+# 				scope:crusade_war = {
+# 					limit = {
+# 						NOT = {
+# 							is_participant_in_war = scope:crusade_war
+# 						}
+# 					}
+# 					add_attacker = root
+# 				}
+# 			}
+
+# 				option = {
+# 					name = scripted_crusade.0712.option
+# 				}
+# 			} 
+
+
+# 		scripted_crusade.0713 = { #Flavour event for all other relevant characters.
+			
+# 			title = {
+# 				first_valid = {
+# 					triggered_desc ={
+# 						trigger = {
+# 							religion = religion:christianity_religion
+# 						}
+# 						desc = scripted_crusade.0713.title.a
+# 					}
+# 					desc = scripted_crusade.0713.title.b
+# 				}
+# 			}
+
+# 			desc = {
+# 				first_valid = {
+# 					triggered_desc = {
+# 						trigger = {
+# 							religion = religion:christianity_religion
+# 						}
+# 						desc = scripted_crusade.0713.desc.a
+# 					}
+# 					desc = scripted_crusade.0713.desc.b
+# 				}
+# 			}
+# 			theme = war
+			
+				
+# 				left_portrait = {
+# 					character = scope:crusader
+# 					animation = personality_honorable
+# 				}
+
+
+# 				lower_right_portrait = scope:right
+
+
+# 					trigger = {
+# 						AND = {
+# 							OR = {
+# 								religion = religion:christianity_religion
+# 								religion = scope:crusade_enemy.faith.religion
+# 							}
+# 							NOR = {
+# 								is_defender_in_war = scope:crusade_war
+# 								is_attacker_in_war = scope:crusade_war
+# 							}
+# 						}
+# 					}
+
+# 					override_background = {
+# 						trigger = {
+# 							religion = religion:christianity_religion
+
+# 						}
+# 						event_background = courtyard
+# 					}
+# 					override_background = {
+# 						trigger = {
+# 							religion = scope:crusade_enemy.faith.religion
+
+# 						}
+# 						event_background = throne_room_scope
+# 					}
+					
+					
+
+# 					immediate = {
+# 						play_music_cue = "mx_cue_general_crusade_event_1"
+# 						if = {
+# 							limit = {
+# 								religion = religion:christianity_religion
+# 							}
+# 							scope:crusader = {
+# 								save_scope_as = left
+# 							}
+# 							scope:crusade_enemy = {
+# 								save_scope_as = right
+# 							}
+# 						}
+# 						else_if = {
+# 							limit = {
+# 								religion = scope:crusade_enemy.faith.religion
+# 							}
+# 							scope:crusade_enemy = {
+# 								save_scope_as = left
+# 							}
+# 							scope:crusade_enemy = {
+# 								save_scope_as = right
+# 							}
+# 						}
+# 					}
+
+
+# 				option = {
+# 					name = scripted_crusade.0713.option.a
+# 					trigger = {
+# 						religion = religion:christianity_religion
+# 					}
+
+# 				}
+
+# 				option = {
+# 					name = scripted_crusade.0713.option.b
+# 					trigger = {
+# 						religion = scope:crusade_enemy.faith.religion
+# 					}
+# 				}
+
+# 				option = {
+# 					name = scripted_crusade.0713.option.c
+# 					trigger = {
+# 						has_character_flag = declined_independent_crusade
+# 					}
+# 				}
+# 		}
+
+
+# 		scripted_crusade.0720 = { # Crusader trait setup for non Great Holy War Crusades
+# 			hidden = yes
+# 			trigger = {
+# 				has_global_variable = individual_crusade_in_progress
+
+# 				scope:army = {
+#                     exists = army_commander
+#                     location = { save_temporary_scope_as = current_location }
+#                     army_commander = {
+#                         NOR = {
+#                             has_trait = crusader_king
+#                             has_trait = faith_warrior
+#                         }
+#                     }
+# 				}
+				
+# 				title:k_jerusalem = {
+# 					any_in_de_jure_hierarchy = {
+# 						tier = tier_barony
+# 						title_province = {
+# 							this = scope:current_location
+# 						}
+# 						exists = holder
+# 						holder = {
+# 							OR = {
+# 								any_character_war = {
+# 									using_cb = religious_war
+# 									is_defender = prev
+# 								}
+# 								any_liege_or_above = {
+# 									any_character_war = {
+# 										using_cb = religious_war
+# 									}
+# 								}
+# 							}
+# 						}
+# 					}
+# 				}									
+# 			}
+
+# 			immediate = {
+# 				every_ruler = {
+# 					limit = {
+# 						has_character_flag = ACCEPTED_INDEPENDENT_CRUSADE				
+# 					}
+# 					save_scope_as = crusader
+# 				}
+
+# 				scope:crusader = {
+# 					every_primary_war_enemy = {
+# 						limit = {
+# 							has_character_flag = defending_against_crusade
+# 						}
+# 						save_scope_as = crusade_enemy
+# 					}
+# 				}
+
+# 				every_character_war = {
+# 					limit = {
+# 						AND = {
+# 							using_cb = religious_war
+# 							is_war_leader = scope:crusader
+# 							is_war_leader = scope:crusade_enemy
+# 						}
+# 					}
+# 					save_scope_as = the_crusade
+# 				}
+				
+# 				every_ruler = {
+# 					every_held_title = {
+# 						limit = {
+# 							has_variable = crusade_target
+# 						}
+# 						save_scope_as = crusade_target
+# 					}
+# 				}
+
+
+
+
+
+
+
+# 				scope:army.location = { 
+# 					save_scope_as = current_location
+# 				}
+# 				scope:army = {
+# 					army_commander = {
+# 						trigger_event = scripted_crusade.0721
+# 					}
+# 				}
+# 			}
+# 		}
+
+
+
+# 		scripted_crusade.0721 = { # Character event for arriving in the holyland during independent crusades.
+# 			title = scripted_crusade.0721.title
+
+# 			desc = {
+# 				first_valid = {
+# 					triggered_desc = {
+# 						trigger = {
+# 							has_character_flag = ACCEPTED_INDEPENDENT_CRUSADE
+# 						}
+# 						desc = scripted_crusade.0721.desc.a
+# 					}
+# 					triggered_desc = {
+# 						trigger = {
+# 							has_character_flag = pledged_to_crusade
+# 						}
+# 						desc = scripted_crusade.0721.desc.b
+# 					}
+# 				}
+# 			}
+			
+# 			theme = faith
+# 			override_background = {
+# 				event_background = wilderness_desert
+# 			}
+# 			left_portrait = {
+# 				character = root
+# 				animation = war_attacker
+# 			}
+# 			right_portrait = {
+# 				character = scope:your_knight
+# 				animation = war_attacker
+# 			}
+# 			trigger = {
+# 				has_global_variable = individual_crusade_in_progress
+# 				NOR = {
+# 					has_trait = crusader_king
+# 					has_trait = faith_warrior
+# 				}
+# 				OR = {
+# 					is_commanding_army = yes
+# 					is_knight = yes
+# 				}
+# 			}
+# 			immediate = {
+
+				
+# 				if = {
+# 					limit = {
+# 						exists = scope:the_crusade
+# 					}
+# 					scope:the_crusade = {
+# 						primary_attacker = {
+# 							save_scope_as = crusade_leader
+# 						}
+# 					}
+# 				}
+		
+# 				scope:crusade_enemy = {
+# 					every_character_war = {
+# 						limit = {
+# 							AND = {
+# 								is_defender = scope:crusade_enemy
+# 								NOT = {
+# 									primary_attacker = scope:crusade_leader
+# 								}
+
+# 							}
+# 						}
+# 						save_scope_as = defensive_war
+# 					}
+# 				}
+				
+
+
+# 				if = {
+# 					limit = {
+# 						root = scope:crusade_leader
+# 						exists = scope:defensive_war
+# 					}
+# 					scope:crusade_leader = {
+# 						trigger_event = scripted_crusade.0722
+# 					}
+# 				}
+
+# 				play_music_cue = "mx_cue_combat_stinger"
+
+# 				random_knight = {
+# 					limit = {
+# 						is_imprisoned = no
+# 						is_knight = yes
+# 						is_alive = yes
+# 						NOR = {
+# 							this = root
+# 							has_trait = crusader_lord
+# 							has_trait = crusader_king
+# 							has_trait = faith_warrior						
+# 						}
+# 					}
+# 					save_scope_as = your_knight
+# 				}
+# 			}
+# 				option = {
+# 					name = scripted_crusade.0721.option.a
+# 					add_trait = faith_warrior
+# 					hidden_effect = {
+# 						every_knight = {
+# 							limit = {
+# 								is_in_army = yes
+# 							}
+# 							add_trait = faith_warrior
+# 						}
+# 					}
+# 				}
+
+# 				option = {
+# 					name = scripted_crusade.0721.option.b
+# 					trigger = {
+# 						any_close_family_member = {
+# 							AND = {
+# 								this = scope:crusader
+# 								is_alive = no
+# 							}
+# 						}
+# 					}
+# 					add_trait = faith_warrior
+
+# 					hidden_effect = {
+# 						every_knight = {
+# 							limit = {
+# 								is_in_army = yes
+# 							}
+# 							add_trait = faith_warrior
+# 						}
+# 					}
+# 				}		
+# 			}
+			
+
+# 			# If the crusade target is in another defensive war, they might try diplomacy with the crusade leader.
+# 			scripted_crusade.0722 = {
+
+# 				immediate = {
+
+# 					scope:defensive_war = {
+# 						primary_attacker = {
+# 							save_scope_as = the_attacker
+# 						}
+# 					}
+
+# 					scope:the_attacker.max_military_strength = {
+# 						save_scope_as = mil_strength
+# 					}
+
+# 					scope:crusade_target = {
+# 						every_in_de_jure_hierarchy = {
+# 							limit = {
+# 								tier = tier_county
+# 								any_de_jure_top_liege = {
+# 									this = scope:crusade_enemy
+# 								}
+# 							}
+# 							add_to_list = owned_titles
+# 						}
+# 					}
+
+# 					if = {
+# 						limit = {
+# 							list_size = {
+# 								name = owned_titles
+# 								value = 20
+# 							}
+# 						}
+# 						set_variable = {
+# 							name = num
+# 							value = 20
+# 						}
+# 						var:num = {
+# 							save_scope_as = owned_titles_num
+# 						}
+# 					}
+# 					else_if = {
+# 						limit = {
+# 							list_size = {
+# 								name = owned_titles
+# 								value = 19
+# 							}
+# 						}
+# 						set_variable = {
+# 							name = num
+# 							value = 19
+# 						}
+# 						var:num = {
+# 							save_scope_as = owned_titles_num
+# 						}
+# 					}
+# 					else_if = {
+# 						limit = {
+# 							list_size = {
+# 								name = owned_titles
+# 								value = 18
+# 							}
+# 						}
+# 						set_variable = {
+# 							name = num
+# 							value = 18
+# 						}
+# 						var:num = {
+# 							save_scope_as = owned_titles_num
+# 						}
+# 					}
+# 					else_if = {
+# 						limit = {
+# 							list_size = {
+# 								name = owned_titles
+# 								value = 17
+# 							}
+# 						}
+# 						set_variable = {
+# 							name = num
+# 							value = 17
+# 						}
+# 						var:num = {
+# 							save_scope_as = owned_titles_num
+# 						}
+# 					}
+# 					else_if = {
+# 						limit = {
+# 							list_size = {
+# 								name = owned_titles
+# 								value = 16
+# 							}
+# 						}
+# 						set_variable = {
+# 							name = num
+# 							value = 16
+# 						}
+# 						var:num = {
+# 							save_scope_as = owned_titles_num
+# 						}
+# 					}
+# 					else_if = {
+# 						limit = {
+# 							list_size = {
+# 								name = owned_titles
+# 								value = 15
+# 							}
+# 						}
+# 						set_variable = {
+# 							name = num
+# 							value = 15
+# 						}
+# 						var:num = {
+# 							save_scope_as = owned_titles_num
+# 						}
+# 					}
+# 					else_if = {
+# 						limit = {
+# 							list_size = {
+# 								name = owned_titles
+# 								value = 14
+# 							}
+# 						}
+# 						set_variable = {
+# 							name = num
+# 							value = 14
+# 						}
+# 						var:num = {
+# 							save_scope_as = owned_titles_num
+# 						}
+# 					}
+# 					else_if = {
+# 						limit = {
+# 							list_size = {
+# 								name = owned_titles
+# 								value = 13
+# 							}
+# 						}
+# 						set_variable = {
+# 							name = num
+# 							value = 13
+# 						}
+# 						var:num = {
+# 							save_scope_as = owned_titles_num
+# 						}
+# 					}
+# 					else_if = {
+# 						limit = {
+# 							list_size = {
+# 								name = owned_titles
+# 								value = 12
+# 							}
+# 						}
+# 						set_variable = {
+# 							name = num
+# 							value = 12
+# 						}
+# 						var:num = {
+# 							save_scope_as = owned_titles_num
+# 						}
+# 					}
+# 					else_if = {
+# 						limit = {
+# 							list_size = {
+# 								name = owned_titles
+# 								value = 11
+# 							}
+# 						}
+# 						set_variable = {
+# 							name = num
+# 							value = 11
+# 						}
+# 						var:num = {
+# 							save_scope_as = owned_titles_num
+# 						}
+# 					}
+# 					else_if = {
+# 						limit = {
+# 							list_size = {
+# 								name = owned_titles
+# 								value = 10
+# 							}
+# 						}
+# 						set_variable = {
+# 							name = num
+# 							value = 10
+# 						}
+# 						var:num = {
+# 							save_scope_as = owned_titles_num
+# 						}
+# 					}
+# 					else_if = {
+# 						limit = {
+# 							list_size = {
+# 								name = owned_titles
+# 								value = 9
+# 							}
+# 						}
+# 						set_variable = {
+# 							name = num
+# 							value = 9
+# 						}
+# 						var:num = {
+# 							save_scope_as = owned_titles_num
+# 						}
+# 					}
+# 					else_if = {
+# 						limit = {
+# 							list_size = {
+# 								name = owned_titles
+# 								value = 8
+# 							}
+# 						}
+# 						set_variable = {
+# 							name = num
+# 							value = 8
+# 						}
+# 						var:num = {
+# 							save_scope_as = owned_titles_num
+# 						}
+# 					}
+# 					else_if = {
+# 						limit = {
+# 							list_size = {
+# 								name = owned_titles
+# 								value = 7
+# 							}
+# 						}
+# 						set_variable = {
+# 							name = num
+# 							value = 7
+# 						}
+# 						var:num = {
+# 							save_scope_as = owned_titles_num
+# 						}
+# 					}
+# 					else_if = {
+# 						limit = {
+# 							list_size = {
+# 								name = owned_titles
+# 								value = 6
+# 							}
+# 						}
+# 						set_variable = {
+# 							name = 6
+# 						}
+# 						var:num = {
+# 							save_scope_as = owned_titles_num
+# 						}
+# 					}
+# 					else_if = {
+# 						limit = {
+# 							list_size = {
+# 								name = owned_titles
+# 								value = 5
+# 							}
+# 						}
+# 						set_variable = {
+# 							name = num
+# 							value = 5
+# 						}
+# 						var:num = {
+# 							save_scope_as = owned_titles_num
+# 						}
+# 					}
+# 					else_if = {
+# 						limit = {
+# 							list_size = {
+# 								name = owned_titles
+# 								value = 4
+# 							}
+# 						}
+# 						set_variable = {
+# 							name = num
+# 							value = 4
+# 						}
+# 						var:num = {
+# 							save_scope_as = owned_titles_num
+# 						}
+# 					}
+# 					else_if = {
+# 						limit = {
+# 							list_size = {
+# 								name = owned_titles
+# 								value = 3
+# 							}
+# 						}
+# 						set_variable = {
+# 							name = num
+# 							value = 3
+# 						}
+# 						var:num = {
+# 							save_scope_as = owned_titles_num
+# 						}
+# 					}
+# 					else_if = {
+# 						limit = {
+# 							list_size = {
+# 								name = owned_titles
+# 								value = 2
+# 							}
+# 						}
+# 						set_variable = {
+# 							name = num
+# 							value = 2
+# 						}
+# 						var:num = {
+# 							save_scope_as = owned_titles_num
+# 						}
+# 					}
+# 					else_if = {
+# 						limit = {
+# 							list_size = {
+# 								name = owned_titles
+# 								value = 1
+# 							}
+# 						}
+# 						set_variable = {
+# 							name = num
+# 							value = 1
+# 						}
+# 						var:num = {
+# 							save_scope_as = owned_titles_num
+# 						}
+# 					}
+# 					else_if = {
+# 						limit = {
+# 							list_size = {
+# 								name = owned_titles
+# 								value = 0
+# 							}
+# 						}
+# 						set_variable = {
+# 							name = num
+# 							value = 0
+# 						}
+# 						var:num = {
+# 							save_scope_as = owned_titles_num
+# 						}
+# 					}
+
+# 					set_variable = {
+# 						name = owned_titles_num
+# 						value = scope:owned_titles_num
+# 					}
+
+
+# 					set_variable = {
+# 						name = mil_strength_double
+# 						value =  {
+# 							value = scope:crusade_enemy.max_military_strength
+# 							multiply = 2
+# 						}
+# 					}
+# 					set_variable = {
+# 						name = mil_strength_one_and_half
+# 						value =  {
+# 							value = scope:crusade_enemy.max_military_strength
+# 							multiply = 1.5
+# 						}
+# 					}
+# 					set_variable = {
+# 						name = mil_strength_half
+# 						value =  {
+# 							value = scope:crusade_enemy.max_military_strength
+# 							multiply = 0.5
+# 						}
+# 					}
+
+# 				trigger_event = scripted_crusade.0723
+# 				}
+# 			}
+
+
+# 			scripted_crusade.0723 = {
+# 				hidden = yes
+
+# 				immediate = {
+
+# 					scope:crusade_war = { 
+# 						primary_attacker = {
+# 							save_scope_as = crusade_leader
+# 						}
+# 					}
+
+# 					var:mil_strength_double = {
+# 						save_scope_as = double
+# 					}
+# 					var:mil_strength_one_and_half = {
+# 						save_scope_as = one_and_half
+# 					}
+# 					var:mil_strength_half = {
+# 						save_scope_as = half
+# 					}
+# 					scope:defensive_war = {
+					
+
+
+# 						if = {
+# 							limit = {					
+# 								primary_attacker.max_military_strength >= scope:double
+# 							}
+# 							set_variable = {
+# 								name = full
+# 								value = yes
+# 							}
+# 							var:full = {
+# 								save_scope_as = FULL
+# 							}
+# 						}
+# 						else_if = {
+# 							limit = {
+# 								primary_attacker.max_military_strength >= scope:one_and_half
+# 							}
+# 							set_variable = {
+# 								name = large
+# 								value = yes
+# 							}
+# 							var:large = {
+# 								save_scope_as = LARGE
+# 							}
+# 							set_variable = {
+# 								name = divisor
+# 								value = 2
+# 							}
+# 							var:divisor = {
+# 								save_scope_as = DIVISOR
+# 							}
+# 							root = {
+# 								change_variable = {
+# 									name = owned_titles_num
+# 									divide = scope:DIVISOR
+# 								}
+
+# 							}
+# 						}
+# 						else_if = {
+# 							limit = {
+# 								primary_attacker.max_military_strength >= primary_defender.max_military_strength 
+# 							}
+# 							set_variable = {
+# 								name = medium
+# 								value = yes
+# 							}
+# 							var:medium = {
+# 								save_scope_as = MEDIUM
+# 							}
+# 							set_variable = {
+# 								name = divisor
+# 								value = 3
+# 							}
+# 							var:divisor = {
+# 								save_scope_as = DIVISOR
+# 							}
+# 							root = {
+# 								change_variable = {
+# 									name = owned_titles_num
+# 									divide = scope:DIVISOR
+# 								}
+# 								clamp_variable = {
+# 									name = owned_titles_num
+# 									max = 10
+# 								}
+# 							}
+# 						}
+# 						else_if = {
+# 							limit = {
+# 								primary_attacker.max_military_strength >= scope:half
+# 							}
+# 							set_variable = {
+# 								name = small
+# 								value = yes
+# 							}
+# 							var:small = {
+# 								save_scope_as = SMALL
+# 							}
+# 							set_variable = {
+# 								name = divisor
+# 								value = 5
+# 							}
+# 							var:divisor = {
+# 								save_scope_as = DIVISOR
+# 							}
+# 							root = {
+# 								change_variable = {
+# 									name = owned_titles_num
+# 									divide = scope:DIVISOR
+# 								}
+# 							}
+# 						}
+# 					}
+
+# 					scope:crusade_enemy = {
+# 						trigger_event = scripted_crusade.0724
+# 					}
+
+
+# 				}
+# 			}
+
+
+# 			scripted_crusade.0724 = {
+# 				title = scripted_crusade.0724.title			
+# 				desc = scripted_crusade.0724.desc
+# 				theme = crown
+# 				left_portrait = {
+# 					character = root
+# 					animation = worry
+# 				}
+
+# 				lower_center_portrait = scope:the_attacker
+# 				lower_right_portrait = scope:crusade_leader
+				
+# 				immediate = {
+# 					play_music_cue = "mx_cue_combat_stinger"
+
+# 				}
+
+
+
+# 				option = {
+# 					name = scripted_crusade.0724.option.a
+
+# 					scope:crusade_leader = {
+# 						trigger_event = scripted_crusade.0725
+# 					}
+
+# 				}
+# 				option = { 
+# 					name = scripted_crusade.0724.option.b
+
+# 					scope:crusade_leader = {
+# 						trigger_event = scripted_crusade.0725
+# 					}
+# 				}
+
+
+
+# 			}
+
+
+# 			scripted_crusade.0725 = {
+# 				title = scripted_crusade.0725.title
+# 				desc = scripted_crusade.0725.desc
+# 				theme = war
+# 				left_portrait = {
+# 					character = root
+# 					animation = worry
+# 				}
+# 				lower_left_portrait = scope:crusade_enemy
+# 				lower_right_portrait = scope:the_attacker
+# 				override_background = {
+# 					event_background = army_camp
+# 				}
+
+# 				immediate = {
+# 					play_music_cue = "mx_cue_faith_conversion"
+
+# 				}
+
+
+
+# 				option = {
+# 					name = scripted_crusade.0725.option.a
+
+# 					if = {
+# 						limit = {
+# 							list_size = {
+# 								name  = owned_titles
+# 								value > 0
+# 							}
+# 						}
+
+
+# 						if = {
+# 							limit = {
+# 								exists = title:k_jerusalem
+# 							}
+# 							if = {
+# 								limit = {
+# 									title:k_jerusalem.holder = scope:crusade_enemy
+# 								}
+# 								scope:crusade_leader = {
+# 									get_title = title:k_jerusalem
+# 								}
+# 								remove_claim = title:k_jerusalem
+# 							}
+# 							else_if = {
+# 								limit = {
+# 									scope:crusade_enemy = {
+# 										every_vassal_or_below = {
+# 											limit = {
+# 												any_held_title = {
+# 													this = title:k_jerusalem
+# 												}
+# 											}
+# 											this = {
+# 												remove_claim = title:k_jerusalem
+# 											}
+
+# 										}
+# 									}
+# 								}
+# 								scope:crusade_leader = {
+# 									get_title = title:k_jerusalem
+# 								}
+# 							}
+# 						}
+# 						else_if = {
+# 							limit = {
+# 								NOT = {
+# 									exists = title:k_jerusalem
+# 								}
+
+# 							}
+# 							scope:crusade_leader = {
+# 								get_title = title:k_jerusalem
+# 							}
+# 						}
+	
+# 						create_title_and_vassal_change = {
+# 							type = revoked
+# 							save_scope_as = change
+# 							add_claim_on_loss = yes
+# 						}
+	
+# 						ordered_in_list = {
+# 							list = owned_titles
+# 							max = var:owned_titles_num
+# 							check_range_bounds = yes
+# 							order_by = {
+# 								value = value_of_crusade_county
+# 							}
+# 							change_title_holder_include_vassals = {
+# 								holder = scope:crusade_leader
+# 								change = scope:change
+# 							}
+# 						}
+# 						resolve_title_and_vassal_change = scope:change
+						
+# 						scope:the_crusade = {
+# 							end_war = white_peace
+# 						}
+						
+# 						create_alliance = scope:crusade_leader
+
+# 						scope:defensive_war = {
+# 							add_defender = scope:crusade_leader
+# 						}
+# 					}
+# 					ai_chance = {
+# 						base = 0
+# 						modifier = {
+# 							add = 20
+# 							has_trait = craven
+# 							has_trait = cynical
+# 						}
+# 					}
+# 				}
+
+# 				option = {
+# 					name = scripted_crusade.0725.option.b
+# 					add_prestige = 300
+# 					add_piety = 300
+
+# 					ai_chance = {
+# 						base = 0
+# 						modifier = {
+# 							add = 100
+# 							has_trait = zealous
+# 						}
+# 					}
+# 				}
+# 			}
+
+
+# 			scripted_crusade.0730 = {
+# 				title = scripted_crusade.0730.title
+# 				desc = scripted_crusade.0730.desc
+# 				left_portrait = {
+# 					character = root
+# 					animation = war_over_win
+# 				}
+# 				right_portrait = scope:title_claimant
+				
+# 				trigger = {
+# 					has_character_flag = ACCEPTED_INDEPENDENT_CRUSADE
+# 					NOT = {
+# 						has_character_flag = had_0730
+# 					}
+# 				}
+# 				immediate = {
+
+# 					add_character_flag = had_0730
+
+# 					every_in_list = {
+# 						list = target_titles
+# 						save_scope_as = target_title
+# 					}
+
+
+# 					every_living_character = {
+# 						if = {
+# 							limit = {
+# 								NOR = {
+# 									this = root
+# 									is_child_of = root
+# 								}
+# 								faith = faith:catholic
+# 								is_adult = yes
+# 								has_claim_on = scope:target_title
+# 								is_ai = yes
+# 								is_landed = no
+# 							}
+# 							save_scope_as = title_claimant
+# 							add_character_flag = adult_claimant
+# 						}
+# 						else_if = {
+# 							limit = {
+# 								NOR = {
+# 									this = root
+# 									is_child_of = root
+# 								}
+# 								faith = faith:catholic
+# 								is_adult = no
+# 								is_married = no
+# 								is_betrothed = no
+# 								has_claim_on = scope:target_title
+# 								is_ai = yes				
+# 							}
+# 							save_scope_as = title_claimant
+# 							add_character_flag = child_claimant
+# 						}
+# 					}
+
+# 					scope:jerusalem_claimant = {
+# 						if = {
+# 							limit = {
+# 								has_character_flag = child_claimant
+# 							}
+# 							if = {
+# 								limit = {
+# 									is_female = yes
+# 								}
+# 								root = {
+# 									any_child = {
+# 										is_male = yes
+# 										is_married = no
+# 										is_betrothed = no
+# 									}
+# 									save_scope_as = valid_suitor_child
+# 									add_character_flag = valid_suitor_child
+# 								}
+# 							}
+# 							else_if = {
+# 								limit = {
+# 									is_male = yes
+# 								}
+# 								root = {
+# 									any_child = {
+# 										is_female = yes
+# 										is_married = no
+# 										is_betrothed = no
+# 									}
+# 									save_scope_as = valid_suitor_child
+# 									add_character_flag = valid_suitor_child
+# 								}
+# 							}
+# 						}
+# 					}
+
+# 					if = {
+# 						limit = {
+# 							exists = scope:title_claimant
+# 						}
+# 						if = {
+# 							limit = {
+# 								AND = {
+# 									scope:jerusalem_claimant = {
+# 										has_character_flag = child_claimant
+# 									}
+# 									random_child = {
+# 										limit = {
+# 											has_character_flag = valid_suitor_child
+# 										}
+# 									}
+# 								}
+# 							}
+# 							set_variable = {
+# 								name = valid
+# 								value = yes
+# 							}
+# 						}
+# 					}
+
+
+
+
+
+
+
+					
+# 				}
+# 				option = {
+# 					name = scripted_crusade.0730
+# 					trigger = {
+# 						exists = scope:title_claimant
+# 						NOT = {
+# 							scope:title_claimant = {
+# 								has_character_flag = child_claimant
+# 							}
+# 						}
+# 					}	
+# 				}
+				
+# 				option = {
+# 					name = scripted_crusade.0730.option.b
+# 					trigger = {
+# 						exists = var:valid
+# 					}
+# 				}
+# 				option = {
+# 					name = scripted_crusade.0730.option.c
+# 				}
+
+# 			}
+
+

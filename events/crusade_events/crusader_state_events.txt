@@ -1,0 +1,1100 @@
+﻿namespace = pthfndr_crusade
+
+
+    pthfndr_crusade.0001 = {
+            hidden = yes
+            
+            trigger = {
+                exists = root.faith.great_holy_war
+                OR = { #Either army owner or one of his lieges is involved in a GHW.
+                    any_character_war = {
+                        OR = {
+                            using_cb = undirected_great_holy_war
+                            using_cb = directed_great_holy_war
+                        }
+                        is_attacker = root
+                    }
+                    any_liege_or_above = {
+                        faith = root.faith
+                        any_character_war = {
+                            OR = {
+                                using_cb = undirected_great_holy_war
+                                using_cb = directed_great_holy_war
+                            }
+                            is_attacker = root
+                        }
+                    }
+                }
+                scope:army = {
+                    exists = army_commander
+                    location = { save_temporary_scope_as = current_location }
+                    army_commander = {
+                        NOR = {
+                            has_trait = crusader_king
+                            has_trait = faith_warrior
+                        }
+                    }
+                }
+
+                root.faith.great_holy_war.ghw_target_title = { #The dejure Kingdom targeted by the GHW
+                    any_in_de_jure_hierarchy = {
+                        tier = tier_barony
+                        title_province = { this = scope:current_location } #Any province within it.
+                        exists = holder
+                        holder = { #The province's owner must also be part of the GHW on the opposite side.
+                            OR = {
+                                any_character_war = {
+                                    OR = {
+                                        using_cb = undirected_great_holy_war
+                                        using_cb = directed_great_holy_war
+                                    }
+                                    is_defender = prev
+                                }
+                                any_liege_or_above = {
+                                    any_character_war = {
+                                        OR = {
+                                            using_cb = undirected_great_holy_war
+                                            using_cb = directed_great_holy_war
+                                        }
+                                        is_defender = prev
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }        
+            immediate = {
+                scope:army.location = { save_scope_as = current_location }
+                faith = { save_scope_as = the_faith }
+                faith.great_holy_war = { save_scope_as = scoped_ghw }
+                faith.great_holy_war.ghw_target_title = { save_scope_as = target_kingdom }
+                scope:army = {
+                    army_commander = { trigger_event = pthfndr_crusade.0002 }
+                }
+            }
+        }
+
+
+        pthfndr_crusade.0002 = {
+            title = "test"
+            desc = {
+                first_valid = {
+                    triggered_desc = { #Crusaders
+                        trigger = { faith.religion = religion:christianity_religion }
+                        desc = great_holy_war.0057.crusader.desc
+                    }
+                    triggered_desc = { #Muslims
+                        trigger = { faith.religion = religion:islam_religion }
+                        desc = great_holy_war.0057.mujahid.desc
+                    }
+                    triggered_desc = { #Everybody else
+                        trigger = {
+                            NOR = {
+                                faith.religion = religion:christianity_religion
+                                faith.religion = religion:islam_religion
+                            }
+                        }
+                        desc = great_holy_war.0057.generic.outsiders.desc
+                    }
+                }
+            }
+            theme = faith
+            override_background = {
+                event_background = wilderness_scope
+            }
+            left_portrait = root
+            
+            trigger = {
+                root.faith = scope:the_faith
+                exists = faith.great_holy_war
+                NOR = {
+                    has_trait = crusader_king
+                    has_trait = faith_warrior
+                }
+                OR = {
+                    is_commanding_army = yes
+                    is_knight = yes
+                }
+            }
+        
+            immediate = {
+                faith = {
+                    great_holy_war = {
+                        ghw_war = {
+                            primary_defender = {
+                                capital_province = {
+                                    save_scope_as = background_wilderness_scope
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+            option = {
+                name = great_holy_war.0057.a
+                add_trait = faith_warrior
+            }       
+        }
+            
+        
+        pthfndr_crusade.0003 = { ## Valid crusader state region check
+                hidden = yes
+
+                trigger = {
+
+                    exists = root.faith.great_holy_war ## Is there a crusade and are you in it?
+                    OR = { #Either army owner or one of his lieges is involved in a GHW.
+                    any_character_war = {
+                        OR = {
+                            using_cb = undirected_great_holy_war
+                            using_cb = directed_great_holy_war
+                        }
+                        is_attacker = root
+                    }
+                    any_liege_or_above = {
+                        faith = root.faith
+                        any_character_war = {
+                            OR = {
+                                using_cb = undirected_great_holy_war
+                                using_cb = directed_great_holy_war
+                            }
+                            is_attacker = root
+                        }
+                    }
+                }
+
+                        OR = {
+                            AND = {
+                                has_global_variable = first_crusade_chain
+                                scope:county.title_province = { ## Is the province outside of the holy land?
+                                    geographical_region = first_crusade_regions 
+                                }
+                            }
+                            AND = {
+                                has_global_variable = second_crusade_green
+                                scope:county.title_province = { ## Is the province outside of the holy land?
+                                    geographical_region = second_crusade_green_regions
+                                }
+                            }
+                        }
+                        
+                  
+
+                    
+                    scope:county.holder = scope:previous_controller
+
+
+                        scope:county.holder = { ## Is the owner of the sieged province a defender in the holy war?
+                                    OR = {
+                                        any_character_war = {
+                                            OR = {
+                                                using_cb = undirected_great_holy_war
+                                                using_cb = directed_great_holy_war
+                                            }
+                                            is_defender = prev
+                                        }
+                                        any_liege_or_above = {
+                                            any_character_war = {
+                                                OR = {
+                                                    using_cb = undirected_great_holy_war
+                                                    using_cb = directed_great_holy_war
+                                                }
+                                                is_defender = prev
+                                            }
+                                        }
+                                    }
+                                    
+
+                                }
+
+
+                } ## end trigger
+               
+                immediate = {
+                    save_scope_as = occupant
+                    scope:barony.holder = { save_scope_as = holder }
+            
+                    # Depending on if the occupier is an attacker or defender in this war, get the primary attacker/defender of the siege.
+                    scope:war = {
+                        if = {
+                            limit = {
+                                is_attacker = scope:occupant
+                            }
+                            # If occupier is an attacker, the war's primary attacker is also the primary attacker in this siege (the attackers have occupied one of the defender's provinces).
+                            primary_attacker = {
+                                save_scope_as = primary_siege_attacker
+                            }
+                            primary_defender = {
+                                save_scope_as = primary_siege_defender
+                            }
+                        }
+                        else = {
+                            # Otherwise the occupier is a defender, so the primary defender in the war is the primary attacker in the siege (the defenders have occupied one of the attacker's provinces).
+                            primary_defender = {
+                                save_scope_as = primary_siege_attacker
+                            }
+                            primary_attacker = {
+                                save_scope_as = primary_siege_defender
+                            }
+                        }
+
+
+                    }
+
+                    
+                    scope:war = {
+                        save_scope_as = crusade_war
+                    }
+                    
+                    scope:county = {
+                        set_variable = crusader_state_county_yes
+                        every_this_title_or_de_jure_above = {
+                            limit = {
+                                tier = tier_duchy
+                                
+                            }
+                            save_scope_as = the_duchy
+
+                        }
+                    }
+                        scope:the_duchy.title_capital_county = {
+                            save_scope_as = duchy_capital
+
+                        }
+                        
+
+                            scope:occupant = { ## Fire event for the sieger
+
+                            trigger_event = pthfndr_crusade.0004
+                        }
+                }
+        }
+
+        pthfndr_crusade.0004 = { ## Event to give crusader state to sieger.
+            type = character_event
+            title = pthfndr_crusade.0004.title
+            desc = pthfndr_crusade.0004.desc
+            theme = crown
+            override_background = {
+                event_background = throne_room_scope
+            }
+            left_portrait = {
+                character = root
+                animation = war_over_win
+            }
+
+            trigger = { ## Check to make sure the event hasnt fired before.
+                NOR = {
+                    has_character_flag = crusader_lord_passed
+                    has_character_flag = crusader_lord
+                }
+            }
+    
+            immediate = {
+                play_music_cue = "mx_cue_general_crusade_event_1"
+
+                faith:catholic = {
+					save_scope_as = catholicism
+                }
+                scope:county.holder = {
+                    save_scope_as = background_throne_room_scope
+                }
+                scope:occupant.primary_heir = {
+                    save_scope_as = heir
+                }
+
+                scope:occupant.liege = {
+                    save_scope_as = liege
+                }
+
+                ghw_beneficiary = {
+                    save_scope_as = this_beneficiary
+                    }
+
+                    create_character = {
+                        template = crusade_knight
+                        location = root.capital_province
+                        save_scope_as = created_crusade_knight
+                    }
+
+                every_held_title = {
+                    limit = {
+                        NOT = {
+                            has_variable = crusader_state_county_yes
+                        }
+                    }
+                    add_to_list = homeland
+                }
+            }
+            
+                option = {
+                    name = pthfndr_crusade.0004.option.a
+                    trigger = {
+                        scope:occupant = {
+                            highest_held_title_tier <= tier_duchy ## Only available to dukes or lower.
+                            }
+                        }
+                
+
+                    add_prestige = 500
+
+
+
+                    hidden_effect = {
+                        get_title = scope:county
+                        add_trait = faith_warrior
+
+                        if = { ## If they take the duchy capital and there is no crusader duke established yet.
+                            limit = {
+                                scope:the_duchy ={
+                                    NOT = {
+                                        has_variable = crusader_state_duchy
+                                    }
+                                }
+                                AND = {
+                                    scope:county = scope:duchy_capital
+                                }
+                            }
+                            get_title = scope:the_duchy
+                            scope:the_duchy = {
+                                set_variable = crusader_state_duchy
+                            }
+                            remove_trait = faith_warrior
+                            add_trait = crusader_lord
+
+                            trigger_event = pthfndr_crusade.0020 ## changes COA of the duchy
+                        }
+
+
+                        if = {
+                            limit = {
+                               scope:heir = {
+                                   dynasty = scope:occupant.dynasty
+                               }
+                            }
+                            scope:heir = {
+                                add_trait = disinherited
+                            }
+                            scope:occupant = {
+                                add_trait = disinherited
+                                add_character_flag = dynasty_heir_false
+                            }
+                        }
+                        add_character_flag = crusader_lord
+                        set_realm_capital = scope:county
+
+
+                        create_title_and_vassal_change = {
+                            type = independency
+                            save_scope_as = change
+                            add_claim_on_loss = no
+                        }
+
+                        every_in_list = {
+                            list = homeland
+                            every_in_de_facto_hierarchy = {
+                                limit = {
+                                    NOR = {
+                                        has_variable = crusader_state_county_yes
+                                        has_variable = crusader_state_duchy
+                                    }
+                                }
+                                change_title_holder_include_vassals = {
+                                    holder = scope:heir
+                                    change = scope:change
+
+                                }
+                            }
+                        }
+                
+                        resolve_title_and_vassal_change = scope:change
+
+                        scope:liege = {
+                            trigger_event = pthfndr_crusade.0021
+                        }
+
+                        scope:occupant = {
+                            if = {
+                            limit = {
+                                NOT = {
+                                any_held_title = {
+                                        has_variable = crusader_state_duchy
+                                    }
+                                }
+                            }
+                            trigger_event = pthfndr_crusade.0024
+                            }
+                        }
+                    }
+                    custom_tooltip = pthfndr_crusade.0004.option.a.tt
+                }
+
+            option = {
+                name = pthfndr_crusade.0004.option.b
+
+                trigger = {
+                    scope:occupant = {
+                        exists = ghw_beneficiary
+                    }
+                }
+
+                hidden_effect = {
+                    scope:this_beneficiary = {   
+                        get_title = scope:county
+                        add_trait = faith_warrior
+                        add_gold = 200
+                    }
+                    if = {
+                        limit = {
+                            scope:the_duchy ={
+                                NOT = {
+                                    has_variable = crusader_state_duchy
+                                }
+                            }
+                         }
+                        scope:this_beneficiary = {
+                            get_title = scope:the_duchy
+                            remove_trait = faith_warrior
+                            add_trait = crusader_lord
+                            add_trait = disinherited
+                            add_character_flag = crusader_lord
+                            set_realm_capital = scope:county
+                        }   
+                        scope:the_duchy = {
+                            set_variable = crusader_state_duchy
+                        }
+                        scope:this_beneficiary.liege = {
+                            trigger_event = pthfndr_crusade.0022
+                        }
+                    }
+
+                    else = { ## If there is already an owner of the state, make them their vassal.
+                        create_title_and_vassal_change = {
+                            type = swear_fealty
+                            save_scope_as = title_change
+                            add_claim_on_loss = no
+                        }
+                        scope:this_beneficiary = {
+                            change_liege = {
+                                 liege = scope:the_duchy.holder
+                                change = scope:title_change
+                            }
+                        }
+                        resolve_title_and_vassal_change = scope:title_change
+             
+                    }
+                }
+                scope:this_beneficiary = { 
+                    trigger_event = pthfndr_crusade.0099
+                    trigger_event = pthfndr_crusade.0020
+                }
+            }
+
+
+
+            option = {
+                name = pthfndr_crusade.0004.option.c 
+                hidden_effect = {
+                    scope:created_crusade_knight = {
+                        get_title = scope:county
+                        add_trait = faith_warrior
+                        add_gold = 200
+                    }
+
+                    if = {
+                        limit = {
+                            scope:the_duchy ={
+                                NOT = {
+                                    has_variable = crusader_state_duchy
+                                }
+                            }
+                        }
+                        scope:created_crusade_knight = {
+                            get_title = scope:the_duchy
+                            remove_trait = faith_warrior
+                            add_trait = crusader_lord
+                            add_character_flag = crusader_lord
+                            set_realm_capital = scope:county
+                        }
+                        
+                        scope:the_duchy = {
+                            set_variable = crusader_state_duchy
+                        }
+                        scope:created_crusade_knight.liege = {
+                            trigger_event = pthfndr_crusade.0023
+                        }
+                    }
+
+                        else = { ## If there is already an owner of the state, make them their vassal.
+                            create_title_and_vassal_change = {
+                                type = swear_fealty
+                                save_scope_as = title_change
+                                add_claim_on_loss = no
+                            }
+                            scope:created_crusade_knight = {
+                                change_liege = {
+                                    liege = scope:the_duchy.holder
+                                    change = scope:title_change
+                                }
+                            }
+                            resolve_title_and_vassal_change = scope:title_change
+                    }
+                }
+                scope:created_crusade_knight = {  
+                    trigger_event = pthfndr_crusade.0099
+                    trigger_event = pthfndr_crusade.0020
+                }
+            }
+        }
+
+            pthfndr_crusade.0020 = { ## Changes coa
+                hidden = yes
+                trigger = {
+
+                }
+                immediate = {
+                    if = {
+                        title:d_lebanon = { if = { limit = { holder = ROOT } set_coa = d_tripoli } }
+                        title:d_antioch = { if = { limit = { holder = ROOT } set_coa = d_principality_antioch } }
+                        title:d_edessa = { if = { limit = { holder = ROOT } set_coa = c_boulogne } }
+                        
+                    }
+                }
+            }
+        pthfndr_crusade.0005 = { ## Allow crusader lord to annex other counties within the duchy.
+        hidden = yes
+            trigger = {
+                has_character_flag = crusader_lord
+                any_held_title = {
+                    has_variable = crusader_state_county_yes
+                } 
+            }
+            immediate = {
+                random_held_title = {
+                    limit = {
+                        tier = tier_county
+                        has_variable = crusader_state_county_yes
+                    }
+                    save_scope_as = cs_county
+                }
+                    scope:cs_county = {
+                        every_this_title_or_de_jure_above = {
+                            limit = {
+                                tier = tier_duchy
+                            }
+                            save_scope_as = cs_duchy_one
+                        }
+                    }
+                
+                scope:county = {
+                    save_scope_as = valid_county
+                }
+                ## todo: extend on this with an OR 
+                ## to allow neighboring counties that arent apart of another crusader duchy or k_jerusalem
+
+                    scope:valid_county = {
+                        every_this_title_or_de_jure_above = { 
+                            limit = {
+                                tier = tier_duchy
+                            }
+                            save_scope_as = cs_duchy_two
+                         }                  
+                    }
+                           
+                if = {
+                    limit = { 
+                        scope:cs_duchy_one = scope:cs_duchy_two 
+                    }
+                    trigger_event = pthfndr_crusade.0006  
+                }
+            }  
+        }
+
+
+        pthfndr_crusade.0006 = { ## Gives any sieged counties with the target duchy to the character.
+            hidden = yes
+            
+            immediate = {
+                get_title = scope:valid_county
+
+                scope:valid_county = {
+                    every_this_title_or_de_jure_above = {
+                        limit = {
+                            tier = tier_duchy
+                        }
+                        save_scope_as = duchy
+                    }
+                }
+                if  = {
+                    limit = {
+                        AND = {
+                            valid_county = scope:duchy.title_capital_county
+                            NOT = {
+                                scope:duchy = {
+                                    has_variable = crusader_state_duchy
+                                }
+                            }
+                        }
+                    }
+                    get_title = scope:duchy
+                    if = { 
+                        limit = {
+                            NOT = {
+                                has_trait = crusader_lord
+                            }
+                            
+                        }
+                        add_trait = crusader_lord
+                    }
+                    trigger_event = pthfndr_crusade.0020
+                }
+            }
+        }
+
+
+        pthfndr_crusade.0007 = { ## Allow a crusader lord to expand into adjacent provinces if second crusade.
+        hidden = yes
+            trigger = {
+                has_global_variable = second_crusade_green
+                has_character_flag = crusader_lord
+                any_held_title = {
+                    has_variable = crusader_state_county_yes
+                }
+            }
+            immediate = {
+                random_held_title = {
+                    limit = {
+                        tier = tier_county
+                        has_variable = crusader_state_county_yes
+                    }
+                    save_scope_as = cs_county
+                }
+                    scope:cs_county = {
+                        every_this_title_or_de_jure_above = {
+                            limit = {
+                                tier = tier_duchy
+                            }
+                            save_scope_as = cs_duchy_one ## The duchy of the crusader lord.
+                        }
+                    }
+
+                    if = {
+                        limit = {
+                            scope:cs_duchy_one = title:d_lebanon
+                        }
+                        title:c_baalbek = {
+                            add_to_list = neighboring_counties     
+                        }
+                    }
+
+                    if = {
+                        limit = {
+                            AND = {
+                                scope:cs_duchy_one = title:d_antioch
+                                title:d_cilicia.holder = {
+                                    NOT = {
+                                        religion = religion:christianity_religion
+                                    }
+                                }
+                            }
+                        }
+                        title:d_cilicia = {
+                            every_in_de_jure_hierarchy = {
+                                limit = {
+                                    tier = tier_county
+                                }
+                                add_to_list = neighboring_counties
+                            }
+                        }
+                    }
+
+                    
+                    
+
+
+            
+                scope:county = {
+                    save_scope_as = valid_county
+                }
+
+
+                ## todo: extend on this with an OR 
+                ## to allow neighboring counties that arent apart of another crusader duchy or k_jerusalem
+
+                    scope:valid_county = {
+                        every_this_title_or_de_jure_above = { 
+                            limit = {
+                                tier = tier_duchy
+                            }
+                            save_scope_as = cs_duchy_two
+                         }                  
+                    }
+                           
+                if = {
+                    limit = { 
+                        scope:valid_county = {
+                            is_in_list = neighboring_counties
+                        }
+                    }
+                    trigger_event = pthfndr_crusade.0006
+                }
+            }  
+        }
+
+
+
+    pthfndr_crusade.0098 = { ##spawn army for the count
+        type = character_event
+        title = "spawn for count"
+        desc = "null"
+        theme = war
+        override_background = {
+            event_background = army_camp
+        }
+            right_portrait = {
+                character = scope:my_knight
+                animation = personality_honorable
+            }
+            trigger  = {
+                NOT = {
+                    has_trait = crusader_lord
+                }
+            }
+
+        immediate = {
+            create_character = {
+                template = crusade_knight
+                location = root.capital_province
+                save_scope_as = my_knight
+            }
+            add_courtier = scope:my_knight
+         
+        }
+
+        
+
+
+        option = {
+
+            spawn_army = { # Spawns an army for any crusader state leader(duke) so that they dont get smashed by the AI.
+
+            men_at_arms = {
+                type = light_footmen
+                stacks = {
+                    value = 3
+                    
+                }
+            }
+            men_at_arms = {
+                type = light_horsemen
+                stacks = {
+                    value = 2
+                    
+                }
+            }
+				men_at_arms = {
+                    type = armored_footmen
+                    stacks = {
+                        value = 1
+                        
+                    }
+                }
+
+                men_at_arms = {
+				type = armored_horsemen
+                    stacks = {
+                        value = 1                     
+                    }
+                }
+                
+                        
+                
+				inheritable = yes
+				uses_supply = yes
+				location = capital_province
+		    }
+        }
+    }
+
+    pthfndr_crusade.0099 = { ## spawn army for the duke.
+        type = character_event
+        title = "spawn for duke"
+        desc = "null"
+        theme = war
+        override_background = {
+            event_background = army_camp
+        }
+        left_portrait = {
+            character = scope:my_knight2
+            animation = war_over_win
+        }
+            right_portrait = {
+                character = scope:my_knight
+                animation = personality_honorable
+            }
+            trigger = {
+                has_trait = crusader_lord
+            }
+
+
+        immediate = {
+            create_character = {
+                template = crusade_knight
+                location = root.capital_province
+                save_scope_as = my_knight
+            }
+            add_courtier = scope:my_knight
+
+
+            create_character = {
+                template = crusade_knight
+                location = root.capital_province
+                save_scope_as = my_knight2
+            }
+            add_courtier = scope:my_knight2
+        }
+
+        option = {
+
+            spawn_army = { # Spawns an army for any crusader state leader(duke) so that they dont get smashed by the AI.
+
+                men_at_arms = {
+				type = armored_horsemen
+                    stacks = {
+                        value = 2                      
+                    }
+                }         
+				inheritable = yes
+				uses_supply = yes
+				location = capital_province
+		    }
+        }
+    }
+
+
+    pthfndr_crusade.0010 = { ## Knights_Hospitaller creation if doesnt exist.
+    hidden = yes
+
+        trigger = {
+        }
+        immediate = {
+            create_character = {
+                template = blessed_gerard_template
+                name = "Gérard"
+                location = title:b_ar-ramla
+                save_scope_as = this_leader
+            }
+            
+            create_holy_order = {
+                leader = scope:this_leader
+                capital = title:b_ar-ramla
+                save_scope_as = new_holy_order
+            }
+        }
+    } ## 
+
+    pthfndr_crusade.0021 = {
+        hidden = yes
+
+         immediate = {
+            scope:occupant = {
+                create_title_and_vassal_change = {
+                    type = independency
+                    save_scope_as = change
+                    add_claim_on_loss = no
+                }
+                becomes_independent = {
+                    change = scope:change
+                }
+                resolve_title_and_vassal_change = scope:change
+            }
+        }
+    }
+    pthfndr_crusade.0022 = {
+        hidden = yes
+
+         immediate = {
+            scope:this_beneficiary = {
+                create_title_and_vassal_change = {
+                    type = independency
+                    save_scope_as = change
+                    add_claim_on_loss = no
+                }
+                becomes_independent = {
+                    change = scope:change
+                }
+
+                resolve_title_and_vassal_change = scope:change
+            }
+        }
+    }
+    pthfndr_crusade.0023 = {
+        hidden = yes
+
+         immediate = {
+
+
+            scope:created_crusade_knight = {
+
+                create_title_and_vassal_change = {
+                    type = independency
+                    save_scope_as = change
+                    add_claim_on_loss = no
+                }
+                becomes_independent = {
+                    change = scope:change
+                }
+
+                resolve_title_and_vassal_change = scope:change
+            }
+        }
+    }
+
+    pthfndr_crusade.0024 = {
+        title = pthfndr_crusade.0024.title
+        desc = pthfndr_crusade.0024.desc
+        type = character_event
+        theme = claim_throne_scheme
+        left_portrait = {
+            character = root
+            animation = personality_vengeful
+        }
+        lower_right_portrait = scope:the_duchy.holder
+
+        
+        override_background = {
+            event_background = corridor_night
+        }
+            
+            immediate = {
+                play_music_cue = "mx_cue_secret"
+            }
+
+        option = { ## If there is already an owner of the state, make them their vassal.
+            title = pthfndr_crusade.0024.a
+            create_title_and_vassal_change = {
+                type = swear_fealty
+                save_scope_as = title_change
+                add_claim_on_loss = no
+            }
+            scope:occupant = {
+                change_liege = {
+                    liege = scope:the_duchy.holder
+                    change = scope:title_change
+                }
+            }
+            resolve_title_and_vassal_change = scope:title_change
+
+            scope:the_duchy.holder = {
+                send_interface_message = {
+                    type = event_chancellor_task_good
+                    title = pthfndr_crusade.0024.a.message
+                    desc = pthfndr_crusade.0024.a.message_desc
+                    left_icon = scope:the_duchy.holder
+                    right_icon = scope:occupant
+                }
+            }
+
+            ai_chance = {
+                base = 50
+            }
+        
+        }
+        
+        option = {
+            title = pthfndr_crusade.0024.b
+            add_unpressed_claim = scope:the_duchy
+            set_relation_rival = scope:the_duchy.holder
+            add_piety = -100
+
+            ai_chance = {
+                base = 10
+                modifier = {
+                    factor = 7.5
+                    has_trait = ambitious
+                }
+            }  
+        }
+    }
+
+    pthfndr_crusade.0105 = { ## War is over, offer crusader states to pledge fealty to jerusalem
+        type = character_event
+        title = pthfndr_crusade.0105.title
+        desc = pthfndr_crusade.0105.desc
+        left_portrait = {
+            character = root
+            animation = personality_ratonal
+        }
+        right_portrait = {
+            character = scope:king_jerusalem
+            animation = personality_ratonal
+        }
+        override_background = {
+            event_background = throne_room
+        }
+
+        immediate = {
+            play_music_cue = "mx_cue_faith_conversion"
+
+            title:k_jerusalem.holder = {
+                save_scope_as = king_jerusalem
+            }
+        }
+
+        option = { ## Vassalage between Crusader State and Jerusalem
+            name = pthfndr_crusade.0105.option.a
+            
+            create_title_and_vassal_change = {
+                type = swear_fealty
+                save_scope_as = title_change
+                add_claim_on_loss = no
+            }
+                change_liege = {
+                     liege = scope:king_jerusalem
+                    change = scope:title_change
+                }
+            resolve_title_and_vassal_change = scope:title_change
+
+            stress_impact = {
+                ambitious = major_stress_impact_gain
+                greedy = moderate_stress_impact_gain
+            }
+            ai_chance = {
+                base = 20
+            }
+        }
+        option = { ## Alliance between Crusader State and Jerusalem
+            name = pthfndr_crusade.0105.option.b
+            create_alliance = {
+                target = scope:king_jerusalem
+                allied_through_owner = root
+                allied_through_target = scope_king_jerusalem
+            }
+            ai_chance = {
+                base = 85
+            }
+            custom_tooltip = pthfndr_crusade.0105.option.b.tt
+        }
+
+        option = { ## Neither, small prestige buff(AI will never do)
+            name = pthfndr_crusade.0105.option.c
+            add_prestige = 200
+
+            #if craven give stress
+
+            stress_impact = {
+                craven = moderate_stress_impact_gain
+            }
+            custom_tooltip = pthfndr_crusade.0105.option.c.tt
+        }
+    }
+
+
+
+
+
+
+    
+

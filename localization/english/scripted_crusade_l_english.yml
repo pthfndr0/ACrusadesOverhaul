@@ -1,0 +1,202 @@
+﻿l_english:
+ scripted_crusade.0600.title:0 "The Council of [council_location.GetNameNoTierNoTooltip]"
+
+
+
+ scripted_crusade.0003.title.first_crusade:0 "Pope calls for Crusade 1"
+ scripted_crusade.0003.desc.first_crusade:0 "Nearing the end of his speech, the pope adds one further comment. Although, sons of God, you have pledged to keep the peace amongst yourselves and to preserve the rights of the holy church, there remains still an important task for you to undertake. Your christian brethren who live in the east are in urgent need of your help, and you must hasten to give them the aid which I have promised them. The Turks and Arabs have have attacked them and have conquered the territory of the Greeks as far west as the shore of the Mediterranean and the Hellespont. They continue to subjugate more and more of the lands held by those faithful Christians, desecrating their churches and devasting their empire. We beseech all faithful Christians capable of bearing arms to carry aid promptly to those Christians and to destroy that vile race from the lands of our friends.  The Pope grants the immediate remission of sins to all those who die during this most holy and just pilgramage."
+ scripted_crusade.0003.title.second_crusade_green:0 "Pope calls for Crusade Green"
+ scripted_crusade.0003.desc.second_crusade_green:0 "Second Crusade Green is where a crusader state that was established in the first crusade fell to the saracens but jerusalem survived. NOTE: Write something to that efect."
+ scripted_crusade.0003.title.second_crusade_burgundy:0 "Pope calls for Crusade burgundy"
+ scripted_crusade.0003.desc.second_crusade_burgundy:0 "In this scenario, jerusalem was captured in the first crusade, but fell to the saracens afterwards. NOTE: Write something to that effect."
+ scripted_crusade.0003.title.third_crusade_green:0 "Reclaiming the Holy Land"
+ scripted_crusade.0003.desc.third_crusade_green:0 "third crusade green is where jerusalem was captured in the 1st, wasnt lost, the second crusade tried to reinforce after fall of a crusader state, but failed. and now jerusalem has fallen.NOTE: Write something to that effect."
+ scripted_crusade.0003.title.third_crusade_cyan_egypt:0 "Pope Calls Crusade for Egypt"
+ scripted_crusade.0003.desc.third_crusade_cyan_egypt:0 "After the Second Crusade's failure to secure a buffer between Jerusalem and the Saracens to its east, [pope.GetTitledFirstName] is urging all true Catholics to secure the Kingdom of Egypt to the south."
+ scripted_crusade.0003.title.third_crusade_cyan_africa:0 "Pope Calls Crusade for Tunisia"
+ scripted_crusade.0003.desc.third_crusade_cyan_africa:0 "Something about how africa ought to be an easier target much closer to home."
+ scripted_crusade.0003.title.third_crusade_cyan_anatolia:0 "Pope Calls Crusade for Anatolia"
+ scripted_crusade.0003.desc.third_crusade_cyan_anatolia:0 "Something about pushing the muslims out of the historically christian anatolia. Also this needs heavy byzantine flavor."
+ scripted_crusade.0003.title.fourth_crusade_byzantine:0 "Pope Calls Crusade For Jerusalem"
+ scripted_crusade.0003.desc.fourth_crusade_byzantine:0 "Make it sound like its going to Jerusalem but we pull the rug out obviously."
+ scripted_crusade.0003.title.fourth_crusade_pink_jerusalem:0 "Pope Calls Crusade for Jerusalem"
+ scripted_crusade.0003.desc.fourth_crusade_pink_jerusalem:0 "first crusade jerusalem success, second crusade reinforce fail, third crusade fail, trying to retake the holy land that has long been in saracen hands."
+
+
+
+
+
+
+ scripted_crusade.0022.title:0 "A Meeting with the Emperor"
+ scripted_crusade.0022.desc:0 "something about an oath of loyalty to [roman_emperor.GetTitledFirstName], and to return any Roman lands we take during our crusade. [roman_emperor.GetFirstName] also seems to be insinuating some monetary compensation if I accept."
+ scripted_crusade.0022.option.a:0 "You have my word, [roman_emperor.GetFirstNameNoTooltip]."
+ scripted_crusade.0022.option.a.tt:0 "If you break your oath with the emperor he will be very displeased."
+ scripted_crusade.0022.option.b:0 "I am here for the glory of god, not to save your crumbling empire, Greek."
+ scripted_crusade.0022.option.b.tt:0 "This will enrage the emperor."
+ scripted_crusade.0022.option.c:0 "Of course.."
+ scripted_crusade.0022.option.c.tt:0 "A little white lie never hurt anybody."
+ scripted_crusade.0022.option.c.tt.two:0 "This option is available because you are Deceitful"
+
+
+
+
+
+
+
+
+ scripted_crusade.0204.title:0 "The Second Crusade Fails"
+ scripted_crusade.0204.desc:0 "F in the chat"
+ scripted_crusade.0204.option.a:0 "A Black Day."
+ scripted_crusade.0205.title:0 "Glory to Christendom!"
+ scripted_crusade.0205.desc:0 "success blah blah"
+ scripted_crusade.0206.title:0 "The Crusade Fails!"
+ scripted_crusade.0206.desc:0 "Some years ago, the most holy and righteous Kingdom of Jerusalem, which was established by our recent ancestors in the aftermath of the first crusade, fell to the ungodly, vicious saracens. [pope.GetTitledFirstName] called all faithful Catholics to reclaim it, but despite our best efforts, we have failed."
+ scripted_crusade.0206.option.a:0 "God is surely not pleased."
+
+
+
+
+
+
+
+
+
+ scripted_crusade.0405.claimant.title:0 "The Rightful Emperor"
+ scripted_crusade.0405.claimant.desc:0 "Rightful ruler of the romans yada yada, he will fund the crusade and provide an army if he is installed as emperor"
+ scripted_crusade.0405.civil_war.title:0 "The Roman Civil War"
+ scripted_crusade.0405.civil_war.desc:0 "If you help him win his war to become emperor of the romans he will fund the crusade provide an army"
+ scripted_crusade.0413.title:0 "The End of an Era"
+ scripted_crusade.0413.desc:0 "Unable to raise the funds to support their most righteous crusade for [initial_target.GetNameNoTier], the crusaders, led by the [initial_doge.GetName] made a deal with the Byzantine pretender [byzantine_claimant.GetName], who promised gold and supplies to the crusaders if they pledged to support his claim to the Byzantine throne. Although [byzantine_claimant.GetFirstName] died during a protracted siege of Constaninople, the crusaders still demanded gold and support from [ghw_defender.GetTitledFirstName]. Stubbornly refusing, the crusader forces then stormed the City of the World's Desire, looting and terrorizing it for three days. When the forces of [sacker.GetTitledFirstName] stormed the Palace of Blachernae, they put [ghw_defender.GetTitledFirstName] to the sword and proclaimed [latin_emperor.GetFirstName] [latin_emperor.GetHouse.GetName] as the new Emperor of the Romans. It seems that this was all for naught however, as most of the crusaders have started to make their way back home."
+ scripted_crusade.0413.option:0 "Is this truly God's will?"
+ scripted_crusade.0414.title:0 "Last of the Romans"
+ scripted_crusade.0414.desc:0 "The Empire is in shambles. The Latins have desecrated Constantinople and the usurper [latin_emperor.GetTitledFirstName] now resides in the Palace of Blachernae. However I have a true claim to the throne, and can rightfully declare myself Emperor of the Romans if I so choose."
+ scripted_crusade.0414.option.a:0 "It is my duty to take back that which has been stolen."
+ scripted_crusade.0414.option.a.tt:0 "There is a chance that some rulers of the remnants of the Empire will support your claim."
+ scripted_crusade.0414.option.b:0 "There is no use."
+ scripted_crusade.0416.title:0 "The Future of the [ROOT.Char.GetPrimaryTitle.GetNameNoTooltip]"
+ scripted_crusade.0416.desc:0 "blah blah asking me to support his rightful claim as emperor, as he is determined to reuinite the empire."
+ scripted_crusade.0416.option.a:0 "I will support your rightful claim, [successor.GetFirstNameNoTooltip]."
+
+ scripted_crusade.0416.option.b:0 "[ROOT.Char.GetPrimaryTitle.GetNameNoTierNoTooltip] will remain independent under my rule."
+ scripted_crusade.0416.option.b.tt:0 "You decide not to help [successor.GetFirstNameNoTooltip]."
+
+
+
+
+
+
+
+
+
+
+ scripted_crusade.0701.title.a:0 "Readings of the Past"
+ scripted_crusade.0701.title.b:0 "The Papal Legate"
+ scripted_crusade.0701.title.c:0 "A Dream of Glory"
+ scripted_crusade.0701.desc.a:0 "reading about the crusades of your ancestors.."
+ scripted_crusade.0701.desc.b:0 "the councillor beside you nudges you.. my liege, would that we were like [getname of first king of jerusalem and first king of antioch] and went on crusade against the saracens! think of the glory it would bring not only to you, but to all of realmgetname!"
+ scripted_crusade.0701.desc.c:0 "pacing the halls of your castle pondering the dream that had just awoken you"
+ scripted_crusade.0703.title:0 "A Potential Ally?"
+ scripted_crusade.0703.desc.a:0 "we have our disputes, but perhaps our forces could be turned to one singular purpose for the glory of christendom?"
+ scripted_crusade.0703.desc.b:0 "During my morning prayer, I contemplated a great deal about my crusade. The expedition will require a great deal of troops and supplies. Resources that I am currently not in abundance of, and that are being depleted in my war with [war_enemy.GetTitledFirstName]. Would it not be better to seek a reconciliation with [war_enemy.GetHerHim] so that I might use my men towards a more holier purpose?"
+ scripted_crusade.0703.option.a:0 "I will send a messenger and await [war_enemy.GetFirstName]'s reply."
+ scripted_crusade.0703.option.b:0 "There can be no reconciliation."
+ scripted_crusade.0704.title:0 "[crusader.GetFirstName]'s Proposal"
+ scripted_crusade.0704.desc:0 "in my war with this guy he is offering a truce as God has called him to a higher purpose. He tells me about his plans for a crusade to _____."
+ scripted_crusade.0704.option.a:0 "I shall pledge myself to [crusader.GetFirstName]'s most noble and holy enterprise."
+ scripted_crusade.0704.option.b:0 "I will give [crusader.GetHerHim] peace. For now."
+ scripted_crusade.0704.option.c:0 "A fools attempt to make peace."
+ scripted_crusade.0705.opening.a:0 "Dear, [crusader.GetFirstNameNoTooltip]"
+ scripted_crusade.0705.desc.a:0 "I accept your proposal, and together we shall drive the infidels from _____"
+ scripted_crusade.0705.desc.b:0 "I accept your offer of truce. But I have no interest in helping you."
+ scripted_crusade.0705.desc.c:0 "We shall never have peace."
+ scripted_crusade.0705.option.a:0 "All is well."
+ scripted_crusade.0705.option.b:0 "At least I can now focus on my crusade."
+ scripted_crusade.0705.option.c:0 "I will crush [war_enemy.GetHerHim]."
+ scripted_crusade.0705.tt.a:0 "You and [war_enemy.GetTitledFirstNameNoTooltip] make peace and [war_enemy.GetSheHe] will join your crusade."
+ scripted_crusade.0705.tt.b:0 "[war_enemy.GetTitledFirstName] will give you peace but refuses to join your crusade."
+ scripted_crusade.0705.tt.c:0 "[war_enemy.GetTitledFirstName] laughs at your proposal for peace."
+
+ scripted_crusade.0706.option.a:0 "Send a messenger to [crusader_neighbor1.GetTitledFirstName]"
+ scripted_crusade.0706.option.b:0 "The troops of [crusader_neighbor2.GetTitledFirstName] could come in handy."
+ scripted_crusade.0706.option.c:0 "[crusader_neighbor3.GetTitledFirstName] seems the obvious choice."
+ scripted_crusade.0706.option.d:0 "They would just get in the way."
+ scripted_crusade.0707.opening:0 "To my faithful [crusader.Custom2('RelationToMeShort', ROOT.Char)], [ROOT.Char.GetFirstNameNoTooltip]"
+ scripted_crusade.0707.desc:0 "I am sure by now you have heard the news of my plans to launch a Crusade to reclaim [crusade_target.GetNameNoTierNoTooltip]. I pray you see the importance of this holy endeavour and that you and your men take the cross with me. \n\nMay the Lord bless you and keep you, [crusader.Custom2('RelationToMeShort', ROOT.Char)]."
+ scripted_crusade.0707.option.a:0 "I will pledge myself and my men to [crusader.GetFirstNameNoTooltip]'s Crusade."
+ scripted_crusade.0707.option.b:0 "A gift of gold should suffice."
+ scripted_crusade.0707.option.c:0 "This does not concern the [ROOT.Char.GetTitleAsNameNoTooltip] of [primary_title.GetNameNoTierNoTooltip]."
+ scripted_crusade.0708.opening:0 "To the noble [crusader.GetTitledFirstNameNoTooltip]"
+ scripted_crusade.0708.desc:0 "I hope this letter finds you well. As you may have heard I have recently declared my intentions of embarking on a Crusade to reclaim [crusade_target.GetNameNoTierNoTooltip] for Christendom. I think our chances of success will be far greater if you also took the cross with me. \n\n May God bless and keep you."
+ scripted_crusade.0708.option.a:0 "Write back to [crusader.GetTitledFirstName], informing [crusader.GetHerHim] that I will join him on his Crusade."
+ scripted_crusade.0708.option.b:0 "Write back to [crusader.GetTitledFirstName] informing [crusader.GetHerHim] that I will donate some to [crusader.GetHerHim] Crusade."
+ scripted_crusade.0708.option.c:0 "Write back to [crusader.GetTitledFirstName] informing [crusader.GetHerHim] that I have no interest in [crusader.GetHerHim] delusions."
+
+
+ scripted_crusade.0709.opening:0 "To the pious [ROOT.Char.GetTitleTierName], [ROOT.Char.GetFirstNameNoTooltip]"
+ scripted_crusade.0709.desc.a:0 "I was of a mind to plan my own expedition, but you are right, together our chances of success are far greater. I will begin my preperations immediately."
+ scripted_crusade.0709.desc.b:0 "I cannot spare any of my men for Crusade at this time, but take this gift of gold. \nMay God grant you victory against the infidels."
+ scripted_crusade.0709.desc.c:0 "Regretfully I am preoccupied with more important matters of state at this time."
+ scripted_crusade.0709.option.a:0 "All is going according to plan."
+ scripted_crusade.0709.option.b:0 "I suppose it's better than nothing."
+ scripted_crusade.0709.option.c:0 "We don't need [crusader_neighbor.GetHerHim] anyway."
+ scripted_crusade.0709.option.a.tt:0 "[crusader_neighbor.GetTitledFirstName] will join your crusade when the time comes."
+ scripted_crusade.0709.option.b.tt:0 "[crusader_neighbor.GetTitledFirstName] has given you a gift of [var:one_quarter_yearly_income.GetValue] ducats."
+ scripted_crusade.0709.option.c.tt:0 "[crusader_neighbor.GetTitledFirstName] refuses to offer you any assistance."
+
+
+ scripted_crusade.0710.title.a:0 "Wartime Hunt"
+ scripted_crusade.0710.title.b:0 "The Council Meeting"
+ scripted_crusade.0710.desc.a:0 "During this latest campaign, I have more often than not found myself indulging in the hunt, and this morning is no different. My [ROOT.Char.Custom2('RelationToMeShort', SCOPE.sC('family_member'))], [family_member.GetFirstName] rides up beside me, spear in hand..\n\n"My liege, I have heard of your glorious plans for Crusade, and I beg of you, let me take the cross with you. Not only for the glory of God, but for the glory of our family.""
+
+ scripted_crusade.0710.desc.b:0 "In the latest council meeting there has been a great deal of discussion regarding the logistics of my Crusade. Even though God is surely on our side, many of my councillors fear we may not have enough men and supplies to achieve our goals. Just as my [councillor.GetCouncilTitle], [councillor.GetFirstName] was discussing the recruitment of mercenaries, my [family_member.GetCouncilTitle] and [ROOT.Char.Custom2('RelationToMeShort', SCOPE.sC('family_member'))], [family_member.GetFirstName] stands up.. \n\n"My liege, you need not spend your gold on mercenaries, I will pledge all of my forces to your crusade. For the glory of God, and for our family.""
+
+ scripted_crusade.0710.desc.c:0 "In the latest council meeting there has been a great deal of discussion regarding the logistics of my Crusade. Even though God is surely on our side, many of my councillors fear we may not have enough men and supplies to achieve our goals. Just as my [councillor.GetCouncilTitle], [councillor.GetFirstName] was discussing the recruitment of mercenaries, my [ROOT.Char.Custom2('RelationToMeShort', SCOPE.sC('family_member'))], [family_member.GetFirstName] enters the chamber..\n\n"My liege, you need not spend your gold on mercenaries, I have come to pledge myself to your Crusade. For the glory of God, and for our family.""
+
+ scripted_crusade.0710.option.a:0 "Your words are well received [ROOT.Char.Custom2('RelationToMeShort', SCOPE.sC('family_member'))]. I will gladly accept your offer."
+ scripted_crusade.0710.option.b:0 "There is not enough glory to go around, [family_member.GetFirstNameNoTooltip.]"
+ scripted_crusade.0710.option.c:0 "You are not a member of this council, [family_member.GetFirstNameNoTooltip]. Guard! Escort my [ROOT.Char.Custom2('RelationToMeShort', SCOPE.sC('family_member'))] out of here."
+ scripted_crusade.0710.option.d:0 "Sit down [family_member.GetFirstNameNoTooltip]."
+ 
+ scripted_crusade.0711.title:0 "The Crusade Begins"
+ scripted_crusade.0711.desc:0 "After almost a year of preperation, the time has finally come to take the fight to the infidels. I have done all that I can to ensure that my Crusade will be a success, and yet I must place the outcome in God's hands. \n\nIf my cause is as righteous as I believe it to be, then God will surely grant me victory."
+ scripted_crusade.0711.option:0 "Onwards to [crusade_target.GetNameNoTierNoTooltip]!"
+ scripted_crusade.0712.opening:0 "To the Great [ROOT.Char.GetTitleTierName], [ROOT.Char.GetFirstNameNoTooltip]"
+ scripted_crusade.0712.desc:0 "I hope this letter finds you well and in a state of complete preparedness. The time has finally come to launch our glorious Crusade. I plan to leave with my men within the fortnight, and bid you do the same. \n\n God is with us!"
+ scripted_crusade.0712.option:0 "Onwards to [crusade_target.GetNameNoTierNoTooltip]!"
+ scripted_crusade.0713.title.a:0 "[crusader.GetTitledFirstNameNoTooltip]'s Crusade for [crusade_target.GetNameNoTierNoTooltip]"
+ scripted_crusade.0713.title.b:0 "Christian Crusade for [crusade_target.GetNameNoTierNoTooltip]"
+ scripted_crusade.0713.desc.a:0  "The most pious and ambitious Christian [crusader.GetName] has launched a crusade for [crusade_target.GetNameNoTierNoTooltip]! \nBlessed by God, he will surely be triumphant and return [crusade_target.GetNameNoTierNoTooltip to Christian rule."
+ scripted_crusade.0713.desc.b:0 "The Christians, led by [crusader.GetName] have launched a Crusade for [crusade_target.GetNameNoTierNoTooltip]! \nA call has been made for all righteous Muslims to defend [crusade_target.GetNameNoTierNoTooltip] from the infidels."
+ scripted_crusade.0713.option.a:0 "Deus Vult!"
+ scripted_crusade.0713.option.b:0 "Inshallah they will not succeed."
+ scripted_crusade.0713.option.c:0 "That could have been me.."
+ scripted_crusade.0721.title:0 "Arrival in [crusade_target.GetNameNoTierNoTooltip]"
+ scripted_crusade.0721.desc.a:0 "After all the preperation that I have overseen, my armies have finally arrived in [crusade_target.GetNameNoTierNoTooltip], and now stand poised to reclaim all that has been lost to us. \nGod willing, we will be victorious in the coming battles!"
+ scripted_crusade.0721.desc.b:0 "Our armies have finally arrived in [crusade_target.GetNameNoTierNoTooltip], and stand poised to reclaim all that has been lost to us. \nGod willing, we will be victorious in the coming battles!"
+ scripted_crusade.0721.option.a:0 "Deus Vult!
+ scripted_crusade.0721.option.b:0 "I will finish what [crusader.GetFirstName] started..
+ scripted_crusade.0724.title:0 "[crusader.GetTitledFirstNameNoTooltip]'s Army has Arrived"
+ scripted_crusade.0724.desc:0 "The Crusader forces led by [crusader.GetName] have arrived in [crusade_target.GetNameNoTier]! \n\nAs my other war with [the_attacker.GetName] rages on, I wonder if I will be able to defend my lands from the Crusaders as well..\n\nAlthough some of the more faithful might find it detestable, perhaps I could turn [crusader.GetTitledFirstNameNoTooltip] into an ally if I offered him some of the land that he is after.."
+ scripted_crusade.0724.option.a:0 "I will send a messenger with a proposal."
+ scripted_crusade.0724.option.b:0 "What am I even saying?"
+ scripted_crusade.0725.title:0 "The [crusade_enemy.GetTitleTierName]'s Offer"
+ scripted_crusade.0725.desc:0 "My enemy in this Crusade, [crusade_enemy.GetName] has made a most unusual proposal. In return for an alliance and aid in his war against [the_attacker.GetName]. [crusade_enemy.GetFirstNameNoTooltip] is willing to concede some land within [crusade_target.GetName] to me. \n\nThis might be frowned upon by my fellow crusaders and the church, but would save many lives, and I would have still fulfilled  my crusade vows.."
+ scripted_crusade.0725.option.a:0 "I shouldn't look a gift horse in the mouth.."
+ scripted_crusade.0725.option.b:0 "I did not come here to make alliances with heretics."
+ scripted_crusade.0730.title:0 "Keys to the Kingdom"
+ scripted_crusade.0730.desc:0 "I have finally restored [target_title.GetNameNoTierNoTooltip] to the Christian faithful. I must now decide what to do with regards to my newly acquired titles."
+ scripted_crusade.0730.option.a:0 "Give the title to [title_claimant.GetName], they have a birthright to it."
+ scripted_crusade.0730.option.b:0 "Give the title to my [ROOT.Char.Custom2('RelationToMeShort', SCOPE.sC('valid_suitor_child'))], [valid_suitor_child.GetFirstName] and marry him to [child_claimant.GetName] to secure [ROOT.Char.Custom2('RelationToMeShort', SCOPE.sC('valid_suitor_child'))], [valid_suitor_child.GetFirstName] legitimacy."
+ scripted_crusade.0730.option.c:0 "I'll hold on to it for now."
+ 
+ 
+
+
+
+
+
+
+
+
+
+

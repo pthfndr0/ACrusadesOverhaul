@@ -1,0 +1,29 @@
+value_of_crusade_county = {
+	value = 0
+	if = {
+		limit = {
+			any_in_de_jure_hierarchy = {
+				tier = tier_barony
+				is_holy_site_of = faith:catholic
+			}
+		}
+		add = 1000
+	}
+	if = {
+		limit = {
+			any_county_in_region = {
+				region = jerusalem_coast
+				this = prev
+			}					
+		}
+		add = 500
+	}
+	if = {
+		limit = {
+			is_connected_to = {
+				target = title:c_jerusalem
+			}
+		}
+		add = 300
+	}
+}

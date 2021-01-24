@@ -1,0 +1,10 @@
+﻿crusader_state_county_trigger = {
+	has_variable = crusader_state_county_yes
+}
+
+
+crusader_state_duchy_trigger = {
+	has_variable = antioch
+	has_variable = edessa
+	has_variable = tripoli
+}

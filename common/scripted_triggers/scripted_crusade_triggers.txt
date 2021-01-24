@@ -1,0 +1,144 @@
+
+
+# Can great holy wars be unlocked for this faith?
+faith_suitable_for_any_ghw= {
+	OR = {
+		has_doctrine = tenet_armed_pilgrimages #Catholics
+		has_doctrine = tenet_struggle_submission #Islam (though, the default Faiths have Temporal Heads, so still do not qualify)
+		has_doctrine = tenet_warmonger #Germanic (though, starting as Unreformed, it still doesn't qualify by default)
+		has_doctrine = divine_destiny_doctrine #SPECIAL: Has become the Chakravarti
+	}
+	OR = {
+		has_doctrine = doctrine_temporal_head
+		has_doctrine = doctrine_spiritual_head
+	}
+	NOR = {
+		has_doctrine = unreformed_faith_doctrine
+		AND = {
+			has_doctrine = tenet_dharmic_pacifism
+			NOT = { has_doctrine = divine_destiny_doctrine }
+		}
+		has_doctrine = tenet_pacifism
+	}
+	fervor >= 35
+}
+
+# Crusade unlock reasons
+
+
+scripted_crusade.01_jerusalem_reason = {
+	title:c_jerusalem.holder.top_liege = {
+		NOT = {
+			faith.religion = scope:awakening_faith.religion
+		}
+	}
+}
+
+scripted_crusade.01_rome_reason = {
+	title:c_roma.holder.top_liege = {
+		NOT = {
+			faith.religion = scope:awakening_faith.religion
+		}
+	}
+}
+
+scripted_crusade.01_byzantion_reason = {
+	OR = {
+		title:e_byzantium.holder.religion = {
+			NOT = {
+				this = religion:christianity_religion
+			}
+		}
+		title:c_byzantion.holder.top_liege.religion = { # Constantinople
+			NOT = {
+				this = religion:christianity_religion
+			}
+		}
+		title:c_paphlagonia.holder.top_liege.religion = { # Ankyra
+			NOT = {
+				this = religion:christianity_religion
+			}
+		}
+		title:c_attica.holder.top_liege.religion = { # Athens
+			NOT = {
+				this = religion:christianity_religion
+			}
+		}
+		title:c_korinthos.holder.top_liege.religion = { # Corinth
+			NOT = {
+				this = religion:christianity_religion
+			}
+		}
+	}
+}
+
+
+scripted_crusade.01_europe_reason = {
+	OR = {
+		title:c_venaissin.holder.top_liege.religion = { # Provence
+			NOT = {
+				this = religion:christianity_religion
+			}
+		}
+		title:c_toulouse.holder.top_liege.religion = { # Toulouse
+			NOT = {
+				this = religion:christianity_religion
+			}
+		}
+		title:c_ile_de_france.holder.top_liege.religion = { # Paris
+			NOT = {
+				this = religion:christianity_religion
+			}
+		}
+		title:c_cologne.holder.top_liege.religion = { # Cologne
+			NOT = {
+				this = religion:christianity_religion
+			}
+		}
+		title:c_halberstadt.holder.top_liege.religion = { # Halberstadt
+			NOT = {
+				this = religion:christianity_religion
+			}
+		}
+	}
+
+scripted_crusade.01_middle_east_reason = {
+	OR = {
+		title:c_baghdad.holder.top_liege.religion = { # Baghdad
+			NOT = {
+				this = religion:christianity_religion
+			}
+		}
+		title:c_damascus.holder.top_liege.religion = { # Damascus
+			NOT = {
+				this = religion:christianity_religion
+			}
+		}
+		title:c_cairo.holder.top_liege.religion = { # Cairo
+			NOT = {
+				this = religion:christianity_religion
+			}
+		}
+	}
+}
+
+
+scripted_crusade.01_africa_reason = {
+	OR = {
+		title:c_marrakesh.holder.top_liege.religion = { # Marrakesh
+			NOT = {
+				this = religion:christianity_religion
+			}
+		}
+		title:c_tunis.holder.top_liege.religion = { # Tunis
+			NOT = {
+				this = religion:christianity_religion
+			}
+		}
+		title:c_algier.holder.top_liege.religion = { # Algier
+			NOT = {
+				this = religion:christianity_religion
+			}
+		}
+	}
+}

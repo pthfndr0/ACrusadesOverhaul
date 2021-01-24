@@ -1,0 +1,32 @@
+﻿l_english:
+
+# Antioch
+
+ prince_antioch:0 "Principality"
+ prince_antioch_male:0 "Prince"
+ prince_antioch_female:0 "Princess"
+
+ # Edessa
+
+ count_edessa:0 "County"
+ count_edessa_male:0 "Count"
+ count_edessa_female:0 "Countess"
+
+#Tripoli
+
+ count_tripoli:0 "County"
+ count_tripoli_male:0 "Count"
+ count_tripoli_female:0 "Countess"
+
+## Damascus
+
+ lord_damascus:0 "Lord"
+ lord_damascus_male:0 "Lord"
+ lord_damascus_female:0 "Lady"
+
+## Aleppo
+
+ prince_aleppo:0 "Principality"
+ prince_aleppo_male:0 "Prince"
+ prince_aleppo_female:0 "Princess"
+ 
