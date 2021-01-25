@@ -122,6 +122,7 @@ scripted_crusade.01_byzantion_reason = {
 }
 
 
+
 scripted_crusade.01_europe_reason = {
 	OR = {
 		title:c_venaissin.holder.top_liege.religion = { # Provence

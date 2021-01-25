@@ -173,6 +173,12 @@ scripted_crusade.03 = {
 	theme = faith
 	left_portrait = {
 		character = scope:main_character
+		triggered_animation = {
+			trigger = {
+				scripted_crusade.01_rome_reason = yes
+			}
+			animation = rage
+		}
 		animation = personality_zealous	
 	}
 	lower_left_portrait = scope:character_1
@@ -199,7 +205,6 @@ scripted_crusade.03 = {
 		play_music_cue = "mx_cue_general_crusade_event_3"
 
 
-		
 		#Grab scopes for catholic flavor
 		if = {
 			limit = {
@@ -286,27 +291,69 @@ scripted_crusade.03 = {
 		}
 	}
 
-	option = {
+	option = { # Your religion, neutral.
 		trigger = {
+			faith.religion = scope:awakening_faith.religion
 			NOR = {
 				has_trait = zealous
 				has_trait = cynical
+				scripted_crusade.01_rome_reason = no
 			}
 		}
 		name = scripted_crusade.03.OPTA
 	}
-	option = {
+	option = { # Your religion, zealous.
 		trigger = {
+			faith.religion = scope:awakening_faith.religion
+			scripted_crusade.01_rome_reason = no
 			has_trait = zealous
 		}
 		name = scripted_crusade.03.OPTB
 	}
-	option = {
+	option = { # Your religion, cynical.
 		trigger = {
+			faith.religion = scope:awakening_faith.religion
+			scripted_crusade.01_rome_reason = no
 			has_trait = cynical
 		}
 		name = scripted_crusade.03.OPTC
 	}
+
+	option = { # Christian religion, Rome has fallen.
+		trigger = {
+			faith.religion = scope:awakening_faith.religion
+			faith.religion = religion:christianity_religion
+			scripted_crusade.01_rome_reason = yes
+		}
+		name = scripted_crusade.03.OPTD
+	}
+
+	option = { # Not your religion
+		trigger = {
+			NOT = {
+				faith.religion = scope:awakening_faith.religion
+			}
+		}
+		name = scripted_crusade.03.OPTE
+	}
+	
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
 }
 
 #Crusade is Declared
