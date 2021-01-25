@@ -1,0 +1,50 @@
+
+peter_the_hermit = {
+	age = { 45 60 }
+	random_traits = no
+	diplomacy = 12
+	martial = 1
+	stewardship = 1
+	intrigue = 6
+	learning = 15
+	
+
+	gender_female_chance = {
+		if = {
+			limit = { faith:catholic = { has_doctrine = doctrine_gender_male_dominated } }
+			add = 0
+		}
+		else_if = {
+			limit = { faith:catholic = { has_doctrine = doctrine_gender_female_dominated } }
+			add = 100
+		}
+		else = {
+			add = 50
+		}
+	}
+	trait = zealous
+
+	random_traits_list = {
+		count =1
+		education_learning_1 = {}
+		education_learning_2 = {}
+		education_learning_3 = {}
+		education_learning_4 = {}
+	}
+	random_traits_list = {
+		count = 3
+		brave = {}
+		generous = {}
+		deceitful = {}
+		honest = {}
+		temperate = {}
+		paranoid ={}
+		compassionate = {}
+		stubborn = {}
+		calm = {}
+		chaste = {}
+	}
+
+
+
+}

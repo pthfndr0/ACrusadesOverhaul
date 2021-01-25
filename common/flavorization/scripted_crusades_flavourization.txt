@@ -1,0 +1,228 @@
+
+peter_the_hermit_title = {
+	type = title
+	titles = { d_peter_the_hermit }
+	priority = 40
+	governments = { feudal_government }
+	faiths = { catholic }
+	culture_groups = { latin_group frankish_group}
+	
+}
+
+peter_the_hermit_male = {
+	type = character
+	gender = male
+	special = holder
+	tier = duchy
+	priority = 40
+	titles = { d_peter_the_hermit }
+	governments = { feudal_government }
+	top_liege = yes
+	faiths = { catholic }
+	culture_groups = { latin_group frankish_group }
+}
+
+peter_the_hermit_female = {
+	type = character
+	gender = female
+	special = holder
+	tier = duchy
+	priority = 40
+	titles = { d_peter_the_hermit }
+	governments = { feudal_government }
+	top_liege = yes
+	faiths = { catholic }
+	culture_groups = { latin_group frankish_group }
+}
+
+
+
+
+# Antioch
+
+prince_antioch = {
+	type = title
+	titles = { d_antioch }
+	priority = 40
+	governments = { feudal_government }
+	faiths = { catholic }
+	culture_groups = { latin_group frankish_group}
+	
+}
+
+prince_antioch_male = {
+	type = character
+	gender = male
+	special = holder
+	tier = duchy
+	priority = 40
+	titles = { d_antioch }
+	governments = { feudal_government }
+	top_liege = no
+	faiths = { catholic }
+	culture_groups = { latin_group frankish_group }
+}
+
+prince_antioch_female = {
+	type = character
+	gender = female
+	special = holder
+	tier = duchy
+	priority = 40
+	titles = { d_antioch }
+	governments = { feudal_government }
+	top_liege = no
+	faiths = { catholic }
+	culture_groups = { latin_group frankish_group}
+}
+
+# Edessa
+
+count_edessa = {
+	type = title
+	titles = { d_edessa }
+	priority = 40
+	governments = { feudal_government }
+	faiths = { catholic }
+	culture_groups = { latin_group frankish_group}
+	
+}
+
+count_edessa_male = {
+	type = character
+	gender = male
+	special = holder
+	tier = duchy
+	priority = 40
+	titles = { d_edessa }
+	governments = { feudal_government }
+	top_liege = no
+	faiths = { catholic }
+	culture_groups = { latin_group frankish_group }
+}
+
+count_edessa_female = {
+	type = character
+	gender = female
+	special = holder
+	tier = duchy
+	priority = 40
+	titles = { d_edessa }
+	governments = { feudal_government }
+	top_liege = no
+	faiths = { catholic }
+	culture_groups = { latin_group frankish_group}
+}
+
+# Tripoli
+
+count_tripoli = {
+	type = title
+	titles = { d_lebanon}
+	priority = 40
+	governments = { feudal_government }
+	faiths = { catholic }
+	culture_groups = { latin_group frankish_group}
+	
+}
+
+count_tripoli_male = {
+	type = character
+	gender = male
+	special = holder
+	tier = duchy
+	priority = 40
+	titles = { d_lebanon }
+	governments = { feudal_government }
+	top_liege = no
+	faiths = { catholic }
+	culture_groups = { latin_group frankish_group }
+}
+
+count_tripoli_female = {
+	type = character
+	gender = female
+	special = holder
+	tier = duchy
+	priority = 40
+	titles = { d_lebanon }
+	governments = { feudal_government }
+	top_liege = no
+	faiths = { catholic }
+	culture_groups = { latin_group frankish_group}
+}
+
+# Damascus
+
+lord_damascus = {
+	type = title
+	titles = { d_damascus }
+	tier = duchy
+	priority = 40
+	governments = { feudal_government }
+	faiths = { catholic }
+	
+}
+
+lord_damascus_male = {
+	type = character
+	gender = male
+	special = holder
+	tier = duchy
+	priority = 40
+	titles = { d_damascus }
+	governments = { feudal_government }
+	top_liege = no
+	faiths = { catholic }
+}
+
+
+lord_damascus_female = {
+	type = character
+	gender = female
+	special = holder
+	tier = duchy
+	priority = 40
+	titles = { d_damascus }
+	governments = { feudal_government }
+	top_liege = no
+	faiths = { catholic }
+}
+
+# Aleppo
+
+prince_aleppo = {
+	type = title
+	titles = { d_aleppo }
+	tier = duchy
+	priority = 40
+	governments = { feudal_government }
+	faiths = { catholic }
+	
+}
+
+prince_aleppo_male = {
+	type = character
+	gender = male
+	special = holder
+	tier = duchy
+	priority = 40
+	titles = { d_aleppo }
+	governments = { feudal_government }
+	top_liege = no
+	faiths = { catholic }
+}
+
+prince_aleppo_female = {
+	type = character
+	gender = female
+	special = holder
+	tier = duchy
+	priority = 40
+	titles = { d_aleppo }
+	governments = { feudal_government }
+	top_liege = no
+	faiths = { catholic }
+}
+
+

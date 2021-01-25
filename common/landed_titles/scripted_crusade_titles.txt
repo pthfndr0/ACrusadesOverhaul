@@ -1,0 +1,9 @@
+d_peter_the_hermit = {
+color = { 35 125 125 }
+definite_form = yes
+ruler_uses_title_name = no
+landless = yes
+no_automatic_claims = yes
+always_follows_primary_heir = no
+destroy_if_invalid_heir = yes
+}

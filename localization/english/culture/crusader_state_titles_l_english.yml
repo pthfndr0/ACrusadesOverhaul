@@ -30,3 +30,10 @@
  prince_aleppo_male:0 "Prince"
  prince_aleppo_female:0 "Princess"
  
+## Peter The Hermit Title
+
+ peter_the_hermit_title:0 "TEST"
+ peter_the_hermit_male:0 ""
+ peter_the_hermit_female:0 ""
+ 
+ 

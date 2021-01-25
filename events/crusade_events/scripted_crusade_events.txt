@@ -248,7 +248,6 @@ scripted_crusade.03 = {
 				}
 			}
 
-
 			# Grab some bishops to fill out the event
 			random_living_character = {
 				limit = {
@@ -356,9 +355,147 @@ scripted_crusade.03 = {
 	
 }
 
+scripted_crusade.04 = {
+	scope = faith
+	hidden = yes
+
+	trigger = {
+
+		has_doctrine = doctrine_spiritual_head
+		save_temporary_scope_as = the_faith
+		exists = religious_head
+		NOR = {
+			exists = great_holy_war
+			exists = var:variable_ghw_cooldown
+			religion = { exists = var:variable_first_ghw_cooldown } # Do not event spam after Crusades have been just unlocked.
+		}
+		religious_head = { is_imprisoned = no }
+		religion = { exists = var:variable_ghw_unlocked } #Activated by event for every religion.
+		faith_suitable_for_undirected_ghw = yes  # Can this faith actually call a GHW right now?
+
+
+
+
+	}
+
+	immediate = {
+
+		if = {
+			limit = {
+				NOT = {
+					root = faith:catholic
+				}
+			}
+			trigger_event = scripted_crusade.05
+		} 
+
+		# What kind of crusade?(Catholic flavor)
+		else = {
+			set_variable = {
+				name = 04_fired
+				value = yes
+			}
+		
+		
+			# If it's the First Crusade..
+			if = {
+				limit = {
+					var:number_of_GHWs = 0
+				}
+				random_list = {
+
+					# Start with a popular crusade, then get a baron's crusade
+					67 = {
+						every_player = {
+							limit = {
+								faith = root
+							}
+							trigger_event = scripted_crusade.05
+						}
+					}
+
+					# Start with a baron's crusade, no popular crusade.
+					33 = {
+						every_player = {
+							limit = {
+								faith = root
+							}
+							trigger_event = scripted_crusade.n
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+
+### POPULAR CRUSADE SETUP ###
+scripted_crusade.05 = {
+
+	trigger = {
+
+	}
+
+	left_portrait = scope:peter_the_hermit
+
+
+
+	immediate = {
+
+		random_county_in_region = {
+			region = world_europe_west_francia
+			random_in_de_jure_hierarchy = {
+				limit = {
+					AND = {
+						exists = this.holder
+						this.holder.faith = faith:catholic
+					}
+					faith = faith:catholic			
+				}
+				save_scope_as = peter_spawn
+				this.culture = {
+					save_scope_as = peter_culture
+				}
+			}
+		}
+
+
+		# Generate character inspired by Peter the Hermit
+		create_character = { # Give nickname "The Hermit"
+			
+			location = scope:peter_spawn
+			template = peter_the_hermit
+			faith = faith:catholic
+			culture = scope:peter_culture
+			dynasty = none
+			save_scope_as = peter_the_hermit
+		}
+
+
+		scope:peter_the_hermit = {
+			get_title = title:d_peter_the_hermit
+		}
+
+
+
+		
+
+	}
+	
+	
+	option = {
+
+	}
+}
+
+
+
+
+
 #Crusade is Declared
 
-scripted_crusade.04 = { 
+scripted_crusade.n = { 
 	hidden = yes
 	scope = faith
 	
@@ -378,8 +515,6 @@ scripted_crusade.04 = {
 	
 	immediate = {
 		save_scope_as = the_faith
-
-
 
 		# Iterate or create the variable that tracks the number of GHWs this faith has had.
 		if = {
@@ -547,7 +682,7 @@ scripted_crusade.04 = {
 				highest_held_title_tier >= tier_county
 				NOT = { this = scope:ghw_sponsor }
 			}
-			trigger_event = scripted_crusade.05 #Send event immediately for player, then delay it for all the AIs.
+			trigger_event = scripted_crusade.x #Send event immediately for player, then delay it for all the AIs.
 		}
 		every_player = { #Inform defending players
 			limit = {
@@ -628,7 +763,7 @@ scripted_crusade.04 = {
 
 ## Crusade Preparation Event - Allows you to pledge troops, gold, decline. Flavor for the crusade is based on the global_variables
 ## that have been triggered. This gives each crusade its own flavor unlike vanilla, where it's the same rehashed event with no continuity.
-scripted_crusade.05 = {
+scripted_crusade.x = {
 	title = {
 		first_valid = {
 			triggered_desc = { trigger = { }    }		
@@ -653,22 +788,16 @@ scripted_crusade.05 = {
 	lower_right_portrait = scope:archbishop
 
 	immediate = {
-		scope:pope= {
-			save_scope_as = background_temple_scope
-		}
-		play_music_cue = "mx_cue_general_crusade_event_2"
 
-		set_variable = {
-			name = ghw_pledge_amount
-			value = great_holy_war_pledge_amount
-		}
-		set_variable = {
-			name = half_great_holy_war_pledge_amount
-			value = {
-				value = root.great_holy_war_pledge_amount
-				multiply = 0.5
-			}
-		}
+
+
+
+
+
+
+
+
+		
 	}
 	
 	option = {	
