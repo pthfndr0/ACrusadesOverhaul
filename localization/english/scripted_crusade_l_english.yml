@@ -18,6 +18,11 @@
  scripted_crusade.05.OPTA:0 "What will [pope_urban.GetSheHe] do next?"
  scripted_crusade.05.OPTB:0 "God is surely with [pope_urban.GetHerHim]."
  scripted_crusade.05.OPTC:0 "A bunch of paupers conquering the Holy Land? Ha!"
+ scripted_crusade.07.title:0 ""
+ scripted_crusade.07.desc:0 ""
+ scripted_crusade.08.title:0 "The People's Crusade"
+ scripted_crusade.08.desc:0 "Several months have passed since [peter_the_hermit.GetFirstName] begun preaching the Crusade, and he has since rallied a considerable number of zealous Christians to his cause..\n\n We have recently received word that [peter_the_hermit.GetFirstName] and his mass of followers, who have for some time been roaming around in [realm.GetNameNoTier], are at last setting out for their great pilgrimage to the Holy Land. \n\n What is even more surprising however, is that this host of peasants has managed to attract the leadership of several experienced knights, who have not only added some legitimacy to the cause, but who will no doubt be of considerable use should this untrained and lightly armed mob of pilgrims find themselves forced to do battle with the Infidel."
+
 
  
  scripted_crusade.0003.desc.first_crusade:0 "Nearing the end of his speech, the pope adds one further comment. 

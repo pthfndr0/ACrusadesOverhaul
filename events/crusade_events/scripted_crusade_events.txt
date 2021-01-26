@@ -464,7 +464,6 @@ scripted_crusade.05 = {
 	}
 
 
-
 	immediate = {
 
 		faith:catholic = {
@@ -499,7 +498,6 @@ scripted_crusade.05 = {
 			}
 		}
 
-
 		# Generate character inspired by Peter the Hermit
 		create_character = { # Give nickname "The Hermit"
 			
@@ -510,17 +508,16 @@ scripted_crusade.05 = {
 			dynasty = none
 			save_scope_as = peter_the_hermit
 		}
-
-		trigger_event = {
-			id = scripted_crusade.06
-			days = { 50 90 }
+		scope:peter_the_hermit = {
+			add_piety = 1200
+			add_gold = 100
+			add_prestige = 300
+			add_piety_level = 3
 		}
 
-
-		
-
+		trigger_event = scripted_crusade.06
 	}
-	
+
 	#Neutral Catholic
 	option = {
 		name = scripted_crusade.05.OPTA
@@ -546,39 +543,333 @@ scripted_crusade.05 = {
 	}
 }
 
-# Hermit aqnd his followers make thier pilgrammage
+# Hermit goes to several rulers areas preaching..
 
 scripted_crusade.06 = {
+	hidden = yes
 	
-	trigger = [
+	trigger = {
+		scope:peter_the_hermit = {
+			is_alive = yes
+			is_landed = no
+		}
+	}
+
+	immediate = {
+
+		if = {
+			limit = {
+				NOT = {
+					scope:peter_the_hermit = {
+						has_variable = numOfTownsVisited
+					}
+				}
+			}
+			scope:peter_the_hermit = {
+				set_variable = {
+					name = numOfTownsVisited
+					value = 0
+				}
+				set_variable = {
+					name = numOfFollowers
+					value = 0
+				}
+			}
+		}
+
+
+		random_county_in_region = {
+			region = custom_normandy_and_adjacent
+			random_in_de_jure_hierarchy = {
+				limit = {
+					AND = {
+						exists = this.holder
+						this.holder.faith = faith:catholic
+						NOT = {
+							has_variable = visited_by_hermit
+						}
+					}
+					faith = faith:catholic			
+				}
+				save_scope_as = peter_spawn
+				this.culture = {
+					save_scope_as = peter_culture
+				}
+				this.holder = {
+					save_scope_as = char
+					set_variable = visited_by_hermit_char
+				}
+			}
+		}
+
+		if = {
+			limit = {
+				scope:char = {
+					AND = {
+						is_ai = no
+						NOT = {
+							has_variable = visited_by_hermit_char
+						}
+
+					}
+				}
+			}
+			# trigger_event = scripted_crusade.07 # Hermit visits a player held holding.
+		}
+
+		else = {
+
+			random_list = {
+				# Hermit is allowed to 
+				75 = {
+
+					modifier = {
+						scope:char = {
+							OR = {
+								has_trait = cynical
+								has_trait = greedy
+							}
+						}
+						subtract = 75
+					}			
+					scope:peter_the_hermit = {
+						change_variable = {
+							name = numOfFollowers
+							add = 3000
+						}
+						change_variable = {
+							name = numOfTownsVisited
+							add = 1
+						}
+					}
+
+					
+				}
+
+				25 = {
+					scope:peter_the_hermit = {
+						change_variable = {
+							name = numOfTownsVisited
+							add = 1
+						}
+					}
+
+				}
+			}
+		}
+		if = {
+			limit = {
+				scope:peter_the_hermit = {
+					var:numOfTownsVisited < 10
+				}
+			}
+			trigger_event = {
+				id = scripted_crusade.06
+				days = { 7 10 }
+			} 
+
+		}
+		else = {
+
+
+			scope:peter_the_hermit = {
+				get_title = d_peter_the_hermit
+			}
+
+			create_character = {
+				location = title:c_ile_de_france
+				template = servant_character
+				faith = scope:peter_the_hermit.faith
+				culture = scope:peter_the_hermit.culture
+				save_scope_as = hermit_follower_1
+				dynasty = none
+			}
+			create_character = {
+				location = title:c_ile_de_france
+				template = beautiful_peasant_character
+				faith = scope:peter_the_hermit.faith
+				culture = scope:peter_the_hermit.culture
+				save_scope_as = hermit_follower_2
+				dynasty = none
+				
+			}
+			create_character = {
+				location = title:c_ile_de_france
+				template = beautiful_peasant_character
+				faith = scope:peter_the_hermit.faith
+				culture = scope:peter_the_hermit.culture
+				save_scope_as = hermit_follower_3
+				dynasty = none
+
+			}
+			create_character = {
+				location = title:c_ile_de_france
+				template = merchant_template
+				faith = scope:peter_the_hermit.faith
+				culture = scope:peter_the_hermit.culture
+				save_scope_as = hermit_follower_4
+				dynasty = none
+
+			}
+			create_character = {
+				location = title:c_ile_de_france
+				template = merchant_template
+				faith = scope:peter_the_hermit.faith
+				culture = culture:french
+				save_scope_as = hermit_follower_5
+				dynasty = none
+
+			}
+			create_character = {
+				location = title:c_ile_de_france
+				template = hunter_template
+				faith = scope:peter_the_hermit.faith
+				culture = scope:peter_the_hermit.culture
+				save_scope_as = hermit_follower_6
+				dynasty = none
+
+			}
+			create_character = {
+				location = title:c_ile_de_france
+				template = hunter_template
+				faith = scope:peter_the_hermit.faith
+				culture = scope:peter_the_hermit.culture
+				save_scope_as = hermit_follower_7
+				dynasty = none
+
+			}
+			
+			create_character = {
+				location = title:c_ile_de_france
+				template = crusade_knight
+				faith = scope:peter_the_hermit.faith
+				culture = culture:french
+				save_scope_as = holy_knight_1
+			}
+			create_character = {
+				location = title:c_ile_de_france
+				template = crusade_knight
+				faith = scope:peter_the_hermit.faith
+				culture = culture:norman
+				save_scope_as = holy_knight_2
+			}
+			create_character = {
+				location = title:c_ile_de_france
+				template = crusade_knight
+				faith = scope:peter_the_hermit.faith
+				culture = scope:peter_the_hermit.culture
+				save_scope_as = holy_knight_3
+			}			
+			scope:peter_the_hermit = {
+				add_courtier = scope:hermit_follower_1
+				add_courtier = scope:hermit_follower_2
+				add_courtier = scope:hermit_follower_3
+				add_courtier = scope:hermit_follower_4
+				add_courtier = scope:hermit_follower_5
+				add_courtier = scope:hermit_follower_6
+				add_courtier = scope:hermit_follower_7
+				add_courtier = scope:holy_knight_1
+				add_courtier = scope:holy_knight_2
+				add_courtier = scope:holy_knight_3
+			}
+
+			trigger_event = {
+				id = scripted_crusade.08
+				days = { 7 10 }
+			}
+		}
+	}
+
+
+
+
+
+
+
+}
+
+#Hermit visits player's realm.
+scripted_crusade.07 = {
+	type = character_event
+	title = scripted_crusade.07.title
+	desc = scripted_crusade.07.desc
+	theme = faith
+	option = {
+
+	}
+}
+
+
+#Hermit and his followers make their "pilgrimage"
+
+scripted_crusade.08 = {
+	type = character_event
+	title = scripted_crusade.08.title
+	desc = scripted_crusade.08.desc
+	theme = faith
+
+	left_portrait = scope:peter_the_hermit
+
+	lower_left_portrait = scope:holy_knight_1
+	lower_center_portrait = scope:holy_knight_2
+	lower_right_portrait = scope:holy_knight_3
+
+	override_background = {
+		event_background = farmland
+	}
+	
+	trigger = {
+		scope:peter_the_hermit = {
+			is_alive = yes
+			is_landed = no
+		}
 	}
 	immediate = {
+
+
+		play_music_cue = "mx_cue_faith_conversion"
+
+		title:k_france.holder.location = {
+			save_scope_as = loc
+		}
+
+		title:k_france = {
+			save_scope_as = realm
+		}
 		scope:peter_the_hermit = {
-			get_title = d_peter_the_hermit
-		}
 
-		
-	spawn_army = { # Spawns an army for any crusader state leader(duke) so that they dont get smashed by the AI.
-
-		men_at_arms = {
-		type = armored_horsemen
-			stacks = {
-				value = 2                      
+			title:k_france.holder = {
+				add_courtier = prev
 			}
-		}         
-		inheritable = yes
-		uses_supply = yes
-		location = capital_province
+
+			start_war = {  # Starts the crusade	- to do, make this an actual crusade.
+			casus_belli = religious_war
+			target = title:c_jerusalem.holder
+			target_title = title:k_jerusalem
+			save_scope_as = peoples_crusade
+			}
+
+			spawn_army = {
+				name = event_troop_default_name
+				levies = var:numOfFollowers 
+				inheritable = no
+				uses_supply = yes
+				war = scope:peter_the_hermit.location
+				location = scope:loc
+			}
+			
+		}
+
+
+
+
+
+
+		# trigger_event = {
+		# 	#send message to defender.
+		# }
 	}
 
-		start_war ={
-
-		}
-
-		trigger_event = {
-			#send message to defender.
-		}
-
 		option = {
 
 		}
@@ -589,7 +880,7 @@ scripted_crusade.06 = {
 		option = {
 
 		}
-	}
+	
 }
 
 

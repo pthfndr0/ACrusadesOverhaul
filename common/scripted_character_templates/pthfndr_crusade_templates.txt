@@ -20,15 +20,16 @@ random_traits = no
 
 
 crusade_knight = {
-	age = 20-40
+	age = { 21 50 }
 	gender = male
+	random_traits = no
 	faith = faith:catholic
 	culture = root.culture
-	diplomacy = 5
+	diplomacy = 2
 	martial = 8
-	stewardship = 5
-	intrigue = 5
-	learning = 5
+	stewardship = 2
+	intrigue = 2
+	learning = 2
 
 	random_traits_list = {
 		count =1
@@ -40,10 +41,31 @@ crusade_knight = {
 		count = 1
 		brave = {}
 		zealous = {}
+		trusting = {}
 	}
-	random_traits = no
+	random_traits_list = {
+		count = 3
+		temperate = {}
+		patient = {}
+		callous = {}
+		sadistic = {}
+		compassionate = {}
+		just = {}
+		arbitrary = {}
+		arrogant = {}
+		humble = {}
+		impatient = {}
+		honest = {}
+		deceitful = {}
+		generous = {}
+		greedy = {}
+		diligent = {}
+		chaste = {}
+		lustful = {}
+		calm = {}
+		wrathful = {}
+	}
 
-	trait = ambitious
 }
 
 
