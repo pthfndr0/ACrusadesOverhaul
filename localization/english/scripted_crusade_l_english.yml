@@ -11,6 +11,14 @@
  scripted_crusade.03.OPTC:0 "Hmm."
  scripted_crusade.03.OPTD:0 "We will take back all that has been lost and more."
  scripted_crusade.03.OPTE:0 "A curious development."
+
+
+ scripted_crusade.05.title:0 "[peter_the_hermit.GetFirstNameNoTooltip] the Hermit"
+ scripted_crusade.05.desc:0 "Many months have now passed since Pope [pope_urban.GetFirstName]'s inspiring speech in the [council_location.GetNameNoTooltip], and though several great lords have announced their intentions of answering Pope [pope_urban.GetFirstName]'s call, there have still been no real expeditions launched to reclaim the Holy Land.. \n\n To many, especially the peasants, the extensive preperations of the church and the nobility for the Crusade seem not only superfluous, but almost faithless. If Christ's soldiers marched to the Holy Land, would he not scatter the infidel as he had the Philistines long ago? \n\n One ragged [pope_urban.GetWomanMan] from France in particular certainly advocates these beliefs, as we've received word that [pope_urban.GetSheHe] has been roaming from town to town upon [pope_urban.GetHerHis] donkey, mesmerizing crowds with [pope_urban.GetHerHis] fiery, passionate preaching, and according to our reports, has amassed thousands of followers."
+ scripted_crusade.05.OPTA:0 "What will [pope_urban.GetSheHe] do next?"
+ scripted_crusade.05.OPTB:0 "God is surely with [pope_urban.GetHerHim]."
+ scripted_crusade.05.OPTC:0 "A bunch of paupers conquering the Holy Land? Ha!"
+
  
  scripted_crusade.0003.desc.first_crusade:0 "Nearing the end of his speech, the pope adds one further comment. 
 Although, sons of God, you have pledged to keep the peace amongst yourselves and to preserve the rights of the holy church, t

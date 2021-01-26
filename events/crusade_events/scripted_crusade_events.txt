@@ -246,6 +246,14 @@ scripted_crusade.03 = {
 					}
 					
 				}
+				set_variable = {
+					name = pope_urban
+					value = faith:catholic.religious_head
+				}
+				set_variable = {
+					name = council_of_clermont_loc
+					value = scope:council_location
+				}
 			}
 
 			# Grab some bishops to fill out the event
@@ -365,6 +373,7 @@ scripted_crusade.04 = {
 		save_temporary_scope_as = the_faith
 		exists = religious_head
 		NOR = {
+			exists = var:ghw_chain
 			exists = great_holy_war
 			exists = var:variable_ghw_cooldown
 			religion = { exists = var:variable_first_ghw_cooldown } # Do not event spam after Crusades have been just unlocked.
@@ -379,6 +388,10 @@ scripted_crusade.04 = {
 	}
 
 	immediate = {
+		set_variable = {
+			name = ghw_chain
+			value = yes
+		}
 
 		if = {
 			limit = {
@@ -386,21 +399,17 @@ scripted_crusade.04 = {
 					root = faith:catholic
 				}
 			}
-			trigger_event = scripted_crusade.05
+			trigger_event = scripted_crusade.100
 		} 
 
 		# What kind of crusade?(Catholic flavor)
 		else = {
-			set_variable = {
-				name = 04_fired
-				value = yes
-			}
 		
-		
-			# If it's the First Crusade..
+			# If it's the First Crusade.. and Jerusalem
 			if = {
 				limit = {
 					var:number_of_GHWs = 0
+					scripted_crusade.01_jerusalem_reason = yes
 				}
 				random_list = {
 
@@ -411,6 +420,10 @@ scripted_crusade.04 = {
 								faith = root
 							}
 							trigger_event = scripted_crusade.05
+							trigger_event = {
+								id = scripted_crusade.100
+								days = { 120 190 }
+							}
 						}
 					}
 
@@ -420,7 +433,7 @@ scripted_crusade.04 = {
 							limit = {
 								faith = root
 							}
-							trigger_event = scripted_crusade.n
+							trigger_event = scripted_crusade.100
 						}
 					}
 				}
@@ -430,21 +443,47 @@ scripted_crusade.04 = {
 }
 
 
+
 ### POPULAR CRUSADE SETUP ###
+
+## Event about hermit preaching the crusade.
 scripted_crusade.05 = {
+	title = scripted_crusade.05.title
+	desc = scripted_crusade.05.desc
 
 	trigger = {
 
 	}
-
-	left_portrait = scope:peter_the_hermit
+	theme = faith
+	left_portrait = {
+		character = scope:peter_the_hermit
+		animation = personality_zealous
+	}
+	override_background = {
+		event_background = market_west
+	}
 
 
 
 	immediate = {
 
+		faith:catholic = {
+			if = {
+				limit = {
+					exists = var:pope_urban
+					exists = var:council_of_clermont_loc
+				}
+				var:pope_urban = {
+					save_scope_as = pope_urban
+				}
+				var:council_of_clermont_loc = {
+					save_scope_as = council_location
+				}
+			}
+		}
+
 		random_county_in_region = {
-			region = world_europe_west_francia
+			region = ghw_region_france
 			random_in_de_jure_hierarchy = {
 				limit = {
 					AND = {
@@ -472,30 +511,93 @@ scripted_crusade.05 = {
 			save_scope_as = peter_the_hermit
 		}
 
-
-		scope:peter_the_hermit = {
-			get_title = title:d_peter_the_hermit
+		trigger_event = {
+			id = scripted_crusade.06
+			days = { 50 90 }
 		}
-
 
 
 		
 
 	}
 	
-	
+	#Neutral Catholic
 	option = {
+		name = scripted_crusade.05.OPTA
+		trigger = {
+			NOR = {
+				has_trait = zealous
+				has_trait = cynical
+			}
+		}
+	}
+	#Zealous Catholic
+	option = {
+		name = scripted_crusade.05.OPTB
+		trigger = {
+			has_trait = zealous
 
+		}
+	}
+	#Cynical Catholic
+	option = {
+		name = scripted_crusade.05.OPTC
+		has_trait = cynical
+	}
+}
+
+# Hermit aqnd his followers make thier pilgrammage
+
+scripted_crusade.06 = {
+	
+	trigger = [
+	}
+	immediate = {
+		scope:peter_the_hermit = {
+			get_title = d_peter_the_hermit
+		}
+
+		
+	spawn_army = { # Spawns an army for any crusader state leader(duke) so that they dont get smashed by the AI.
+
+		men_at_arms = {
+		type = armored_horsemen
+			stacks = {
+				value = 2                      
+			}
+		}         
+		inheritable = yes
+		uses_supply = yes
+		location = capital_province
+	}
+
+		start_war ={
+
+		}
+
+		trigger_event = {
+			#send message to defender.
+		}
+
+		option = {
+
+		}
+
+		option = {
+
+		}
+		option = {
+
+		}
 	}
 }
 
 
 
 
-
 #Crusade is Declared
 
-scripted_crusade.n = { 
+scripted_crusade.100 = { 
 	hidden = yes
 	scope = faith
 	
@@ -682,7 +784,7 @@ scripted_crusade.n = {
 				highest_held_title_tier >= tier_county
 				NOT = { this = scope:ghw_sponsor }
 			}
-			trigger_event = scripted_crusade.x #Send event immediately for player, then delay it for all the AIs.
+			trigger_event = scripted_crusade.99 #Send event immediately for player, then delay it for all the AIs.
 		}
 		every_player = { #Inform defending players
 			limit = {
@@ -763,7 +865,7 @@ scripted_crusade.n = {
 
 ## Crusade Preparation Event - Allows you to pledge troops, gold, decline. Flavor for the crusade is based on the global_variables
 ## that have been triggered. This gives each crusade its own flavor unlike vanilla, where it's the same rehashed event with no continuity.
-scripted_crusade.x = {
+scripted_crusade.99 = {
 	title = {
 		first_valid = {
 			triggered_desc = { trigger = { }    }		
