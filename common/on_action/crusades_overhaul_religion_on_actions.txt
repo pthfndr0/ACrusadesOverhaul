@@ -1,12 +1,6 @@
 on_faith_monthly = {
 	events = {
 		scripted_crusade.02 # Calls event that checks if any faith is valid for 'awakening'
-		scripted_crusade.04 # Triggers crusade for faith.
-	}
-}
-
-on_game_start = {
-	events = {
-		scripted_crusade.01
+		scripted_crusade.04 # Triggers GHW for faith.
 	}
 }

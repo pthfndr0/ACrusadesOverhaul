@@ -1,0 +1,13 @@
+
+on_game_start_after_lobby = {
+	effect = {
+		random_living_character = {
+			limit = {
+				is_ai = yes
+			}
+			trigger_event = scripted_crusade.69
+		}
+	}
+
+
+}

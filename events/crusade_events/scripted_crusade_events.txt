@@ -1,13 +1,9 @@
 ﻿namespace = scripted_crusade
 
-scripted_crusade.01 = {
-	hidden = yes
-	trigger = {
-		NOT = {
-			has_global_variable = scripted_crusade_01
-		}
-	}
-	
+
+scripted_crusade.69 = {
+	title = "pls"
+
 	immediate = {
 		set_global_variable = scripted_crusade_01
 
@@ -20,9 +16,10 @@ scripted_crusade.01 = {
 			}
 		}
 	}
+	option = {
+
+	}
 }
-
-
 #Unlocks GHWs for Faith - Called monthly
 scripted_crusade.02 = { 
 	hidden = yes
@@ -499,7 +496,7 @@ scripted_crusade.05 = {
 		}
 
 		# Generate character inspired by Peter the Hermit
-		create_character = { # Give nickname "The Hermit"
+		create_character = {
 			
 			location = scope:peter_spawn
 			template = peter_the_hermit
@@ -509,6 +506,7 @@ scripted_crusade.05 = {
 			save_scope_as = peter_the_hermit
 		}
 		scope:peter_the_hermit = {
+			give_nickname = nick_the_hermit
 			add_piety = 1200
 			add_gold = 100
 			add_prestige = 300
