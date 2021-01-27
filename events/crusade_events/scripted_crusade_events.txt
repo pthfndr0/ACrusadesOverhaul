@@ -20,6 +20,15 @@ scripted_crusade.69 = {
 
 	}
 }
+
+
+scripted_crusade.312 = {
+	
+	option = {
+		custom_tooltip = scripted_crusade.05.tt
+
+	}
+}
 #Unlocks GHWs for Faith - Called monthly
 scripted_crusade.02 = { 
 	hidden = yes
@@ -496,6 +505,7 @@ scripted_crusade.05 = {
 		}
 
 		# Generate character inspired by Peter the Hermit
+		
 		create_character = {
 			
 			location = scope:peter_spawn
@@ -505,13 +515,16 @@ scripted_crusade.05 = {
 			dynasty = none
 			save_scope_as = peter_the_hermit
 		}
-		scope:peter_the_hermit = {
-			give_nickname = nick_the_hermit
-			add_piety = 1200
-			add_gold = 100
-			add_prestige = 300
-			add_piety_level = 3
+		hidden_effect = {
+			scope:peter_the_hermit = {
+				give_nickname = nick_the_hermit
+				add_piety = 1200
+				add_gold = 100
+				add_prestige = 300
+				add_piety_level = 3
+			}
 		}
+
 
 		trigger_event = scripted_crusade.06
 	}
@@ -525,6 +538,7 @@ scripted_crusade.05 = {
 				has_trait = cynical
 			}
 		}
+		custom_tooltip = scripted_crusade.05.tt
 	}
 	#Zealous Catholic
 	option = {
@@ -533,11 +547,15 @@ scripted_crusade.05 = {
 			has_trait = zealous
 
 		}
+		custom_tooltip = scripted_crusade.05.tt
 	}
 	#Cynical Catholic
 	option = {
 		name = scripted_crusade.05.OPTC
-		has_trait = cynical
+		trigger = {
+			has_trait = cynical
+		}
+		custom_tooltip = scripted_crusade.05.tt
 	}
 }
 
@@ -841,11 +859,20 @@ scripted_crusade.08 = {
 			}
 
 			start_war = {  # Starts the crusade	- to do, make this an actual crusade.
-			casus_belli = religious_war
+			casus_belli = peoples_crusade
 			target = title:c_jerusalem.holder
 			target_title = title:k_jerusalem
-			save_scope_as = peoples_crusade
 			}
+
+			every_character_war = {
+				limit = {
+					using_cb = religious_war
+				}
+				save_scope_as = scuffed_crusade
+			}
+
+
+
 
 			spawn_army = {
 				name = event_troop_default_name
@@ -862,6 +889,25 @@ scripted_crusade.08 = {
 
 
 
+		# faith:catholic = {
+		# 	start_great_holy_war = {
+		# 		target_character = title:c_jerusalem.holder
+		# 		target_title = title:k_jerusalem
+		# 		delay = { 12 14 }
+		# 		war = scope:scuffed_crusade
+				
+		# 	}
+		# 	great_holy_war = {
+		# 		pledge_attacker = scope:peter_the_hermit
+		# 		set_war_declarer = scope:peter_the_hermit
+			
+		# 	}
+		# 	trigger_event = scripted_crusade.100 
+		# }
+
+
+
+		
 
 		# trigger_event = {
 		# 	#send message to defender.
@@ -869,7 +915,6 @@ scripted_crusade.08 = {
 	}
 
 		option = {
-
 		}
 
 		option = {
@@ -880,7 +925,6 @@ scripted_crusade.08 = {
 		}
 	
 }
-
 
 
 
@@ -895,8 +939,8 @@ scripted_crusade.100 = {
 		save_temporary_scope_as = the_faith
 		exists = religious_head
 		NOR = {
-			exists = great_holy_war
-			exists = var:variable_ghw_cooldown
+			# exists = great_holy_war
+			# exists = var:variable_ghw_cooldown
 			religion = { exists = var:variable_first_ghw_cooldown } # Do not event spam after Crusades have been just unlocked.
 		}
 		religious_head = { is_imprisoned = no }

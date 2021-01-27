@@ -18,6 +18,7 @@
  scripted_crusade.05.OPTA:0 "What will [peter_the_hermit.GetSheHe] do next?"
  scripted_crusade.05.OPTB:0 "God is surely with [peter_the_hermit.GetHerHim]."
  scripted_crusade.05.OPTC:0 "A bunch of paupers conquering the Holy Land? Ha!"
+ scripted_crusade.05.tt:0 "[peter_the_hermit.GetFirstNameNicknamed] will travel around to various holdings in France, seeking support and preaching his vision."
  scripted_crusade.07.title:0 ""
  scripted_crusade.07.desc:0 ""
  scripted_crusade.08.title:0 "The People's Crusade"
