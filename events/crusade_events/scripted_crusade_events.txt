@@ -1,7 +1,7 @@
 ﻿namespace = scripted_crusade
 
 
-scripted_crusade.69 = {
+scripted_crusade.01 = {
 	title = "pls"
 
 	immediate = {
