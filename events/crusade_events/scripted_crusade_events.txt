@@ -1,7 +1,9 @@
-﻿namespace = scripted_crusade
+namespace = scripted_crusade
 
 
-scripted_crusade.69 = {
+scripted_crusade.01 = {
+	title = "pls"
+
 	immediate = {
 		set_global_variable = scripted_crusade_01
 
