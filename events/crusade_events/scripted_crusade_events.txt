@@ -924,8 +924,25 @@ scripted_crusade.11 = {
 	title = scripted_crusade.11.title
 	desc = scripted_crusade.11.desc
 
+	left_portrait = scope:pope
+	lower_left_portrait = scope:crusader_1
+	lower_center_portrait = scope:crusader_2
+	lower_right_portrait = scope:crusader_3
+
 	immediate = {
 		play_music_cue = "mx_cue_crusade_starts"
+
+		faith:catholic = {
+			great_holy_war = {
+				every_pledged_attacker ={
+					add_to_list = crusaders 
+				}
+				ordered_in_list = {
+					list = crusaders
+					order_by = crusader_importance
+				}
+			}
+		}
 
 	}
 	option = {
