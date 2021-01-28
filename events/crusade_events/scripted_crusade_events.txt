@@ -2,8 +2,6 @@
 
 
 scripted_crusade.69 = {
-	title = "pls"
-
 	immediate = {
 		set_global_variable = scripted_crusade_01
 
@@ -21,14 +19,6 @@ scripted_crusade.69 = {
 	}
 }
 
-
-scripted_crusade.312 = {
-	
-	option = {
-		custom_tooltip = scripted_crusade.05.tt
-
-	}
-}
 #Unlocks GHWs for Faith - Called monthly
 scripted_crusade.02 = { 
 	hidden = yes
@@ -154,6 +144,7 @@ scripted_crusade.02 = {
 		every_player = {
 			trigger_event = scripted_crusade.03 # Flavor fluff for various Faiths.
 		}
+
 	}
 }
 
@@ -208,7 +199,16 @@ scripted_crusade.03 = {
 	}
 
 	immediate = {
-		play_music_cue = "mx_cue_general_crusade_event_3"
+		if = {
+			limit = {
+				scope:awakening_faith = faith:catholic
+			}
+			play_music_cue = "mx_cue_general_crusade_event_1"
+		}
+		else = {
+			play_music_cue = "mx_cue_general_crusade_event_3"
+
+		}
 
 
 		#Grab scopes for catholic flavor
@@ -260,6 +260,12 @@ scripted_crusade.03 = {
 					name = council_of_clermont_loc
 					value = scope:council_location
 				}
+				set_variable = {
+					name = first_crusade
+					value = yes
+				}
+	
+				trigger_event = scripted_crusade.04 #We want to trigger the first crusade right after the council of clermont.
 			}
 
 			# Grab some bishops to fill out the event
@@ -301,16 +307,19 @@ scripted_crusade.03 = {
 				}
 				save_scope_as = character_3
 			}
+
+
 		}
 	}
 
 	option = { # Your religion, neutral.
 		trigger = {
 			faith.religion = scope:awakening_faith.religion
+			scripted_crusade.01_rome_reason = no
+
 			NOR = {
 				has_trait = zealous
 				has_trait = cynical
-				scripted_crusade.01_rome_reason = no
 			}
 		}
 		name = scripted_crusade.03.OPTA
@@ -350,23 +359,6 @@ scripted_crusade.03 = {
 		name = scripted_crusade.03.OPTE
 	}
 	
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
 }
 
 scripted_crusade.04 = {
@@ -374,7 +366,7 @@ scripted_crusade.04 = {
 	hidden = yes
 
 	trigger = {
-
+		
 		has_doctrine = doctrine_spiritual_head
 		save_temporary_scope_as = the_faith
 		exists = religious_head
@@ -382,13 +374,17 @@ scripted_crusade.04 = {
 			exists = var:ghw_chain
 			exists = great_holy_war
 			exists = var:variable_ghw_cooldown
-			religion = { exists = var:variable_first_ghw_cooldown } # Do not event spam after Crusades have been just unlocked.
 		}
 		religious_head = { is_imprisoned = no }
 		religion = { exists = var:variable_ghw_unlocked } #Activated by event for every religion.
 		faith_suitable_for_undirected_ghw = yes  # Can this faith actually call a GHW right now?
 
-
+		OR = {
+			NOT = {
+				religion = { exists = var:variable_first_ghw_cooldown } # Do not event spam after Crusades have been just unlocked.
+			}
+			exists = var:first_crusade
+		}
 
 
 	}
@@ -416,7 +412,9 @@ scripted_crusade.04 = {
 				limit = {
 					var:number_of_GHWs = 0
 					scripted_crusade.01_jerusalem_reason = yes
+					has_variable = first_crusade
 				}
+				trigger_event = scripted_crusade.100
 				random_list = {
 
 					# Start with a popular crusade, then get a baron's crusade
@@ -425,22 +423,14 @@ scripted_crusade.04 = {
 							limit = {
 								faith = root
 							}
-							trigger_event = scripted_crusade.05
 							trigger_event = {
-								id = scripted_crusade.100
-								days = { 120 190 }
+								id = scripted_crusade.05
+								days = { 60 90 }
 							}
 						}
 					}
 
-					# Start with a baron's crusade, no popular crusade.
 					33 = {
-						every_player = {
-							limit = {
-								faith = root
-							}
-							trigger_event = scripted_crusade.100
-						}
 					}
 				}
 			}
@@ -651,7 +641,7 @@ scripted_crusade.06 = {
 					scope:peter_the_hermit = {
 						change_variable = {
 							name = numOfFollowers
-							add = 3000
+							add = 500
 						}
 						change_variable = {
 							name = numOfTownsVisited
@@ -884,46 +874,53 @@ scripted_crusade.08 = {
 			}
 			
 		}
-
-
-
-
-
-		# faith:catholic = {
-		# 	start_great_holy_war = {
-		# 		target_character = title:c_jerusalem.holder
-		# 		target_title = title:k_jerusalem
-		# 		delay = { 12 14 }
-		# 		war = scope:scuffed_crusade
-				
-		# 	}
-		# 	great_holy_war = {
-		# 		pledge_attacker = scope:peter_the_hermit
-		# 		set_war_declarer = scope:peter_the_hermit
-			
-		# 	}
-		# 	trigger_event = scripted_crusade.100 
-		# }
-
-
-
-		
+	
 
 		# trigger_event = {
 		# 	#send message to defender.
 		# }
 	}
 
-		option = {
+	option = {
+		name = scripted_crusade.08.OPTA
+		trigger = {
+			has_trait = zealous
+		}
+	}
+
+	option = {
+		name = scripted_crusade.08.OPTB
+		trigger = {
+			has_trait = cynical
 		}
 
-		option = {
+	}
+	option = {
+		name = scripted_crusade.08.OPTC
+		trigger = {
+			NOR = {
+				has_trait = zealous
+				has_trait = cynical
 
+			}
 		}
-		option = {
+	}	
+}
 
-		}
-	
+scripted_crusade.09 = {
+	# Hermit arrives in Holy Land
+}
+
+scripted_crusade.10 = {
+	#Hermit and his army are Victorious/Destroyed
+}
+
+
+# Prince's Crusade
+scripted_crusade.12 = {
+	option = {
+
+	}
 }
 
 
@@ -939,13 +936,18 @@ scripted_crusade.100 = {
 		save_temporary_scope_as = the_faith
 		exists = religious_head
 		NOR = {
-			# exists = great_holy_war
-			# exists = var:variable_ghw_cooldown
-			religion = { exists = var:variable_first_ghw_cooldown } # Do not event spam after Crusades have been just unlocked.
+			exists = great_holy_war
+			exists = var:variable_ghw_cooldown
 		}
 		religious_head = { is_imprisoned = no }
 		religion = { exists = var:variable_ghw_unlocked } #Activated by event for every religion.
 		faith_suitable_for_undirected_ghw = yes  # Can this faith actually call a GHW right now?
+		OR = {
+			NOT = {
+				religion = { exists = var:variable_first_ghw_cooldown } # Do not event spam after Crusades have been just unlocked.
+			}
+			exists = var:first_crusade
+		}
 	}
 	
 	immediate = {
@@ -1111,14 +1113,22 @@ scripted_crusade.100 = {
 			}
 		}
 
-		every_player = { #Inform players
+		if = {
 			limit = {
-				faith = scope:the_faith
-				highest_held_title_tier >= tier_county
-				NOT = { this = scope:ghw_sponsor }
+				NOT = {
+					has_variable = first_crusade
+				}
 			}
-			trigger_event = scripted_crusade.99 #Send event immediately for player, then delay it for all the AIs.
+			every_player = { #Inform players
+				limit = {
+					faith = scope:the_faith
+					highest_held_title_tier >= tier_county
+					NOT = { this = scope:ghw_sponsor }
+				}
+				trigger_event = scripted_crusade.99 #Send event immediately for player, then delay it for all the AIs.
+			}
 		}
+
 		every_player = { #Inform defending players
 			limit = {
 				OR = {
