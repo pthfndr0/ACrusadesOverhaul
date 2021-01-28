@@ -833,7 +833,7 @@ scripted_crusade.08 = {
 	immediate = {
 
 
-		play_music_cue = "mx_cue_faith_conversion"
+		play_music_cue = "mx_cue_general_crusade_event_3"
 
 		title:k_france.holder.location = {
 			save_scope_as = loc
@@ -917,9 +917,17 @@ scripted_crusade.10 = {
 
 
 # Prince's Crusade
-scripted_crusade.12 = {
-	option = {
+scripted_crusade.11 = {
+	type = character_event
+	title = scripted_crusade.11.title
+	desc = scripted_crusade.11.desc
 
+	immediate = {
+		play_music_cue = "mx_cue_crusade_starts"
+
+	}
+	option = {
+		name = scripted_crusade.OPTA
 	}
 }
 

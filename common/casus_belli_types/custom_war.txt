@@ -3193,7 +3193,7 @@ undirected_great_holy_war = {
 					}
 				}
 			}
-			trigger_event = scripted_crusade.12 # Prince's Crusade Flavor Event.
+			trigger_event = scripted_crusade.11 # Prince's Crusade Flavor Event.
 		}
 		on_declared_war = yes
 		scope:attacker.faith.great_holy_war = {
