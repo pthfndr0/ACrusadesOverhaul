@@ -224,26 +224,13 @@ scripted_crusade.03 = {
 			}
 			random_county_in_region = {
 				region = world_europe_west_francia
-				random_in_de_jure_hierarchy = {
-					limit = {
-						AND = {
-							exists = this.holder
-							this.holder.faith = faith:catholic
-						}
-						faith = faith:catholic				
-					}
-					this.holder = {
-						save_scope_as = muh_holder
-					}
-					save_scope_as = council_location
+				limit = {
+					this.holder.faith = faith:catholic			
 				}
-				every_this_title_or_de_jure_above = {
-					limit = {
-						tier = tier_duchy
-					}
-					save_scope_as = council_location_duchy
-
-				}
+				save_scope_as = council_location_county
+				random_county_province = {
+					save_scope_as = council_location	
+				}	
 			}
 
 			faith:catholic = {
