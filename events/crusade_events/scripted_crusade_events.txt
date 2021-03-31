@@ -399,7 +399,6 @@ scripted_crusade.04 = {
 			# If it's the First Crusade.. and Jerusalem
 			if = {
 				limit = {
-					var:number_of_GHWs = 0
 					scripted_crusade.01_jerusalem_reason = yes
 					has_variable = first_crusade
 				}
@@ -911,7 +910,7 @@ scripted_crusade.11 = {
 	title = scripted_crusade.11.title
 	desc = scripted_crusade.11.desc
 
-	left_portrait = scope:pope
+	left_portrait = scope:ghw_sponsor
 	lower_left_portrait = scope:crusader_1
 	lower_center_portrait = scope:crusader_2
 	lower_right_portrait = scope:crusader_3
@@ -924,12 +923,50 @@ scripted_crusade.11 = {
 				every_pledged_attacker ={
 					add_to_list = crusaders 
 				}
-				ordered_in_list = {
-					list = crusaders
-					order_by = crusader_importance
-				}
 			}
 		}
+
+		ordered_in_list = {
+			list = crusaders
+			limit = {
+				is_clergy = no
+				NOT = {
+					this = scope:ghw_sponsor
+				}
+			}
+			order_by = crusader_importance
+			save_scope_as = crusader_1
+		}
+		ordered_in_list = {
+			list = crusaders
+			limit = {
+				is_clergy = no
+				NOR = {
+					this = scope:ghw_sponsor
+					this = scope:crusader_1
+				}
+			}
+			order_by = crusader_importance
+			save_scope_as = crusader_2
+		}
+
+		ordered_in_list = {
+			list = crusaders
+			limit = {
+				is_clergy = no
+				NOR= {
+					this = scope:ghw_sponsor
+					this = scope:crusader_1
+					this = scope:crusader_2
+				}
+			}
+			order_by = crusader_importance
+			save_scope_as = crusader_3
+		}
+
+		
+
+
 
 	}
 	option = {
