@@ -407,14 +407,10 @@ scripted_crusade.04 = {
 
 					# Start with a popular crusade, then get a baron's crusade
 					67 = {
-						every_player = {
-							limit = {
-								faith = root
-							}
-							trigger_event = {
-								id = scripted_crusade.05
-								days = { 60 90 }
-							}
+
+						trigger_event = {
+							id = scripted_crusade.05
+							days = { 60 90 }
 						}
 					}
 
@@ -430,23 +426,14 @@ scripted_crusade.04 = {
 
 ### POPULAR CRUSADE SETUP ###
 
-## Event about hermit preaching the crusade.
+
+
+
+## hermit setup event
+
 scripted_crusade.05 = {
-	title = scripted_crusade.05.title
-	desc = scripted_crusade.05.desc
-
-	trigger = {
-
-	}
-	theme = faith
-	left_portrait = {
-		character = scope:peter_the_hermit
-		animation = personality_zealous
-	}
-	override_background = {
-		event_background = market_west
-	}
-
+	scope = faith
+	hidden = yes
 
 	immediate = {
 
@@ -502,46 +489,67 @@ scripted_crusade.05 = {
 				add_piety_level = 3
 			}
 		}
+		trigger_event = scripted_crusade.07
+		every_player = {
+			limit = {
+				faith = faith:catholic
+			}
+			trigger_event = scripted_crusade.06 # Hermit flavour event		
+		}		
+	}
+}
 
+## Event about hermit preaching the crusade.
+scripted_crusade.06 = {
+	type = character_event
+	title = scripted_crusade.06.title
+	desc = scripted_crusade.06.desc
+	theme = faith
 
-		trigger_event = scripted_crusade.06
+	left_portrait = {
+		character = scope:peter_the_hermit
+		animation = personality_zealous
+	}
+	override_background = {
+		event_background = market_west
 	}
 
 	#Neutral Catholic
 	option = {
-		name = scripted_crusade.05.OPTA
+		name = scripted_crusade.06.OPTA
 		trigger = {
 			NOR = {
 				has_trait = zealous
 				has_trait = cynical
 			}
 		}
-		custom_tooltip = scripted_crusade.05.tt
+		custom_tooltip = scripted_crusade.06.tt
 	}
 	#Zealous Catholic
 	option = {
-		name = scripted_crusade.05.OPTB
+		name = scripted_crusade.06.OPTB
 		trigger = {
 			has_trait = zealous
 
 		}
-		custom_tooltip = scripted_crusade.05.tt
+		custom_tooltip = scripted_crusade.06.tt
 	}
 	#Cynical Catholic
 	option = {
-		name = scripted_crusade.05.OPTC
+		name = scripted_crusade.06.OPTC
 		trigger = {
 			has_trait = cynical
 		}
-		custom_tooltip = scripted_crusade.05.tt
+		custom_tooltip = scripted_crusade.06.tt
 	}
 }
 
-# Hermit goes to several rulers areas preaching..
 
-scripted_crusade.06 = {
+# Hermit goes to several rulers areas preaching.. behind the scenes event.. If the hermit visits a player they will get an event.
+
+scripted_crusade.07 = {
 	hidden = yes
-	
+	scope = faith
 	trigger = {
 		scope:peter_the_hermit = {
 			is_alive = yes
@@ -608,7 +616,7 @@ scripted_crusade.06 = {
 					}
 				}
 			}
-			# trigger_event = scripted_crusade.07 # Hermit visits a player held holding.
+			trigger_event = scripted_crusade.08 # Hermit visits a player held holding.
 		}
 
 		else = {
@@ -658,13 +666,12 @@ scripted_crusade.06 = {
 				}
 			}
 			trigger_event = {
-				id = scripted_crusade.06
+				id = scripted_crusade.07
 				days = { 7 10 }
 			} 
 
 		}
 		else = {
-
 
 			scope:peter_the_hermit = {
 				get_title = d_peter_the_hermit
@@ -768,25 +775,18 @@ scripted_crusade.06 = {
 			}
 
 			trigger_event = {
-				id = scripted_crusade.08
+				id = scripted_crusade.09
 				days = { 7 10 }
 			}
 		}
 	}
-
-
-
-
-
-
-
 }
 
 #Hermit visits player's realm.
-scripted_crusade.07 = {
+scripted_crusade.08 = {
 	type = character_event
-	title = scripted_crusade.07.title
-	desc = scripted_crusade.07.desc
+	title = scripted_crusade.08.title
+	desc = scripted_crusade.08.desc
 	theme = faith
 	option = {
 
@@ -796,33 +796,21 @@ scripted_crusade.07 = {
 
 #Hermit and his followers make their "pilgrimage"
 
-scripted_crusade.08 = {
-	type = character_event
-	title = scripted_crusade.08.title
-	desc = scripted_crusade.08.desc
-	theme = faith
+#Setup event
 
-	left_portrait = scope:peter_the_hermit
-
-	lower_left_portrait = scope:holy_knight_1
-	lower_center_portrait = scope:holy_knight_2
-	lower_right_portrait = scope:holy_knight_3
-
-	override_background = {
-		event_background = farmland
-	}
-	
+scripted_crusade.09 = {
+	hidden = yes
+	scope = faith
+		
 	trigger = {
 		scope:peter_the_hermit = {
 			is_alive = yes
 			is_landed = no
 		}
 	}
+
+
 	immediate = {
-
-
-		play_music_cue = "mx_cue_general_crusade_event_3"
-
 		title:k_france.holder.location = {
 			save_scope_as = loc
 		}
@@ -849,9 +837,6 @@ scripted_crusade.08 = {
 				save_scope_as = scuffed_crusade
 			}
 
-
-
-
 			spawn_army = {
 				name = event_troop_default_name
 				levies = var:numOfFollowers 
@@ -860,31 +845,62 @@ scripted_crusade.08 = {
 				war = scope:peter_the_hermit.location
 				location = scope:loc
 			}
-			
 		}
-	
+		every_player = {
+			limit = {
+				has_faith = root
+			}
+			trigger_event = scripted_crusade.10
+		}
+	}
+}
 
+
+scripted_crusade.10 = {
+	type = character_event
+	title = scripted_crusade.10.title
+	desc = scripted_crusade.10.desc
+	theme = faith
+
+	left_portrait = scope:peter_the_hermit
+
+	lower_left_portrait = scope:holy_knight_1
+	lower_center_portrait = scope:holy_knight_2
+	lower_right_portrait = scope:holy_knight_3
+
+	override_background = {
+		event_background = farmland
+	}
+
+	immediate = {
+
+		play_music_cue = "mx_cue_general_crusade_event_3"
+	
 		# trigger_event = {
 		# 	#send message to defender.
 		# }
+			
 	}
+	
+
+
 
 	option = {
-		name = scripted_crusade.08.OPTA
+		name = scripted_crusade.10.OPTA
 		trigger = {
 			has_trait = zealous
 		}
 	}
 
 	option = {
-		name = scripted_crusade.08.OPTB
+		name = scripted_crusade.10.OPTB
 		trigger = {
 			has_trait = cynical
 		}
 
 	}
 	option = {
-		name = scripted_crusade.08.OPTC
+		name = scripted_crusade.10.OPTC
 		trigger = {
 			NOR = {
 				has_trait = zealous
@@ -895,20 +911,20 @@ scripted_crusade.08 = {
 	}	
 }
 
-scripted_crusade.09 = {
+scripted_crusade.11 = {
 	# Hermit arrives in Holy Land
 }
 
-scripted_crusade.10 = {
+scripted_crusade.12 = {
 	#Hermit and his army are Victorious/Destroyed
 }
 
 
 # Prince's Crusade
-scripted_crusade.11 = {
+scripted_crusade.13 = {
 	type = character_event
-	title = scripted_crusade.11.title
-	desc = scripted_crusade.11.desc
+	title = scripted_crusade.12.title
+	desc = scripted_crusade.12.desc
 
 	left_portrait = scope:ghw_sponsor
 	lower_left_portrait = scope:crusader_1
@@ -970,7 +986,7 @@ scripted_crusade.11 = {
 
 	}
 	option = {
-		name = scripted_crusade.OPTA
+		name = scripted_crusade.12.OPTA
 	}
 }
 
