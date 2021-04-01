@@ -146,6 +146,8 @@ scripted_crusade.02 = {
 		every_player = {
 			trigger_event = scripted_crusade.03 # Flavor fluff for various Faiths.
 		}
+		trigger_event = scripted_crusade.04 #We want to trigger the first crusade right after the council of clermont.
+
 
 	}
 }
@@ -252,9 +254,7 @@ scripted_crusade.03 = {
 				set_variable = {
 					name = first_crusade
 					value = yes
-				}
-	
-				trigger_event = scripted_crusade.04 #We want to trigger the first crusade right after the council of clermont.
+				}	
 			}
 
 			# Grab some bishops to fill out the event
@@ -425,9 +425,6 @@ scripted_crusade.04 = {
 
 
 ### POPULAR CRUSADE SETUP ###
-
-
-
 
 ## hermit setup event
 
@@ -788,6 +785,13 @@ scripted_crusade.08 = {
 	title = scripted_crusade.08.title
 	desc = scripted_crusade.08.desc
 	theme = faith
+
+	left_portrait = {
+
+	}
+	event_background = {
+		
+	}
 	option = {
 
 	}
@@ -824,17 +828,23 @@ scripted_crusade.09 = {
 				add_courtier = prev
 			}
 
+			title:c_jerusalem = {
+				every_de_jure_top_liege = {
+					save_scope_as = peoples_crusade_target
+				}
+			}
 			start_war = {  # Starts the crusade	- to do, make this an actual crusade.
 			casus_belli = peoples_crusade
-			target = title:c_jerusalem.holder
+			target = scope:peoples_crusade_target
 			target_title = title:k_jerusalem
 			}
+			
 
 			every_character_war = {
 				limit = {
-					using_cb = religious_war
+					using_cb = peoples_crusade
 				}
-				save_scope_as = scuffed_crusade
+				save_scope_as = peoples_crusade
 			}
 
 			spawn_army = {
@@ -846,11 +856,23 @@ scripted_crusade.09 = {
 				location = scope:loc
 			}
 		}
+
 		every_player = {
-			limit = {
-				has_faith = root
+			if = {
+				limit = {
+					OR = {
+						has_faith = root
+					}
+				}
+				trigger_event = scripted_crusade.10 # Flavour event for catholics.
 			}
-			trigger_event = scripted_crusade.10
+			else_if = {
+				limit = {
+					this = scope:peoples_crusade_target
+				}
+				trigger_event = scripted_crusade.11 # Flavour event for defender of People's Crusade.
+
+			}
 		}
 	}
 }
@@ -863,7 +885,6 @@ scripted_crusade.10 = {
 	theme = faith
 
 	left_portrait = scope:peter_the_hermit
-
 	lower_left_portrait = scope:holy_knight_1
 	lower_center_portrait = scope:holy_knight_2
 	lower_right_portrait = scope:holy_knight_3
@@ -875,16 +896,12 @@ scripted_crusade.10 = {
 	immediate = {
 
 		play_music_cue = "mx_cue_general_crusade_event_3"
-	
-		# trigger_event = {
-		# 	#send message to defender.
-		# }
 			
 	}
 	
 
 
-
+	
 	option = {
 		name = scripted_crusade.10.OPTA
 		trigger = {
@@ -908,20 +925,93 @@ scripted_crusade.10 = {
 
 			}
 		}
-	}	
+	}
 }
 
 scripted_crusade.11 = {
-	# Hermit arrives in Holy Land
+	type = character_event
+	title = scripted_crusade.11.title
+	desc = scripted_crusade.11.desc
+
+	right_portrait = {
+		character = root
+		triggered_animation = {
+			trigger = {
+				NOT = {
+					has_trait = craven
+				}
+			}
+			animation = personality_bold
+		}
+		animation = worry
+	}
+
+	left_portrait = {
+		character = scope:news_bearer
+		animation = personality_content
+	}
+	lower_center_portrait = scope:peter_the_hermit
+
+
+	override_background = {
+		trigger = {
+			is_commanding_army = yes
+		}
+		event_background = army_camp
+	}
+	override_background = {
+		event_background = throne_room
+	}
+	immediate = {
+
+		if = {
+			limit = {
+				is_commanding_army = yes
+			}
+			any_martial_councillor = {
+				exists = yes
+			}
+			every_martial_councillor = {
+				save_scope_as = news_bearer
+			}
+		}
+		else_if = {
+			limit = {
+				any_diplomacy_councillor = {
+					exists = yes
+				}
+			}
+			every_diplomacy_councillor = {
+				save_scope_as = news_bearer
+			}		
+		}
+		else = {
+			every_learning_councillor = {
+				save_scope_as = news_bearer
+			}
+		}
+
+
+		play_music_cue = "mx_cue_combat_stinger"
+
+	}
+	option = {
+
+	}
+
 }
 
-scripted_crusade.12 = {
-	#Hermit and his army are Victorious/Destroyed
-}
+# scripted_crusade.12 = {
+# 	# Hermit arrives in Holy Land
+# }
+
+# scripted_crusade.13 = {
+# 	#Hermit and his army are Victorious/Destroyed
+# }
 
 
 # Prince's Crusade
-scripted_crusade.13 = {
+scripted_crusade.14 = {
 	type = character_event
 	title = scripted_crusade.12.title
 	desc = scripted_crusade.12.desc
@@ -6690,7 +6780,7 @@ scripted_crusade.99 = {
 
 # 				play_music_cue = "mx_cue_combat_stinger"
 
-# 				random_knight = {
+# 				random_knight = 
 # 					limit = {
 # 						is_imprisoned = no
 # 						is_knight = yes
