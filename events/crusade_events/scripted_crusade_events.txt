@@ -1239,7 +1239,7 @@ scripted_crusade.12 = {
 
 		if = { limit = { var:counter = 7 }  
 			trigger_event = { 
-				id = scriped_crusade.14 
+				id = scriped_crusade.13 
 				days = { 7 14 } 
 			} 
 		}
