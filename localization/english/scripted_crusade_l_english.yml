@@ -29,6 +29,9 @@
  scripted_crusade.11.OPTA:0 "Let them come."
 
 
+ scripted_crusade.12.message:0 "Crusaders loot the countryside"
+ scripted_crusade.12.message_desc:0 "Starving crusaders led by [peter_the_hermit.GetFirstNameNicknamed] have looted much of the countryside surrounding [prov.GetName]!"
+
  scripted_crusade.13.title:0 "The Prince's Crusade"
  scripted_crusade.13.desc:0 ""
 

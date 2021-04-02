@@ -1,0 +1,6 @@
+looted_by_crusaders = {
+	icon = martial_negative
+	build_speed = 0.5
+	development_growth_factor = -0.1
+	tax_mult = -0.5
+}

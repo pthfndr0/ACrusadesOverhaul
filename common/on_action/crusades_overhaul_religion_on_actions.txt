@@ -4,3 +4,9 @@ on_faith_monthly = {
 		scripted_crusade.04 # Triggers GHW for faith.
 	}
 }
+
+# on_army_enter_province = {
+# 	events = {
+# 		# scripted_crusade.12 # Hermit has arrived the holy land.
+# 	}
+# }
