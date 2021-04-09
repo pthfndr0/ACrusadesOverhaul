@@ -1006,12 +1006,12 @@ scripted_crusade.11 = {
 }
 
 
-# Hermit and his followers travel to constaninople
+# Hermit and his followers travel to constaninople, event fires recursively as he travels through europe.
 scripted_crusade.12 = {
 	scope = character
 	hidden = yes
 	immediate = {
-		if = { limit = { NOT = { exists = var:counter } } set_variable = { name = counter value = 0 } days = 500 }
+		if = { limit = { NOT = { exists = var:counter } } set_variable = { name = counter value = 0 days = 500 } }
 		else = { change_variable = { name = counter add = 1} }
 
 		if = { limit = { var:counter = 0 }
@@ -1033,21 +1033,21 @@ scripted_crusade.12 = {
 							}
 						}
 						save_scope_as = prov
+						set_variable = { name = visited_by_hermit value = yes years = 2 } add_province_modifier = { modifier = looted_by_crusaders years = 1 }
 					}
 
-						this.holder = {
-							send_interface_message = {
-								type = event_raid_bad
-								title = scripted_crusade.12.message
-								desc = scripted_crusade.12.message_desc
-								right_icon = root
-							}
+					this.holder = {
+						send_interface_message = {
+							type = event_raid_bad
+							title = scripted_crusade.12.message
+							desc = scripted_crusade.12.message_desc
+							right_icon = root
 						}
-						prev = { set_variable = { name = visited_by_hermit days = 1000 } add_province_modifier = looted_by_crusaders days = 500 }
+					}
 				}
 			}
 		}
-		else_if = { limit = { var:counter = 1 } 
+		else_if = { limit = { var:counter = 1 }
 			title:d_julich = {
 				random_in_de_jure_hierarchy = {
 					limit = {
@@ -1065,21 +1065,22 @@ scripted_crusade.12 = {
 
 							}
 						}
+						save_scope_as = prov
+						set_variable = { name = visited_by_hermit value = yes years = 2 } add_province_modifier = { modifier = looted_by_crusaders years = 1 }
+					}
 
-						this.holder = {
-							send_interface_message = {
-								type = event_raid_bad
-								title = scripted_crusade.12.message
-								desc = scripted_crusade.12.message_desc
-								right_icon = root
-							}
+					this.holder = {
+						send_interface_message = {
+							type = event_raid_bad
+							title = scripted_crusade.12.message
+							desc = scripted_crusade.12.message_desc
+							right_icon = root
 						}
-						prev = { set_variable = { name = visited_by_hermit days = 1000 } add_province_modifier = looted_by_crusaders days = 500 }
 					}
 				}
 			}
 		}
-		else_if = { limit = { var:counter = 2 } 
+		else_if = { limit = { var:counter = 2 }
 			title:d_lower_lorraine = {
 				random_in_de_jure_hierarchy = {
 					limit = {
@@ -1097,22 +1098,22 @@ scripted_crusade.12 = {
 
 							}
 						}
+						save_scope_as = prov
+						set_variable = { name = visited_by_hermit value = yes years = 2 } add_province_modifier = { modifier = looted_by_crusaders years = 1 }
+					}
 
-						this.holder = {
-							send_interface_message = {
-								type = event_raid_bad
-								title = scripted_crusade.12.message
-								desc = scripted_crusade.12.message_desc
-								right_icon = root
-							}
+					this.holder = {
+						send_interface_message = {
+							type = event_raid_bad
+							title = scripted_crusade.12.message
+							desc = scripted_crusade.12.message_desc
+							right_icon = root
 						}
-						prev = { set_variable = { name = visited_by_hermit days = 1000 } add_province_modifier = looted_by_crusaders days = 500 }
-
 					}
 				}
 			}
 		}
-		else_if = { limit = { var:counter = 3 } 
+		else_if = { limit = { var:counter = 3 }
 			title:d_west_franconia = {
 				random_in_de_jure_hierarchy = {
 					limit = {
@@ -1126,24 +1127,26 @@ scripted_crusade.12 = {
 							OR = {
 								has_building_or_higher = temple_01
 								has_building_or_higher = city_01
+								has_building_or_higher = castle_01
+
 							}
 						}
+						save_scope_as = prov
+						set_variable = { name = visited_by_hermit value = yes years = 2 } add_province_modifier = { modifier = looted_by_crusaders years = 1 }
+					}
 
-						this.holder = {
-							send_interface_message = {
-								type = event_raid_bad
-								title = scripted_crusade.12.message
-								desc = scripted_crusade.12.message_desc
-								right_icon = root
-							}
+					this.holder = {
+						send_interface_message = {
+							type = event_raid_bad
+							title = scripted_crusade.12.message
+							desc = scripted_crusade.12.message_desc
+							right_icon = root
 						}
-						prev = { set_variable = { name = visited_by_hermit days = 1000 } add_province_modifier = looted_by_crusaders days = 500 }
-
 					}
 				}
 			}
 		}
-		else_if = { limit = { var:counter = 4 } 
+		else_if = { limit = { var:counter = 4 }
 			title:d_swabia = {
 				random_in_de_jure_hierarchy = {
 					limit = {
@@ -1157,23 +1160,26 @@ scripted_crusade.12 = {
 							OR = {
 								has_building_or_higher = temple_01
 								has_building_or_higher = city_01
-							}
-						}
+								has_building_or_higher = castle_01
 
-						this.holder = {
-							send_interface_message = {
-								type = event_raid_bad
-								title = scripted_crusade.12.message
-								desc = scripted_crusade.12.message_desc
-								right_icon = root
 							}
 						}
-						prev = { set_variable = { name = visited_by_hermit days = 1000 } add_province_modifier = looted_by_crusaders days = 500 }
+						save_scope_as = prov
+						set_variable = { name = visited_by_hermit value = yes years = 2 } add_province_modifier = { modifier = looted_by_crusaders years = 1 }
+					}
+
+					this.holder = {
+						send_interface_message = {
+							type = event_raid_bad
+							title = scripted_crusade.12.message
+							desc = scripted_crusade.12.message_desc
+							right_icon = root
+						}
 					}
 				}
 			}
 		}
-		else_if = { limit = { var:counter = 5 } 
+		else_if = { limit = { var:counter = 5 }
 			title:d_bavaria = {
 				random_in_de_jure_hierarchy = {
 					limit = {
@@ -1187,24 +1193,27 @@ scripted_crusade.12 = {
 							OR = {
 								has_building_or_higher = temple_01
 								has_building_or_higher = city_01
-							}
-						}
+								has_building_or_higher = castle_01
 
-						this.holder = {
-							send_interface_message = {
-								type = event_raid_bad
-								title = scripted_crusade.12.message
-								desc = scripted_crusade.12.message_desc
-								right_icon = root
 							}
 						}
-						prev = { set_variable = { name = visited_by_hermit days = 1000 } add_province_modifier = looted_by_crusaders days = 500 }
+						save_scope_as = prov
+						set_variable = { name = visited_by_hermit value = yes years = 2 } add_province_modifier = { modifier = looted_by_crusaders years = 1 }
+					}
+
+					this.holder = {
+						send_interface_message = {
+							type = event_raid_bad
+							title = scripted_crusade.12.message
+							desc = scripted_crusade.12.message_desc
+							right_icon = root
+						}
 					}
 				}
 			}
 		}
-		else_if = { limit = { var:counter = 6 } 
-			title:d_austria = {
+		else_if = { limit = { var:counter = 6 }
+			title:d_osterreich = {
 				random_in_de_jure_hierarchy = {
 					limit = {
 						tier = tier_county
@@ -1218,11 +1227,12 @@ scripted_crusade.12 = {
 								has_building_or_higher = temple_01
 								has_building_or_higher = city_01
 								has_building_or_higher = castle_01
-							}
-							save_scope_as = prov
-						}
-					}
 
+							}
+						}
+						save_scope_as = prov
+						set_variable = { name = visited_by_hermit value = yes years = 2 } add_province_modifier = { modifier = looted_by_crusaders years = 1 }
+					}
 
 					this.holder = {
 						send_interface_message = {
@@ -1232,17 +1242,34 @@ scripted_crusade.12 = {
 							right_icon = root
 						}
 					}
-					prev = { set_variable = { name = visited_by_hermit days = 1000 } add_province_modifier = looted_by_crusaders days = 500 }
 				}
 			}
 		}
 
 		if = { limit = { var:counter = 7 }  
-			trigger_event = { 
-				id = scriped_crusade.13 
-				days = { 7 14 } 
-			} 
+
+			if = {
+				limit = {
+					root = {
+						is_alive = yes
+					}
+					exists = title:e_byzantium
+				}	
+				
+				title:e_byzantium.holder = {
+					if = {
+						limit = {
+							religion = religion:christianity_religion
+						}
+						trigger_event = { 
+							id = scripted_crusade.13 
+							days = { 7 14 } 
+						} 
+					}
+				}
+			}
 		}
+		
 		else = {
 			trigger_event = {
 				id = scripted_crusade.12
@@ -1250,6 +1277,64 @@ scripted_crusade.12 = {
 			}
 		}
 	}
+}
+
+
+
+# 
+scripted_crusade.13 = {
+	title = scripted_crusade.13.title
+	desc = scripted_crusade.13.desc
+	type = character_event
+
+	right_portrait = {
+		character = root
+		animation = personality_bold
+	}
+	override_background = {
+		trigger = {
+			is_commanding_army = yes
+		}
+		event_background = army_camp
+	}
+	override_background = {
+		event_background = throne_room
+	}
+	immediate = {
+
+		if = {
+			limit = {
+				is_commanding_army = yes
+			}
+			any_martial_councillor = {
+				exists = yes
+			}
+			every_martial_councillor = {
+				save_scope_as = news_bearer
+			}
+		}
+		else_if = {
+			limit = {
+				any_diplomacy_councillor = {
+					exists = yes
+				}
+			}
+			every_diplomacy_councillor = {
+				save_scope_as = news_bearer
+			}		
+		}
+		else = {
+			every_learning_councillor = {
+				save_scope_as = news_bearer
+			}
+		}
+
+	}
+
+	option = {
+
+	}
+
 }
 
 
